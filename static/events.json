@@ -7,9 +7,19 @@
     "end": 1603263540,
     "eventType": "Cocktail Party",
     "estAttendance": 1000,
-    "eventAddress": "Hilton Los Angeles/Universal City, 555 Universal Hollywood Dr, Universal City, CA 91608",
+    "venue": "Hilton Los Angeles/Universal City",
+    "address1": "555 Universal Hollywood Dr",
+    "address2": null,
+    "city": "Universal City",
+    "state": "CA",
+    "zip": "91608",
     "parking": "Free Parking",
-    "parkingAddress": "Hilton Los Angeles/Universal City, 555 Universal Hollywood Dr, Universal City, CA 91608",
+    "parkingvenue": "Hilton Los Angeles/Universal City",
+    "parkingaddress1": "555 Universal Hollywood Dr",
+    "parkingaddress2": null,
+    "parkingcity": "Universal City",
+    "parkingstate": "CA",
+    "parkingzip": "91608",
     "parkingInstructions": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "uniforms": "Will Be Provided",
     "uniformsInstructions": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -19,7 +29,6 @@
     "roles": [
       {
         "role": "Bartender",
-        "telentId": null,
         "date": 1603220400,
         "shiftStart": 1603220400,
         "shiftEnd": 1603238400,
@@ -48,29 +57,38 @@
         "wage": 100,
         "tip": 50
       }
-    ],
-    "totalCost": 10000
+    ]
   },
   {
     "eventName": "Vogue Grammy's After-Party",
     "hostName": "Vogue Magazine",
-    "dates": 1603220400,
+    "dates": [1603220400],
     "start": 1603220400,
     "end": 1603263540,
     "eventType": "Cocktail Party",
     "estAttendance": 1000,
-    "eventAddress": "Hilton Los Angeles/Universal City, 555 Universal Hollywood Dr, Universal City, CA 91608",
+    "venue": null,
+    "address1": "555 Universal Hollywood Dr",
+    "address2": null,
+    "city": "Universal City",
+    "state": "CA",
+    "zip": "91608",
     "parking": "Free Parking",
-    "parkingAddress": "Hilton Los Angeles/Universal City, 555 Universal Hollywood Dr, Universal City, CA 91608",
+    "parkingvenue": null,
+    "parkingaddress1": "555 Universal Hollywood Dr",
+    "parkingaddress2": null,
+    "parkingcity": "Universal City",
+    "parkingstate": "CA",
+    "parkingzip": 91608,
     "parkingInstructions": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "uniforms": "Will Be Provided",
     "uniformsInstructions": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "eventDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "eventMediaUrl": "https://res-5.cloudinary.com/dwpujv6in/image/upload/c_pad,dpr_2.0,f_auto,h_930,q_auto,w_930/v1/media/catalog/product/f/d/fd1_lngchr_bh_frontlow-field-lounge-chair-tait-blush.jpg",
     "adminMediaUrl": "https://res-5.cloudinary.com/dwpujv6in/image/upload/c_pad,dpr_2.0,f_auto,h_930,q_auto,w_930/v1/media/catalog/product/f/d/fd1_lngchr_bh_frontlow-field-lounge-chair-tait-blush.jpg",
-    "positions": [
+    "roles": [
       {
-        "role": "bartender",
+        "role": "Bartender",
         "date": 1603220400,
         "shiftStart": 1603220400,
         "shiftEnd": 1603238400,
@@ -99,29 +117,38 @@
         "wage": 100,
         "tip": 50
       }
-    ],
-    "totalCost": 10000
+    ]
   },
   {
     "eventName": "Vogue Grammy's After-Party",
     "hostName": "Vogue Magazine",
-    "dates": 1603220400,
+    "dates": [1603220400],
     "start": 1603220400,
     "end": 1603263540,
     "eventType": "Cocktail Party",
     "estAttendance": 1000,
-    "eventAddress": "Hilton Los Angeles/Universal City, 555 Universal Hollywood Dr, Universal City, CA 91608",
+    "venue": "Hilton Los Angeles/Universal City",
+    "address1": "555 Universal Hollywood Dr",
+    "address2": null,
+    "city": "Universal City",
+    "state": "CA",
+    "zip": "91608",
     "parking": "Free Parking",
-    "parkingAddress": "Hilton Los Angeles/Universal City, 555 Universal Hollywood Dr, Universal City, CA 91608",
+    "parkingvenue": "Hilton Los Angeles/Universal City",
+    "parkingaddress1": "555 Universal Hollywood Dr",
+    "parkingaddress2": null,
+    "parkingcity": "Universal City",
+    "parkingstate": "CA",
+    "parkingzip": 91608,
     "parkingInstructions": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "uniforms": "Will Be Provided",
     "uniformsInstructions": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "eventDescription": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     "eventMediaUrl": "https://res-5.cloudinary.com/dwpujv6in/image/upload/c_pad,dpr_2.0,f_auto,h_930,q_auto,w_930/v1/media/catalog/product/f/d/fd1_lngchr_bh_frontlow-field-lounge-chair-tait-blush.jpg",
     "adminMediaUrl": "https://res-5.cloudinary.com/dwpujv6in/image/upload/c_pad,dpr_2.0,f_auto,h_930,q_auto,w_930/v1/media/catalog/product/f/d/fd1_lngchr_bh_frontlow-field-lounge-chair-tait-blush.jpg",
-    "positions": [
+    "roles": [
       {
-        "role": "bartender",
+        "role": "Bartender",
         "date": 1603220400,
         "shiftStart": 1603220400,
         "shiftEnd": 1603238400,
@@ -150,7 +177,6 @@
         "wage": 100,
         "tip": 50
       }
-    ],
-    "totalCost": 10000
+    ]
   }
 ]
