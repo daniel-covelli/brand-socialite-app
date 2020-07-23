@@ -1,5 +1,5 @@
 // import events from '../../static/events.json';
-import Event from '../../Event';
+import Event from '../../modesl/Event';
 import connectDb from '../../utils/connectDb';
 
 connectDb();
