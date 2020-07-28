@@ -1,4 +1,4 @@
-import { Menu, Container, Image, Button, Dropdown } from 'semantic-ui-react';
+import { Menu, Image, Button, Dropdown } from 'semantic-ui-react';
 import Link from 'next/Link';
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
@@ -16,7 +16,7 @@ function Header() {
   }
 
   return (
-    <Menu secondary fluid id='menu'>
+    <Menu stackable secondary fluid id='menu'>
       <Link href='/'>
         <Menu.Item header>
           <Image size='small' src='/static/logo-menu.png' />

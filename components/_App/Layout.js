@@ -3,8 +3,11 @@ import { Container } from 'semantic-ui-react';
 
 import Header from './Header';
 import HeadContent from './HeadContent';
+import SideBar from './SideBar';
 
 function Layout({ children }) {
+  // TODO: Implement Sidebar
+
   return (
     <>
       <Head>
@@ -19,9 +22,8 @@ function Layout({ children }) {
         <title>Brand Socialite</title>
       </Head>
       <Header />
-      <Container text style={{ paddingTop: '1em' }}>
-        {children}
-      </Container>
+      {/* <SideBar /> */}
+      <Container style={{ paddingTop: '1em' }}>{children}</Container>
     </>
   );
 }
