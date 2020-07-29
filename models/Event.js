@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-// var moment = require('moment');
+var moment = require('moment');
 
 const { String, Number } = mongoose.Schema.Types;
 
@@ -29,7 +29,14 @@ const eventSchema = new mongoose.Schema(
     uniformsInstructions: { type: String },
     eventDescription: { type: String, required: true },
     eventMediaUrl: { type: String, required: true },
-    adminMediaUrl: { type: String, required: true }
+    adminMediaUrl: { type: String, required: true },
+    date: { type: Date, required: true },
+    setupStart: { type: Date, required: true },
+    setupEnd: { type: Date, required: true },
+    eventStart: { type: Date, required: true },
+    eventEnd: { type: Date, required: true },
+    breakdownStart: { type: Date, required: true },
+    breakdownEnd: { type: Date, required: true }
   },
   {
     toObject: {
@@ -41,29 +48,25 @@ const eventSchema = new mongoose.Schema(
   }
 );
 
-// eventSchema.virtual('dates_formatted').get(function () {
-//   return moment(this.dates).format('ll');
-// });
+eventSchema.virtual('dates_formatted').get(function () {
+  return moment(this.date).format('ll');
+});
 
-// eventSchema.virtual('dates_from_now').get(function () {
-//   return moment(this.dates).endOf('day').fromNow();
-// });
+eventSchema.virtual('start_time').get(function () {
+  return moment(this.setupStart).format('LT');
+});
 
-// eventSchema.virtual('start_time').get(function () {
-//   return moment(this.start).format('LT');
-// });
+eventSchema.virtual('end_time').get(function () {
+  return moment(this.breakdownEnd).format('LT');
+});
 
-// eventSchema.virtual('end_time').get(function () {
-//   return moment(this.end).format('LT');
-// });
+eventSchema.virtual('date_from_now').get(function () {
+  return moment(this.date).endOf('day').fromNow();
+});
 
-// eventSchema.virtual('dates_from_now').get(function () {
-//   return moment(this.dates).endOf('day').fromNow();
-// });
+eventSchema.virtual('timespan').get(function () {
+  var timespan_string = this.start_time + ' - ' + this.end_time;
+  return timespan_string;
+});
 
-// eventSchema.virtual('timespan').get(function () {
-//   var timespan_string = this.start_time + ' - ' + this.end_time;
-//   return timespan_string;
-// });
-
-export default mongoose.models.Event || mongoose.model('Event', eventSchema);
+export default mongoose.model.Event || mongoose.model('Event', eventSchema);

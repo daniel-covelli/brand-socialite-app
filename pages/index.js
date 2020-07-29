@@ -13,7 +13,7 @@ import {
   Responsive
 } from 'semantic-ui-react';
 
-function Home({ eventInstances }) {
+function Home({ events }) {
   return (
     <Grid stackable>
       <Grid.Row>
@@ -53,7 +53,7 @@ function Home({ eventInstances }) {
                 </Button>
               </Responsive>
             </Header>
-            <EventsTile events={eventInstances} />
+            <EventsTile events={events} />
           </Segment>
         </Grid.Column>
       </Grid.Row>
@@ -63,10 +63,9 @@ function Home({ eventInstances }) {
 
 Home.getInitialProps = async () => {
   // fetch data on server
-  const url = 'http://localhost:3000/api/eventInstances';
+  const url = 'http://localhost:3000/api/events';
   const response = await axios.get(url);
-  console.log('response data', response);
-  return { eventInstances: response.data };
+  return { events: response.data };
   // return response data as an object
   // note: this object will be merged with existing props
 };

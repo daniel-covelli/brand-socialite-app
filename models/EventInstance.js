@@ -13,7 +13,6 @@ const EventInstanceSchema = new mongoose.Schema(
     eventEnd: { type: Date, required: true },
     breakdownStart: { type: Date, required: true },
     breakdownEnd: { type: Date, required: true }
-    //roles: [{ type: ObjectId, ref: 'Role', required: true }]
   },
   {
     toObject: {
@@ -22,8 +21,7 @@ const EventInstanceSchema = new mongoose.Schema(
     toJSON: {
       virtuals: true
     }
-  },
-  { collection: 'eventInstances' }
+  }
 );
 
 EventInstanceSchema.virtual('date_formatted').get(function () {

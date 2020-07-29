@@ -1,24 +1,24 @@
 import { Card, Icon, Divider } from 'semantic-ui-react';
 
-function EventsTile({ eventInstances }) {
+function EventsTile({ events }) {
   // TODO: Sort Cards by Date
   // TODO: Standardize card heights
   // TODO: Limit display to three cards
 
-  function mapEventsToItems(eventInstances) {
-    console.log('event tile', eventInstances);
-    return eventInstances.map((event) => (
+  function mapEventsToItems(events) {
+    console.log('event tile', events);
+    return events.map((event) => (
       <Card color='teal' key={event._id}>
         <Card.Content>
-          {/* <Card.Meta floated='left'>{eventInstance.dates_from_now}</Card.Meta> */}
+          <Card.Meta floated='left'>{event.date_from_now}</Card.Meta>
           <Divider hidden />
-          <Card.Header>{event.eventName}</Card.Header>
-          {/* <Card.Meta>{eventInstance.dates_formatted}</Card.Meta> */}
+          {/* <Card.Header>{event.eventName}</Card.Header> */}
+          <Card.Meta>{event.date_formatted}</Card.Meta>
           <Divider hidden />
           <Divider hidden />
           <Divider hidden />
           <Card.Description>
-            {/* <Icon name='time' /> {eventInstance.timespan} */}
+            <Icon name='time' /> {event.timespan}
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
@@ -37,7 +37,7 @@ function EventsTile({ eventInstances }) {
       fluid='true'
       style={{ padding: ' 1em 2em' }}
       centered>
-      {mapEventsToItems(eventInstances)}
+      {mapEventsToItems(events)}
     </Card.Group>
   );
 }
