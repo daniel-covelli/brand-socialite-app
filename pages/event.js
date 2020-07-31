@@ -7,8 +7,8 @@ function Event({ event }) {
   return (
     <>
       <EventHeader event={event} />
-      <EventDetails event={event} />
       <EventBody event={event} />
+      <EventDetails event={event} />
     </>
   );
 }

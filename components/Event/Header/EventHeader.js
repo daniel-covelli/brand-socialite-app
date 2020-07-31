@@ -3,19 +3,7 @@ import ContentExtra from './ContentExtra';
 import ContentDesc from './Description/ContentDesc';
 import ContentHeader from './ContentHeader';
 
-import {
-  Segment,
-  Item,
-  Header,
-  Grid,
-  Divider,
-  Container,
-  Icon,
-  Button,
-  Responsive,
-  Image,
-  Comment
-} from 'semantic-ui-react';
+import { Segment, Item, Divider, Responsive, Image } from 'semantic-ui-react';
 
 function EventHeader({ event }) {
   return (
@@ -41,8 +29,9 @@ function EventHeader({ event }) {
             </Item.Extra>
           </Item.Content>
         </Item>
-        <Divider hidden />
-        <ContentDetails event={event} />
+        <Item>
+          <ContentDetails event={event} />
+        </Item>
       </Item.Group>
     </Segment>
   );

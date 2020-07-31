@@ -1,18 +1,4 @@
-import {
-  Popup,
-  Comment,
-  Image,
-  Header,
-  Grid,
-  Button,
-  Container,
-  Icon,
-  Label,
-  Tab,
-  Responsive,
-  Divider,
-  GridColumn
-} from 'semantic-ui-react';
+import { Header, Grid, Tab, Divider } from 'semantic-ui-react';
 
 function RenderAddress(address2) {
   if (!address2) {
@@ -29,10 +15,10 @@ function RenderAddress(address2) {
 
 const HeaderTab = ({ event }) => (
   <Tab
-    menu={{ secondary: true, pointing: true }}
+    menu={{ color: 'blue', secondary: true, pointing: true }}
     panes={[
       {
-        menuItem: 'Event Address',
+        menuItem: 'Location',
         render: () => (
           <Tab.Pane style={{ minHeight: 300 }} attached={false}>
             <Divider hidden />
@@ -103,6 +89,20 @@ const HeaderTab = ({ event }) => (
                     <p>{event.uniformsInstructions}</p>
                   </Grid.Row>
                 </Grid.Row>
+              </Grid.Column>
+            </Grid>
+          </Tab.Pane>
+        )
+      },
+      {
+        menuItem: 'Details',
+        render: () => (
+          <Tab.Pane style={{ minHeight: 300 }} attached={false}>
+            <Divider hidden />
+            <Grid>
+              <Grid.Column width={16}>
+                <Header sub>Details</Header>
+                {event.eventDescription}
               </Grid.Column>
             </Grid>
           </Tab.Pane>

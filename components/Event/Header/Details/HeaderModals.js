@@ -18,10 +18,10 @@ const HeaderModals = ({ event }) => (
     <Modal
       trigger={
         <Button color='blue' fluid>
-          Address
+          Location
         </Button>
       }>
-      <Modal.Header>Address</Modal.Header>
+      <Modal.Header>Location</Modal.Header>
       <Modal.Content>
         <Grid>
           <Grid.Column>
@@ -87,6 +87,21 @@ const HeaderModals = ({ event }) => (
           <Divider hidden />
           <Header sub>Uniform Instructions</Header>
           <p>{event.uniformsInstructions}</p>
+        </Modal.Description>
+      </Modal.Content>
+    </Modal>
+    <Divider hidden />
+    <Modal
+      trigger={
+        <Button color='blue' fluid>
+          Details
+        </Button>
+      }>
+      <Modal.Header>Details</Modal.Header>
+      <Modal.Content>
+        <Modal.Description>
+          <Header sub>Details</Header>
+          {event.eventDescription}
         </Modal.Description>
       </Modal.Content>
     </Modal>

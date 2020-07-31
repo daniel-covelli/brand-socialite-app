@@ -3,7 +3,7 @@ import { Header, Grid, Container, Divider } from 'semantic-ui-react';
 
 const ContentDesc = ({ event }) => {
   return (
-    <Grid columns={2}>
+    <Grid stackable columns={2}>
       <Grid.Column width={9}>
         <Header sub>Date/Time</Header>
         <DateTimeModal
@@ -28,13 +28,11 @@ const ContentDesc = ({ event }) => {
         />
       </Grid.Column>
       <Grid.Column width={7}>
-        <Container textAlign='right'>
-          <Header sub>Event Type</Header>
-          <span>{event.eventType}</span>
-          <Divider hidden />
-          <Header sub>Est. Attendance</Header>
-          <span>{event.estAttendance}</span>
-        </Container>
+        <Header sub>Event Type</Header>
+        <span>{event.eventType}</span>
+
+        <Header sub>Est. Attendance</Header>
+        <span>{event.estAttendance}</span>
       </Grid.Column>
     </Grid>
   );
