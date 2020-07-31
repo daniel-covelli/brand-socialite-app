@@ -4,5 +4,6 @@ import Event from '../../models/Event';
 export default async (req, res) => {
   const { _id } = req.query;
   const event = await Event.findOne({ _id });
+  console.log('event success');
   res.status(200).json(event);
 };

@@ -31,17 +31,17 @@ const roleSchema = new mongoose.Schema(
 );
 
 roleSchema.virtual('shift_start_time').get(function () {
-  return moment(this.shiftStart).format('LT');
+  return moment.utc(this.shiftStart).format('LT');
 });
 
 roleSchema.virtual('shift_end_time').get(function () {
-  return moment(this.shiftEnd).format('LT');
+  return moment.utc(this.shiftEnd).format('LT');
 });
 
 // this field is called 'hours' and contains the
 // amount of hours the role is scheduled to work
-roleSchema.virtual('hours').get(function () {
-  return this.shift_start_time.diff(this.shift_end_time);
-});
+// roleSchema.virtual('hours').get(function () {
+//   return this.shift_start_time.diff(this.shift_end_time);
+// });
 
 export default mongoose.models.Role || mongoose.model('Role', roleSchema);

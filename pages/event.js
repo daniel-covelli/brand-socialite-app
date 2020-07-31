@@ -25,15 +25,16 @@ Event.getInitialProps = async ({ query: { _id } }) => {
   const url = 'http://localhost:3000/api/event';
   const roles_url = 'http://localhost:3000/api/roles';
   const payload = { params: { _id } };
-  await axios
-    .all([axios.get(url, payload), axios.get(roles_url, payload)])
-    .then(
-      axios.spread((...responses) => {
-        console.log('response 0', responses[0].data);
-        return { event: responses[0].data, roles: responses[1].data };
-      })
-    )
-    .catch((errors) => {});
+  console.log('payload');
+  const responses = await axios.all([
+    axios.get(url, payload),
+    axios.get(roles_url, payload)
+  ]);
+  console.log('responses recieved');
+  const eventdata = responses[0].data;
+  const rolesdata = responses[1].data;
+
+  return { event: eventdata, roles: rolesdata };
 };
 
 export default Event;
