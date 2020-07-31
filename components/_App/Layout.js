@@ -3,7 +3,7 @@ import { Container } from 'semantic-ui-react';
 
 import Header from './Header';
 import HeadContent from './HeadContent';
-import SideBar from './SideBar';
+//import SideBar from './SideBar';
 
 function Layout({ children }) {
   // TODO: Implement Sidebar
@@ -17,7 +17,7 @@ function Layout({ children }) {
         <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
         <link
           rel='stylesheet'
-          href='//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css'
+          href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'
         />
         <title>Brand Socialite</title>
       </Head>

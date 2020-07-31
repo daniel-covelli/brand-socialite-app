@@ -1,14 +1,14 @@
 import axios from 'axios';
-import EventHeader from '../components/Event/EventHeader';
+import EventHeader from '../components/Event/Header/EventHeader';
 import EventDetails from '../components/Event/EventDetails';
 import EventBody from '../components/Event/EventBody';
 
 function Event({ event }) {
   return (
     <>
-      <EventHeader {...event} />
-      <EventDetails {...event} />
-      <EventBody {...event} />
+      <EventHeader event={event} />
+      <EventDetails event={event} />
+      <EventBody event={event} />
     </>
   );
 }

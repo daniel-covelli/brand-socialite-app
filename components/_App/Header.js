@@ -1,4 +1,11 @@
-import { Menu, Image, Button, Dropdown } from 'semantic-ui-react';
+import {
+  Menu,
+  Image,
+  Button,
+  Dropdown,
+  Responsive,
+  MenuItem
+} from 'semantic-ui-react';
 import Link from 'next/Link';
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
@@ -16,12 +23,22 @@ function Header() {
   }
 
   return (
-    <Menu stackable secondary fluid id='menu'>
-      <Link href='/'>
-        <Menu.Item header>
-          <Image size='small' src='/static/logo-menu.png' />
-        </Menu.Item>
-      </Link>
+    <Menu borderless fluid size='tiny' id='menu'>
+      <Responsive as={MenuItem} minWidth={769}>
+        <Link href='/'>
+          <Menu.Item header>
+            <Image size='small' src='/static/logo-menu.png' />
+          </Menu.Item>
+        </Link>
+      </Responsive>
+      <Responsive as={MenuItem} maxWidth={770}>
+        <Link href='/'>
+          <Menu.Item color='brown' header>
+            Brand Socialite
+          </Menu.Item>
+        </Link>
+      </Responsive>
+
       <Menu.Menu position='right'>
         {user ? (
           <>
@@ -30,23 +47,48 @@ function Header() {
           </>
         ) : (
           <>
-            <Link href='/login'>
-              <Menu.Item active={isActive('/login')}>Login</Menu.Item>
-            </Link>
-            <Menu.Item>
-              <Button.Group color='blue'>
-                <Dropdown text='Sign Up' icon button>
+            <Responsive as={MenuItem} minWidth={770}>
+              <Link href='/login'>
+                <Menu.Item active={isActive('/login')}>Login</Menu.Item>
+              </Link>
+              <Menu.Item>
+                <Button.Group color='blue'>
+                  <Dropdown text='Sign Up' icon button>
+                    <Dropdown.Menu>
+                      <Link href='/signup'>
+                        <Dropdown.Item>Sign Up to Hire</Dropdown.Item>
+                      </Link>
+                      <Link href='/signup'>
+                        <Dropdown.Item>Apply to Work</Dropdown.Item>
+                      </Link>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Button.Group>
+              </Menu.Item>
+            </Responsive>
+            <Responsive as={MenuItem} maxWidth={770}>
+              <Menu.Item>
+                <Dropdown icon='bars' className='icon' button>
                   <Dropdown.Menu>
-                    <Link href='/signup'>
-                      <Dropdown.Item>Sign Up to Hire</Dropdown.Item>
+                    <Link href='/login'>
+                      <Dropdown.Item active={isActive('/login')}>
+                        Login
+                      </Dropdown.Item>
                     </Link>
                     <Link href='/signup'>
-                      <Dropdown.Item>Apply to Work</Dropdown.Item>
+                      <Dropdown.Item active={isActive('/signup')}>
+                        Sign Up to Hire
+                      </Dropdown.Item>
+                    </Link>
+                    <Link href='/signup'>
+                      <Dropdown.Item active={isActive('/signup')}>
+                        Apply to Work
+                      </Dropdown.Item>
                     </Link>
                   </Dropdown.Menu>
                 </Dropdown>
-              </Button.Group>
-            </Menu.Item>
+              </Menu.Item>
+            </Responsive>
           </>
         )}
       </Menu.Menu>

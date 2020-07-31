@@ -39,20 +39,22 @@ function Home({ events }) {
         </Grid.Column>
         <Grid.Column width={11}>
           <Segment>
-            <Header>
-              <Responsive as='h1' minWidth={568}>
+            <Responsive minWidth={568}>
+              <Header as='h1' style={{ paddingBottom: '1em' }}>
                 Upcoming Events
                 <Button color='blue' floated='right'>
-                  View Events <Icon name='angle right' />
+                  Show More <Icon name='angle right' />
                 </Button>
-              </Responsive>
-              <Responsive as='h1' maxWidth={568}>
+              </Header>
+            </Responsive>
+            <Responsive maxWidth={568}>
+              <Header as='h1' style={{ paddingBottom: '1em' }}>
                 Events
                 <Button color='blue' floated='right'>
-                  View Events <Icon name='angle right' />
+                  Show More <Icon name='angle right' />
                 </Button>
-              </Responsive>
-            </Header>
+              </Header>
+            </Responsive>
             <EventsTile events={events} />
           </Segment>
         </Grid.Column>
