@@ -29,7 +29,7 @@ function EventsTile({ events }) {
   }
 
   return (
-    <Grid fluid verticalAlign='middle'>
+    <Grid verticalAlign='middle'>
       <Grid.Row>
         <Grid.Column width={15}>
           <Card.Group

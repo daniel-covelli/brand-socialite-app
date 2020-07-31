@@ -1,8 +1,8 @@
 import { Segment, Header } from 'semantic-ui-react';
 
-function EventBody({ event }) {
+function EventBody({ event, roles }) {
   return (
-    <Segment>
+    <Segment raised>
       <Header as='h3' dividing>
         Roles
       </Header>

@@ -7,7 +7,7 @@ import { Segment, Item, Divider, Responsive, Image } from 'semantic-ui-react';
 
 function EventHeader({ event }) {
   return (
-    <Segment>
+    <Segment raised>
       <Item.Group>
         <Item>
           <Item.Image size='medium'>

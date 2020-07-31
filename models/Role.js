@@ -5,7 +5,7 @@ const { String, Number, ObjectId, Date } = mongoose.Schema.Types;
 
 const roleSchema = new mongoose.Schema(
   {
-    eventinstance_id: { type: ObjectId, ref: 'EventInstance', required: true },
+    event_id: { type: ObjectId, ref: 'Event', required: true },
     roletype: {
       type: String,
       required: true,

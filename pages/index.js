@@ -18,7 +18,7 @@ function Home({ events }) {
     <Grid stackable>
       <Grid.Row>
         <Grid.Column width={5}>
-          <Segment>
+          <Segment raised>
             <Header as='h1'>Profile</Header>
             <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
 
@@ -27,7 +27,7 @@ function Home({ events }) {
             <Header as='h3'>Section Two</Header>
             <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
           </Segment>
-          <Segment>
+          <Segment raised>
             <Header as='h1'>Event History</Header>
             <Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
 
@@ -38,7 +38,7 @@ function Home({ events }) {
           </Segment>
         </Grid.Column>
         <Grid.Column width={11}>
-          <Segment>
+          <Segment raised>
             <Responsive minWidth={568}>
               <Header as='h1' style={{ paddingBottom: '1em' }}>
                 Upcoming Events
