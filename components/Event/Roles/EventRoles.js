@@ -43,7 +43,7 @@ function EventBody({ event, roles }) {
         </Table.Cell>
 
         <Table.Cell textAlign='right'>
-          <RolesEdit role={role} />
+          <RolesEdit event={event} role={role} />
         </Table.Cell>
       </Table.Row>
     ));
