@@ -4,6 +4,5 @@ import Role from '../../models/Role';
 export default async (req, res) => {
   const { _id } = req.query;
   const roles = await Role.find({ event_id: _id });
-  console.log('roles success');
   res.status(200).json(roles);
 };

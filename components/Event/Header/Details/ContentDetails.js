@@ -1,17 +1,17 @@
 import HeaderTab from './HeaderTab';
 import HeaderModals from './HeaderModals';
-import { Container, Responsive } from 'semantic-ui-react';
+import { Item, Responsive } from 'semantic-ui-react';
 
 const ContentDetails = ({ event }) => {
   return (
-    <Container>
+    <Item.Content>
       <Responsive minWidth={600}>
         <HeaderTab event={event} />
       </Responsive>
       <Responsive maxWidth={600}>
         <HeaderModals event={event} />
       </Responsive>
-    </Container>
+    </Item.Content>
   );
 };
 
