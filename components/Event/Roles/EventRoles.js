@@ -37,7 +37,7 @@ function EventBody({ event, roles }) {
         </Table.Cell>
 
         <Table.Cell textAlign='right'>
-          <Button size='mini' primary>
+          <Button size='small' primary>
             Book
           </Button>
         </Table.Cell>

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import baseUrl from '../utils/baseUrl';
 
 import EventsTile from '../components/BrandDashboard/EventsTile';
 import {
@@ -65,7 +66,7 @@ function Home({ events }) {
 
 Home.getInitialProps = async () => {
   // fetch data on server
-  const url = 'http://localhost:3000/api/events';
+  const url = `${baseUrl}/api/events`;
   const response = await axios.get(url);
   return { events: response.data };
   // return response data as an object

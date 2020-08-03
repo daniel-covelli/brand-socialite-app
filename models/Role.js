@@ -42,6 +42,10 @@ roleSchema.virtual('shift_timespan').get(function () {
   return this.shift_start_time + ' - ' + this.shift_end_time;
 });
 
+roleSchema.virtual('hours').get(function () {
+  return this.shift_start_time - this.shift_end_time;
+});
+
 // this field is called 'hours' and contains the
 // amount of hours the role is scheduled to work
 // roleSchema.virtual('hours').get(function () {

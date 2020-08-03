@@ -3,6 +3,7 @@ import EventHeader from '../components/Event/Header/EventHeader';
 import EventDetails from '../components/Event/EventDetails';
 import EventRoles from '../components/Event/Roles/EventRoles';
 import EventActions from '../components/Event/EventActions';
+import baseUrl from '../utils/baseUrl';
 
 import { Divider } from 'semantic-ui-react';
 
@@ -20,8 +21,8 @@ function Event({ event, roles }) {
 
 // get event by _id from api and return props for Event component
 Event.getInitialProps = async ({ query: { _id } }) => {
-  const url = 'http://localhost:3000/api/event';
-  const roles_url = 'http://localhost:3000/api/roles';
+  const url = `${baseUrl}/api/event`;
+  const roles_url = `${baseUrl}/api/roles`;
   const payload = { params: { _id } };
   const responses = await axios.all([
     axios.get(url, payload),

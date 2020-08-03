@@ -1,3 +1,5 @@
+import React from 'react';
+import ConfirmDelete from './ConfirmDelete';
 import { Header, Button, Icon, Modal, Form, Divider } from 'semantic-ui-react';
 
 const options = [
@@ -10,7 +12,7 @@ function RolesEdit({ event, role }) {
   return (
     <Modal
       trigger={
-        <Button size='mini' circular icon>
+        <Button size='small' circular icon>
           <Icon name='pencil' />
         </Button>
       }
@@ -49,7 +51,8 @@ function RolesEdit({ event, role }) {
             />
             <Divider hidden />
             <Form.Group widths='equal'>
-              <Form.Button fluid>Delete</Form.Button>
+              <ConfirmDelete props={(event, role)} />
+
               <Form.Button floated='right' fluid primary>
                 Save
               </Form.Button>

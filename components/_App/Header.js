@@ -47,7 +47,7 @@ function Header() {
           </>
         ) : (
           <>
-            <Responsive as={MenuItem} minWidth={770}>
+            <Responsive as={MenuItem} minWidth={768}>
               <Link href='/login'>
                 <Menu.Item active={isActive('/login')}>Login</Menu.Item>
               </Link>
@@ -66,7 +66,7 @@ function Header() {
                 </Button.Group>
               </Menu.Item>
             </Responsive>
-            <Responsive as={MenuItem} maxWidth={770}>
+            <Responsive as={MenuItem} maxWidth={768}>
               <Menu.Item>
                 <Dropdown icon='bars' className='icon' button>
                   <Dropdown.Menu>

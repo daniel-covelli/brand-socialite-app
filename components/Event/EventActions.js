@@ -1,4 +1,4 @@
-import { Grid, Button, Divider } from 'semantic-ui-react';
+import { Grid, Button, Modal } from 'semantic-ui-react';
 
 function EventActions({ event }) {
   return (
