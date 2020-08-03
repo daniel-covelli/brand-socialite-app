@@ -2,7 +2,7 @@ import axios from 'axios';
 import EventHeader from '../components/Event/Header/EventHeader';
 import EventDetails from '../components/Event/EventDetails';
 import EventRoles from '../components/Event/Roles/EventRoles';
-import EventActions from '../components/Event/EventActions';
+import EventActions from '../components/Event/Actions/EventActions';
 import baseUrl from '../utils/baseUrl';
 
 import { Divider } from 'semantic-ui-react';

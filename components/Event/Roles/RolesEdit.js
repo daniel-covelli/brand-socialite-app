@@ -1,6 +1,6 @@
 import React from 'react';
-import ConfirmDelete from './ConfirmDelete';
-import { Header, Button, Icon, Modal, Form, Divider } from 'semantic-ui-react';
+import ConfirmDeleteRole from './ConfirmDeleteRole';
+import { Button, Icon, Modal, Form, Divider } from 'semantic-ui-react';
 
 const options = [
   { key: '0', text: 'Bartender', value: 'Bartender' },
@@ -51,7 +51,7 @@ function RolesEdit({ event, role }) {
             />
             <Divider hidden />
             <Form.Group widths='equal'>
-              <ConfirmDelete props={(event, role)} />
+              <ConfirmDeleteRole props={{ event, role }} />
 
               <Form.Button floated='right' fluid primary>
                 Save
