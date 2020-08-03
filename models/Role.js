@@ -42,8 +42,26 @@ roleSchema.virtual('shift_timespan').get(function () {
   return this.shift_start_time + ' - ' + this.shift_end_time;
 });
 
+// returns the amount of hours and minutes a shift is
 roleSchema.virtual('hours').get(function () {
-  return this.shift_start_time - this.shift_end_time;
+  const start = moment.utc(this.shiftStart);
+  const end = moment.utc(this.shiftEnd);
+  const difference = end.diff(start);
+  const durration = moment.duration(difference);
+  if (durration.minutes() < 10) {
+    return durration.hours() + ':' + '0' + durration.minutes();
+  } else {
+    return durration.hours() + ':' + durration.minutes();
+  }
+});
+
+// returns the amount of hours and minutes
+roleSchema.virtual('hours_int').get(function () {
+  const start = moment.utc(this.shiftStart);
+  const end = moment.utc(this.shiftEnd);
+  const difference = end.diff(start);
+  const durration = moment.duration(difference);
+  return durration.hours() + durration.minutes() / 60;
 });
 
 // this field is called 'hours' and contains the

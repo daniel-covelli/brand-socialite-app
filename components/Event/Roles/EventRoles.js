@@ -20,14 +20,19 @@ function EventBody({ event, roles }) {
         </Table.Cell>
 
         <Table.Cell>{role.roletype}</Table.Cell>
-        <Table.Cell>
-          <Responsive minWidth={768}>{role.shift_timespan}</Responsive>
-        </Table.Cell>
 
         <Table.Cell>
           <Responsive minWidth={768}>
             {`${role.instructions.substring(0, 41)}...`}
           </Responsive>
+        </Table.Cell>
+
+        <Table.Cell>
+          <Responsive minWidth={768}>{role.shift_timespan}</Responsive>
+        </Table.Cell>
+
+        <Table.Cell>
+          <Responsive minWidth={768}>{role.hours}</Responsive>
         </Table.Cell>
 
         <Table.Cell verticalAlign='top'>
@@ -67,16 +72,22 @@ function EventBody({ event, roles }) {
       </Grid>
 
       <Divider hidden />
-      <Table basic>
+      <Table ingleLine>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell textAlign='right'></Table.HeaderCell>
             <Table.HeaderCell textAlign='left'>Role</Table.HeaderCell>
+
+            <Table.HeaderCell textAlign='left'>
+              <Responsive minWidth={768}>Instructions</Responsive>
+            </Table.HeaderCell>
+
             <Table.HeaderCell textAlign='left'>
               <Responsive minWidth={768}>Shift</Responsive>
             </Table.HeaderCell>
+
             <Table.HeaderCell textAlign='left'>
-              <Responsive minWidth={768}>Instructions</Responsive>
+              <Responsive minWidth={768}>Hours </Responsive>
             </Table.HeaderCell>
 
             <Table.HeaderCell textAlign='left'>
@@ -90,6 +101,7 @@ function EventBody({ event, roles }) {
 
         <Table.Body>{mapRolesToItems(roles)}</Table.Body>
       </Table>
+      <Divider hidden />
     </Segment>
   );
 }

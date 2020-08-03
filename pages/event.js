@@ -1,6 +1,6 @@
 import axios from 'axios';
 import EventHeader from '../components/Event/Header/EventHeader';
-import EventDetails from '../components/Event/EventDetails';
+import EventDetails from '../components/Event/Details/EventDetails';
 import EventRoles from '../components/Event/Roles/EventRoles';
 import EventActions from '../components/Event/Actions/EventActions';
 import baseUrl from '../utils/baseUrl';
@@ -10,11 +10,16 @@ import { Divider } from 'semantic-ui-react';
 function Event({ event, roles }) {
   return (
     <>
+      <Divider hidden style={{ padding: ' 1em 0 ' }} />
+      <EventDetails roles={roles} />
       <EventHeader event={event} />
+      <Divider hidden style={{ padding: ' 1em 0 ' }} />
       <EventRoles event={event} roles={roles} />
-      <EventDetails event={event} />
-      <Divider hidden />
+      <Divider hidden style={{ padding: ' 1em 0 ' }} />
+      <EventDetails roles={roles} />
+      <Divider hidden style={{ padding: ' 1em 0 ' }} />
       <EventActions event={event} />
+      <Divider hidden style={{ padding: ' 1em 0 ' }} />
     </>
   );
 }

@@ -20,7 +20,7 @@ const HeaderTab = ({ event }) => (
       {
         menuItem: 'Location',
         render: () => (
-          <Tab.Pane style={{ minHeight: 300 }} attached={false}>
+          <Tab.Pane style={{ minHeight: 250 }} attached={false}>
             <Divider hidden />
             <Grid>
               <Grid.Column>
