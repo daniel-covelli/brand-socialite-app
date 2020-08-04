@@ -4,6 +4,7 @@ const DateTimeModal = ({ props }) => {
   return (
     <>
       <Modal
+        size='tiny'
         trigger={
           <Label as='a' size={'large'} style={{ margin: '0 1em 1em 0' }}>
             <Icon name={props.icon} />

@@ -18,7 +18,7 @@ function EventDetails({ event, roles }) {
         overtime: (overtime = overtime + roles[i].overtime),
         tips: (tips = tips + roles[i].tip),
         talentSum: (talentSum = wages + overtime + tips),
-        incidentals: (incidentals = talentSum * 0.2),
+        incidentals: (incidentals = talentSum * 0.25),
         fee: (fee = talentSum * 0.25),
         sum: talentSum + incidentals + fee
       };
@@ -26,19 +26,11 @@ function EventDetails({ event, roles }) {
     return costs;
   }
 
-  function round(int) {
-    return Math.round(100 * int) / 100;
-  }
-
   return (
     <Grid>
       <Grid.Column textAlign='right'>
         <Grid.Row>
-          <DetailsModal
-            event={event}
-            roles={roles}
-            receipt={totalCost(roles)}
-          />
+          <DetailsModal receipt={totalCost(roles)} />
         </Grid.Row>
       </Grid.Column>
     </Grid>

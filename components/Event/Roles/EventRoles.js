@@ -11,6 +11,14 @@ import {
 } from 'semantic-ui-react';
 
 function EventBody({ event, roles }) {
+  function RoleInstructions(instructions) {
+    const length = instructions.length;
+    if (length > 50) {
+      return <>{`${instructions.substring(0, 50)}...`}</>;
+    }
+    return <>{instructions}</>;
+  }
+
   function mapRolesToItems(roles) {
     return roles.map((role) => (
       <Table.Row verticalAlign='top'>
@@ -23,7 +31,7 @@ function EventBody({ event, roles }) {
 
         <Table.Cell>
           <Responsive minWidth={768}>
-            {`${role.instructions.substring(0, 41)}...`}
+            {RoleInstructions(role.instructions)}
           </Responsive>
         </Table.Cell>
 

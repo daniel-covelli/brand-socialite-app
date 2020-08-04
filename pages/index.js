@@ -1,22 +1,21 @@
 import React from 'react';
 import axios from 'axios';
+import Link from 'next/Link';
 import baseUrl from '../utils/baseUrl';
+import EventTileHeader from '../components/BrandDashboard/EventTileHeader';
+import AddEvent from '../components/_App/AddEvent';
 
 import EventsTile from '../components/BrandDashboard/EventsTile';
-import {
-  Grid,
-  Image,
-  Divider,
-  Segment,
-  Header,
-  Button,
-  Icon,
-  Responsive
-} from 'semantic-ui-react';
+import { Grid, Image, Divider, Segment, Header } from 'semantic-ui-react';
 
 function Home({ events }) {
   return (
     <Grid stackable>
+      <Grid.Row>
+        <Grid.Column>
+          <AddEvent />
+        </Grid.Column>
+      </Grid.Row>
       <Grid.Row>
         <Grid.Column width={5}>
           <Segment raised>
@@ -40,23 +39,10 @@ function Home({ events }) {
         </Grid.Column>
         <Grid.Column width={11}>
           <Segment raised>
-            <Responsive minWidth={568}>
-              <Header as='h1' style={{ paddingBottom: '1em' }}>
-                Upcoming Events
-                <Button color='blue' floated='right'>
-                  Show More <Icon name='angle right' />
-                </Button>
-              </Header>
-            </Responsive>
-            <Responsive maxWidth={568}>
-              <Header as='h1' style={{ paddingBottom: '1em' }}>
-                Events
-                <Button color='blue' floated='right'>
-                  Show More <Icon name='angle right' />
-                </Button>
-              </Header>
-            </Responsive>
-            <EventsTile events={events} />
+            <Grid>
+              <EventTileHeader />
+              <EventsTile events={events} />
+            </Grid>
           </Segment>
         </Grid.Column>
       </Grid.Row>

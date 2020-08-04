@@ -49,9 +49,9 @@ roleSchema.virtual('hours').get(function () {
   const difference = end.diff(start);
   const durration = moment.duration(difference);
   if (durration.minutes() < 10) {
-    return durration.hours() + ':' + '0' + durration.minutes();
+    return durration.hours() + '.' + '0' + durration.minutes();
   } else {
-    return durration.hours() + ':' + durration.minutes();
+    return durration.hours() + '.' + durration.minutes();
   }
 });
 

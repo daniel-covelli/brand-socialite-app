@@ -20,36 +20,29 @@ function EventsTile({ events }) {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <a href={`/event?_id=${event._id}`}>
-            Show Event <Icon name='angle right' />
-          </a>
+          <Link href={`/event?_id=${event._id}`}>
+            <a>
+              Show Event <Icon name='angle right' />
+            </a>
+          </Link>
         </Card.Content>
       </Card>
     ));
   }
 
   return (
-    <Grid verticalAlign='middle'>
+    <Grid.Column width={16}>
       <Grid.Row>
-        <Grid.Column width={15}>
-          <Card.Group
-            stackable
-            itemsPerRow='3'
-            fluid='true'
-            style={{ padding: ' 1em 1em' }}
-            centered>
-            {mapEventsToItems(events)}
-          </Card.Group>
-        </Grid.Column>
-        <Grid.Column width={1}>
-          <Link href=''>
-            <a>
-              <Icon name='angle double right' color='grey' size='large' />
-            </a>
-          </Link>
-        </Grid.Column>
+        <Card.Group
+          stackable
+          itemsPerRow='3'
+          fluid='true'
+          style={{ padding: ' 1em 1em' }}
+          centered>
+          {mapEventsToItems(events)}
+        </Card.Group>
       </Grid.Row>
-    </Grid>
+    </Grid.Column>
   );
 }
 

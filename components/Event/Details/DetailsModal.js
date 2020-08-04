@@ -7,7 +7,7 @@ import {
   Divider
 } from 'semantic-ui-react';
 
-function DetailsModal({ event, roles, receipt }) {
+function DetailsModal({ receipt }) {
   const [modal, setModal] = React.useState(false);
 
   function round(int) {
@@ -75,7 +75,7 @@ function DetailsModal({ event, roles, receipt }) {
                 <Header as='h5'>
                   Incidentals
                   <br />
-                  <Header.Subheader>20% of Talent Exp.</Header.Subheader>
+                  <Header.Subheader>25% of Talent Exp.</Header.Subheader>
                 </Header>
               </Table.Cell>
 
