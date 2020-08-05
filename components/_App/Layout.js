@@ -15,6 +15,8 @@ function Layout({ children }) {
         {/* Stylesheets */}
         <link rel='stylesheet' type='text/css' href='/static/styles.css' />
         <link rel='stylesheet' type='text/css' href='/static/nprogress.css' />
+        <script src='https://cdn.jsdelivr.net/npm/semantic-ui-calendar-react@latest/dist/umd/semantic-ui-calendar-react.js' />
+
         <link
           rel='stylesheet'
           href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css'

@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Link from 'next/Link';
 import baseUrl from '../utils/baseUrl';
 import EventTileHeader from '../components/BrandDashboard/EventTileHeader';
 import AddEvent from '../components/_App/AddEvent';
