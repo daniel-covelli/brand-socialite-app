@@ -1,4 +1,4 @@
-import { Form, Divider, Segment } from 'semantic-ui-react';
+import { Form, Segment } from 'semantic-ui-react';
 
 function AddressForm({ props }) {
   return (
@@ -48,7 +48,7 @@ function AddressForm({ props }) {
           />
           <Form.Input
             name='zip'
-            value={props.event.state}
+            value={props.event.zip}
             label='Zip'
             placeholder='Ex. 99999'
             onChange={props.handleChange}

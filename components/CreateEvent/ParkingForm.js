@@ -7,25 +7,42 @@ const options = [
 ];
 
 function ParkingForm({ props }) {
-  const INITIAL_PARKING = {
-    parkingvenue: '',
-    parkingaddress1: '',
-    parkingaddress2: '',
-    parkingcity: '',
-    parkingstate: '',
-    parkingzip: ''
-  };
-
-  const [parking, setParking] = React.useState(INITIAL_PARKING);
-
   function handleParking(change) {
     const { name, value } = change.target;
-    console.log('parking', name, value);
     setParking((prevState) => ({
       ...prevState,
       [name]: value
     }));
+
     props.handleChange(change);
+  }
+
+  // changes radio state then passes change & checked to handleRadio
+  const [checked, setChecked] = React.useState({ bool: true });
+  function handleRadio(change) {
+    setChecked((prevState) => ({
+      ...prevState,
+      bool: !checked.bool
+    }));
+
+    props.handleRadio(checked);
+  }
+
+  const [disabled, setDisabled] = React.useState({ bool: false });
+  function handleOption(e, { value }) {
+    console.log('value', value);
+    if (value === 'Street Parking') {
+      setDisabled((prevState) => ({
+        ...prevState,
+        bool: true
+      }));
+    } else {
+      setDisabled((prevState) => ({
+        ...prevState,
+        bool: false
+      }));
+    }
+    props.handleOption;
   }
 
   return (
@@ -36,14 +53,16 @@ function ParkingForm({ props }) {
           label='Parking'
           placeholder='Ex. Will Be Provided'
           options={options}
-          onChange={props.handleOption}
+          onChange={handleOption}
         />
       </Form.Group>
       <Label style={{ margin: '1em 0 2em 0' }}>
         <Radio
           toggle
           label='Parking Address Same as Event Address'
-          onChange={props.handleRadio}
+          disabled={disabled.bool}
+          checked={checked.checked}
+          onChange={handleRadio}
         />
       </Label>
 
@@ -52,6 +71,7 @@ function ParkingForm({ props }) {
           name='parkingvenue'
           label='Parking Venue'
           placeholder='Ex. Hollywood Hilton Hotel'
+          disabled={disabled.bool}
           value={props.event.parkingvenue}
           onChange={handleParking}
         />
@@ -61,8 +81,9 @@ function ParkingForm({ props }) {
           name='parkingaddress1'
           label='Parking Address 1'
           placeholder='Ex. 693 Woodland Drive'
+          disabled={disabled.bool}
           value={props.event.parkingaddress1}
-          onChanget={props.handleChange}
+          onChange={props.handleChange}
         />
       </Form.Group>
       <Form.Group widths='equal'>
@@ -70,6 +91,7 @@ function ParkingForm({ props }) {
           name='parkingaddress2'
           label='Parking Address 2'
           placeholder='Ex. Appartment, Floor, Building'
+          disabled={disabled.bool}
           value={props.event.parkingaddress2}
           onChange={props.handleChange}
         />
@@ -79,6 +101,7 @@ function ParkingForm({ props }) {
           name='parkingcity'
           label='Parking City'
           placeholder='Ex. Los Angeles'
+          disabled={disabled.bool}
           value={props.event.parkingcity}
           onChange={props.handleParking}
         />
@@ -86,6 +109,7 @@ function ParkingForm({ props }) {
           name='parkingstate'
           label='Parking State'
           placeholder='Ex. CA'
+          disabled={disabled.bool}
           value={props.event.parkingstate}
           onChange={props.handleParking}
         />
@@ -93,6 +117,7 @@ function ParkingForm({ props }) {
           name='parkingzip'
           label='Parking Zip'
           placeholder='Ex. 99999'
+          disabled={disabled.bool}
           value={props.event.parkingzip}
           onChange={props.handleParking}
         />

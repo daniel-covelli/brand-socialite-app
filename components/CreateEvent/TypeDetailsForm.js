@@ -4,17 +4,17 @@ function TypeDetailsForm({ props }) {
   return (
     <Form.Group widths='equal'>
       <Form.Input
-        name='eventName'
-        value={props.event.eventName}
-        label='Event Name'
-        placeholder='Ex. Album Release Party'
+        name='eventType'
+        value={props.event.eventType}
+        label='Event Type'
+        placeholder='Ex. Cocktail Party'
         onChange={props.handleChange}
       />
       <Form.Input
-        name='hostName'
-        value={props.event.hostName}
-        label='Host'
-        placeholder='Ex. Vogue'
+        name='estAttendance'
+        value={props.event.estAttendance}
+        label='Est. Attendance'
+        placeholder='Ex. 500'
         onChange={props.handleChange}
       />
     </Form.Group>

@@ -46,6 +46,7 @@ function CreateHeader() {
     '/static/no-image-1.jpg'
   );
 
+  // general onChange handler used by all components
   function handleChange(change) {
     const { name, value, files } = change.target;
     console.log('target', change.target);
@@ -57,24 +58,15 @@ function CreateHeader() {
     }
   }
 
-  function handleOption(e, { value }) {
-    setEvent((prevState) => ({ ...prevState, parking: value }));
-  }
-
+  // called by TimesForm
   function handleTime(change) {
     const { name, value } = change.target;
-
     setTimes((prevState) => ({ ...prevState, [name]: value }));
     var ISOtime = moment(value, 'HH:mm').toDate();
     setEvent((prevState) => ({ ...prevState, [name]: ISOtime }));
   }
 
-  function handleSubmit(change) {
-    change.preventDefault();
-    console.log(event);
-    setEvent(INITIAL_EVENT);
-  }
-
+  // called by TimesForm
   const dateChange = (change, data) => {
     setNewDate(data.value);
     setEvent((prevState) => ({
@@ -83,8 +75,14 @@ function CreateHeader() {
     }));
   };
 
-  function handleRadio() {
-    if (event.parkingaddress1 !== event.address1) {
+  // called by Parking Form when option is changed
+  function handleOption(e, { value }) {
+    setEvent((prevState) => ({ ...prevState, parking: value }));
+  }
+
+  // called by ParkingForm when radio is changed
+  const handleRadio = (checked) => {
+    if (checked.bool) {
       setEvent((prevState) => ({
         ...prevState,
         parkingvenue: event.venue
@@ -109,7 +107,7 @@ function CreateHeader() {
         ...prevState,
         parkingzip: event.zip
       }));
-    } else if (event.parkingaddress1 === event.address1) {
+    } else {
       setEvent((prevState) => ({
         ...prevState,
         parkingvenue: ''
@@ -135,6 +133,12 @@ function CreateHeader() {
         parkingzip: ''
       }));
     }
+  };
+
+  function handleSubmit(change) {
+    change.preventDefault();
+    console.log(event);
+    setEvent(INITIAL_EVENT);
   }
 
   console.log('current event', event);
