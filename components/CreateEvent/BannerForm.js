@@ -1,7 +1,6 @@
-import { Grid, Responsive, Form, Button, Icon, Image } from 'semantic-ui-react';
+import { Responsive, Form, Button, Icon, Image } from 'semantic-ui-react';
 
 function BannerForm({ props }) {
-  console.log(props);
   return (
     <Form.Field>
       <label>Event Banner</label>

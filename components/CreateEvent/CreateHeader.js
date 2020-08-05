@@ -1,11 +1,13 @@
-import BannerForm from './BannerForm';
 const moment = require('moment');
 
 import React from 'react';
-import { Form, Segment, Button, Grid } from 'semantic-ui-react';
+import { Form, Segment, Button, Grid, Divider } from 'semantic-ui-react';
+import BannerForm from './BannerForm';
 import TimesForm from './TimesForm';
 import NamesForm from './NamesForm';
 import TypeDetailsForm from './TypeDetailsForm';
+import AddressForm from './AddressForm';
+import ParkingForm from './ParkingForm';
 
 const INITIAL_EVENT = {
   eventMediaUrl: '',
@@ -19,7 +21,21 @@ const INITIAL_EVENT = {
   eventStart: '',
   eventEnd: '',
   breakdownStart: '',
-  breakdownEnd: ''
+  breakdownEnd: '',
+  venue: '',
+  address1: '',
+  address2: '',
+  city: '',
+  state: '',
+  zip: '',
+  parking: '',
+  parkingvenue: '',
+  parkingvenue: '',
+  parkingaddress1: '',
+  parkingaddress2: '',
+  parkingcity: '',
+  parkingstate: '',
+  parkingzip: ''
 };
 
 function CreateHeader() {
@@ -32,6 +48,7 @@ function CreateHeader() {
 
   function handleChange(change) {
     const { name, value, files } = change.target;
+    console.log('target', change.target);
     if (name === 'eventMediaUrl') {
       setEvent((prevState) => ({ ...prevState, eventMediaUrl: files[0] }));
       setMediaPreview(window.URL.createObjectURL(files[0]));
@@ -40,8 +57,13 @@ function CreateHeader() {
     }
   }
 
+  function handleOption(e, { value }) {
+    setEvent((prevState) => ({ ...prevState, parking: value }));
+  }
+
   function handleTime(change) {
     const { name, value } = change.target;
+
     setTimes((prevState) => ({ ...prevState, [name]: value }));
     var ISOtime = moment(value, 'HH:mm').toDate();
     setEvent((prevState) => ({ ...prevState, [name]: ISOtime }));
@@ -61,7 +83,61 @@ function CreateHeader() {
     }));
   };
 
-  console.log('current', event);
+  function handleRadio() {
+    if (event.parkingaddress1 !== event.address1) {
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingvenue: event.venue
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingaddress1: event.address1
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingaddress2: event.address2
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingcity: event.city
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingstate: event.state
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingzip: event.zip
+      }));
+    } else if (event.parkingaddress1 === event.address1) {
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingvenue: ''
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingaddress1: ''
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingaddress2: ''
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingcity: ''
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingstate: ''
+      }));
+      setEvent((prevState) => ({
+        ...prevState,
+        parkingzip: ''
+      }));
+    }
+  }
+
+  console.log('current event', event);
   return (
     <Form onSubmit={handleSubmit}>
       <Segment raised>
@@ -73,10 +149,13 @@ function CreateHeader() {
             <NamesForm props={{ handleChange, event }} />
             <TimesForm props={{ dateChange, handleTime, event, times }} />
             <TypeDetailsForm props={{ handleChange, event }} />
+            <AddressForm props={{ handleChange, event }} />
+            <ParkingForm
+              props={{ handleOption, handleChange, handleRadio, event }}
+            />
           </Grid.Column>
         </Grid>
       </Segment>
-      <Segment raised></Segment>
       <Form.Field floated type='submit'>
         <Grid>
           <Grid.Row>
