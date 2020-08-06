@@ -1,9 +1,15 @@
 import Event from '../../models/Event';
+import connectDb from '../../utils/connectDb';
+
+connectDb();
 
 export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res);
+      break;
+    case 'POST':
+      handlePostRequest(req, res);
       break;
     case 'DELETE':
       await handleDeleteRequest(req, res);
@@ -13,6 +19,118 @@ export default async (req, res) => {
       break;
   }
 };
+
+async function handlePostRequest(req, res) {
+  const {
+    eventName,
+    hostName,
+    eventType,
+    estAttendance,
+    venue,
+    address1,
+    address2,
+    city,
+    state,
+    zip,
+    parking,
+    parkingInstructions,
+    uniforms,
+    uniformsInstructions,
+    eventDescription,
+    eventMediaUrl,
+    adminMediaUrl,
+    date,
+    setupStart,
+    setupEnd,
+    eventStart,
+    eventEnd,
+    breakdownStart,
+    breakdownEnd,
+    parkingvenue,
+    parkingaddress1,
+    parkingaddress2,
+    parkingcity,
+    parkingstate,
+    parkingzip
+  } = req.body;
+  try {
+    if (
+      !eventName ||
+      !hostName ||
+      !eventType ||
+      !estAttendance ||
+      !address1 ||
+      !address2 ||
+      !city ||
+      !state ||
+      !zip ||
+      !parking ||
+      !parkingInstructions ||
+      !uniforms ||
+      !uniformsInstructions ||
+      !eventDescription ||
+      !date ||
+      !setupStart ||
+      !setupEnd ||
+      !eventStart ||
+      !eventEnd ||
+      !breakdownStart ||
+      !breakdownEnd
+    ) {
+      return res.status(422).send('Missing one or more fields');
+    } else if (
+      zip.match(/^[0-9]+$/) == null ||
+      estAttendance.match(/^[0-9]+$/) == null ||
+      parkingzip.match(/^[0-9]+$/) == null
+    ) {
+      return res
+        .status(422)
+        .send('Incorect value type for Zip or Estimated Attendance');
+    }
+    zip = parseInt(zip);
+    estAttendance = parseInt(estAttendance);
+    if (parkingzip) {
+      parkingzip = parseInt(parkingzip);
+    }
+
+    const event = await new Event({
+      eventName,
+      hostName,
+      eventType,
+      estAttendance,
+      venue,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+      parking,
+      parkingInstructions,
+      uniforms,
+      uniformsInstructions,
+      eventDescription,
+      eventMediaUrl,
+      adminMediaUrl,
+      date,
+      setupStart,
+      setupEnd,
+      eventStart,
+      eventEnd,
+      breakdownStart,
+      breakdownEnd,
+      parkingvenue,
+      parkingaddress1,
+      parkingaddress2,
+      parkingcity,
+      parkingstate,
+      parkingzip
+    }).save();
+    res.status(201).json(event);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error creating product');
+  }
+}
 
 // find event by _id in database and return event to 'event.js' page
 async function handleGetRequest(req, res) {

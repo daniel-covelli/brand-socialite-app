@@ -1,16 +1,21 @@
 const moment = require('moment');
+import axios from 'axios';
+import baseUrl from '../../utils/baseUrl';
+import catchErrors from '../../utils/catchErrors';
 
 import React from 'react';
-import { Form, Segment, Button, Grid, Divider } from 'semantic-ui-react';
+import { Form, Segment, Button, Grid, Message } from 'semantic-ui-react';
 import BannerForm from './BannerForm';
 import TimesForm from './TimesForm';
 import NamesForm from './NamesForm';
 import TypeDetailsForm from './TypeDetailsForm';
 import AddressForm from './AddressForm';
 import ParkingForm from './ParkingForm';
+import UniformForm from './UniformForm';
 
 const INITIAL_EVENT = {
-  eventMediaUrl: '',
+  eventMediaUrl: 'placeholder',
+  adminMediaUrl: 'https://unsplash.com/photos/yh5hjDZW_no',
   eventName: '',
   hostName: '',
   eventType: '',
@@ -35,8 +40,37 @@ const INITIAL_EVENT = {
   parkingaddress2: '',
   parkingcity: '',
   parkingstate: '',
-  parkingzip: ''
+  parkingzip: '',
+  parkingInstructions: '',
+  uniforms: '',
+  uniformsInstructions: ''
 };
+
+const REQUIRED = [
+  'eventName',
+  'hostName',
+  'eventType',
+  'estAttendance',
+  'address1',
+  'address2',
+  'city',
+  'state',
+  'zip',
+  'parking',
+  'parkingInstructions',
+  'uniforms',
+  'uniformsInstructions',
+  'eventDescription',
+  'eventMediaUrl',
+  'adminMediaUrl',
+  'date',
+  'setupStart',
+  'setupEnd',
+  'eventStart',
+  'eventEnd',
+  'breakdownStart',
+  'breakdownEnd'
+];
 
 function CreateHeader() {
   const [event, setEvent] = React.useState(INITIAL_EVENT);
@@ -45,6 +79,16 @@ function CreateHeader() {
   const [mediaPreview, setMediaPreview] = React.useState(
     '/static/no-image-1.jpg'
   );
+  const [loading, setLoading] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    const isEvent = Object.entries(event).every((el) =>
+      REQUIRED.includes(el[0]) ? Boolean(el[1]) : true
+    );
+    isEvent ? setDisabled(false) : setDisabled(true);
+  }, [event]);
 
   // general onChange handler used by all components
   function handleChange(change) {
@@ -80,7 +124,7 @@ function CreateHeader() {
     setEvent((prevState) => ({ ...prevState, parking: value }));
   }
 
-  // called by ParkingForm when radio is changed
+  // called by ParkingForm when radio state is changed
   const handleRadio = (checked) => {
     if (checked.bool) {
       setEvent((prevState) => ({
@@ -135,16 +179,49 @@ function CreateHeader() {
     }
   };
 
-  function handleSubmit(change) {
-    change.preventDefault();
-    console.log(event);
-    setEvent(INITIAL_EVENT);
+  // uploads image file to cloudinary, returns url
+  async function handleImageUpload() {
+    if (event.eventMediaUrl !== 'placeholder') {
+      const data = new FormData();
+      data.append('file', event.eventMediaUrl);
+      data.append('upload_preset', 'imagefilter');
+      data.append('cloud_name', 'brand-socialite');
+      const response = await axios.post(process.env.CLOUDINARY_URL, data);
+      setEvent((prevState) => ({
+        ...prevState,
+        eventMediaUrl: response.data.url
+      }));
+    } else {
+      setEvent((prevState) => ({
+        ...prevState,
+        eventMediaUrl: 'https://unsplash.com/photos/yLI-7XX5F-4'
+      }));
+    }
   }
 
-  console.log('current event', event);
+  async function handleSubmit(change) {
+    try {
+      change.preventDefault();
+      setLoading(true);
+      await handleImageUpload();
+      const url = `${baseUrl}/api/event`;
+      const payload = { ...event };
+      const response = await axios.post(url, payload);
+      console.log('onsubmit', response);
+
+      // setEvent(INITIAL_EVENT);
+    } catch (error) {
+      catchErrors(error, setError);
+      console.error('Submit event error', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  console.log(event);
   return (
-    <Form onSubmit={handleSubmit}>
-      <Segment raised>
+    <Form loading={loading} onSubmit={handleSubmit} error={Boolean(error)}>
+      <Message error content={error} />
+      <Segment style={{ marginBottom: '3em' }} raised>
         <Grid stackable columns={2}>
           <Grid.Column width={4}>
             <BannerForm props={{ handleChange, mediaPreview }} />
@@ -157,14 +234,20 @@ function CreateHeader() {
             <ParkingForm
               props={{ handleOption, handleChange, handleRadio, event }}
             />
+            <UniformForm props={{ handleChange, event }} />
           </Grid.Column>
         </Grid>
       </Segment>
       <Form.Field floated type='submit'>
         <Grid>
           <Grid.Row>
-            <Grid.Column textAlign='right' width={16}>
-              <Button primary>Submit</Button>
+            <Grid.Column textAlign='right' width={8}>
+              <Button fluid>Cancel</Button>
+            </Grid.Column>
+            <Grid.Column textAlign='right' width={8}>
+              <Button fluid primary disabled={disabled}>
+                Submit
+              </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>
