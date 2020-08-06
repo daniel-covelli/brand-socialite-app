@@ -25,7 +25,16 @@ const HeaderTab = ({ event }) => (
             <Grid>
               <Grid.Column>
                 <Header sub>Address</Header>
-                {event.venue} <br />
+                {/* will only display event venue if its available */}
+                {event.venue ? (
+                  <>
+                    {' '}
+                    {event.venue} <br />{' '}
+                  </>
+                ) : (
+                  <> </>
+                )}
+
                 <a>
                   {event.address1}
                   {RenderAddress(event.address2)}
@@ -50,17 +59,29 @@ const HeaderTab = ({ event }) => (
                     {event.parking}
                   </Grid.Row>
                   <Divider hidden />
-                  <Grid.Row>
-                    <Header sub>Parking Address</Header>
-                    {event.parkingvenue} <br />
-                    <a>
-                      {event.parkingaddress1}
-                      {RenderAddress(event.parkingaddress2)}
-                      <br />
-                      {event.parkingcity}, {event.parkingstate}
-                      {event.parkingzip}
-                    </a>
-                  </Grid.Row>
+                  {/* will only display parking address if their is a parking address available */}
+                  {event.parkingaddress1 ? (
+                    <Grid.Row>
+                      <Header sub>Parking Address</Header>
+                      {/* will only display parking venue if it's available */}
+                      {event.parkingvenue ? (
+                        <>
+                          {event.parkingvenue} <br />
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                      <a>
+                        {event.parkingaddress1}
+                        {RenderAddress(event.parkingaddress2)}
+                        <br />
+                        {event.parkingcity}, {event.parkingstate}
+                        {event.parkingzip}
+                      </a>
+                    </Grid.Row>
+                  ) : (
+                    <></>
+                  )}
                 </Grid.Row>
               </Grid.Column>
               <Grid.Column width={10}>

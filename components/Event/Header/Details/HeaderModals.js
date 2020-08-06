@@ -25,7 +25,15 @@ const HeaderModals = ({ event }) => (
       <Modal.Content>
         <Grid>
           <Grid.Column>
-            {event.venue} <br />
+            {/* will only display event venue if its available */}
+            {event.venue ? (
+              <>
+                {event.venue} <br />
+              </>
+            ) : (
+              <></>
+            )}
+
             <a>
               {event.address1}
               {RenderAddress(event.address2)}
@@ -52,18 +60,32 @@ const HeaderModals = ({ event }) => (
               {event.parking}
             </Grid.Row>
             <Divider hidden />
-            <Grid.Row>
-              <Header sub>Parking Address</Header>
-              {event.parkingvenue} <br />
-              <a>
-                {event.parkingaddress1}
-                {RenderAddress(event.parkingaddress2)}
-                <br />
-                {event.parkingcity}, {event.parkingstate}
-                {event.parkingzip}
-              </a>
-            </Grid.Row>
-            <Divider hidden />
+            {/* will only display parking address if their is a parking address available */}
+            {event.parkingaddress1 ? (
+              <>
+                <Grid.Row>
+                  <Header sub>Parking Address</Header>
+                  {/* will only display parking venue if it's available */}
+                  {event.parkingvenue ? (
+                    <>
+                      {event.parkingvenue} <br />{' '}
+                    </>
+                  ) : (
+                    <> </>
+                  )}
+                  <a>
+                    {event.parkingaddress1}
+                    {RenderAddress(event.parkingaddress2)}
+                    <br />
+                    {event.parkingcity}, {event.parkingstate}
+                    {event.parkingzip}
+                  </a>
+                </Grid.Row>
+                <Divider hidden />
+              </>
+            ) : (
+              <></>
+            )}
             <Grid.Row>
               <Header sub>Parking Instructions</Header>
               <p>{event.parkingInstructions}</p>
