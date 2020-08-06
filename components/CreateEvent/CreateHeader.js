@@ -15,7 +15,8 @@ import UniformForm from './UniformForm';
 
 const INITIAL_EVENT = {
   eventMediaUrl: 'placeholder',
-  adminMediaUrl: 'https://unsplash.com/photos/yh5hjDZW_no',
+  adminMediaUrl:
+    'https://res.cloudinary.com/brand-socialite/image/upload/v1596733183/michel-stockman-yh5hjDZW_no-unsplash_s7g1fo.jpg',
   eventName: '',
   hostName: '',
   eventType: '',
@@ -179,9 +180,9 @@ function CreateHeader() {
     }
   };
 
-  // uploads image file to cloudinary, returns url
+  // API call to Cloudinary if image is added
   async function handleImageUpload() {
-    if (event.eventMediaUrl !== 'placeholder') {
+    if (event.eventMediaUrl != 'placeholder') {
       const data = new FormData();
       data.append('file', event.eventMediaUrl);
       data.append('upload_preset', 'imagefilter');
@@ -194,7 +195,8 @@ function CreateHeader() {
     } else {
       setEvent((prevState) => ({
         ...prevState,
-        eventMediaUrl: 'https://unsplash.com/photos/yLI-7XX5F-4'
+        eventMediaUrl:
+          'https://res.cloudinary.com/brand-socialite/image/upload/v1596734136/LVMH-logo_iuaqj5.jpg'
       }));
     }
   }
@@ -238,7 +240,8 @@ function CreateHeader() {
           </Grid.Column>
         </Grid>
       </Segment>
-      <Form.Field floated type='submit'>
+      <Message error content={error} />
+      <Form.Field type='submit'>
         <Grid>
           <Grid.Row>
             <Grid.Column textAlign='right' width={8}>

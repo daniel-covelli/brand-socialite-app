@@ -21,7 +21,7 @@ export default async (req, res) => {
 };
 
 async function handlePostRequest(req, res) {
-  const {
+  var {
     eventName,
     hostName,
     eventType,
@@ -81,7 +81,9 @@ async function handlePostRequest(req, res) {
     } else if (
       zip.match(/^[0-9]+$/) == null ||
       estAttendance.match(/^[0-9]+$/) == null ||
-      parkingzip.match(/^[0-9]+$/) == null
+      parkingzip
+        ? parkingzip.match(/^[0-9]+$/) == null
+        : false
     ) {
       return res
         .status(422)

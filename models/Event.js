@@ -16,7 +16,7 @@ const eventSchema = new mongoose.Schema(
     address2: { type: String, default: '' },
     city: { type: String, required: true },
     state: { type: String, required: true },
-    zip: { type: String, required: true },
+    zip: { type: Number, required: true },
     parking: { type: String, required: true },
     parkingvenue: { type: String },
     parkingaddress1: { type: String },
@@ -50,50 +50,48 @@ const eventSchema = new mongoose.Schema(
 
 eventSchema.virtual('setup_timespan').get(function () {
   var setup_timespan_string =
-    moment.utc(this.setupStart).format('LT') +
+    moment(this.setupStart).format('LT') +
     ' - ' +
-    moment.utc(this.setupEnd).format('LT');
+    moment(this.setupEnd).format('LT');
   return setup_timespan_string;
 });
 
 eventSchema.virtual('event_timespan').get(function () {
   var event_timespan_string =
-    moment.utc(this.eventStart).format('LT') +
+    moment(this.eventStart).format('LT') +
     ' - ' +
-    moment.utc(this.eventEnd).format('LT');
+    moment(this.eventEnd).format('LT');
   return event_timespan_string;
 });
 
 eventSchema.virtual('breakdown_timespan').get(function () {
   var event_timespan_string =
-    moment.utc(this.breakdownStart).format('LT') +
+    moment(this.breakdownStart).format('LT') +
     ' - ' +
-    moment.utc(this.breakdownEnd).format('LT');
+    moment(this.breakdownEnd).format('LT');
   return event_timespan_string;
 });
 
 eventSchema.virtual('date_formatted').get(function () {
-  return moment.utc(this.date).format('ll');
+  return moment(this.date).format('ll');
 });
 
 eventSchema.virtual('date_formatted_long').get(function () {
   return (
-    moment.utc(this.date).format('dddd') +
-    ', ' +
-    moment.utc(this.date).format('LL')
+    moment(this.date).format('dddd') + ', ' + moment(this.date).format('LL')
   );
 });
 
 eventSchema.virtual('start_time').get(function () {
-  return moment.utc(this.setupStart).format('LT');
+  return moment(this.setupStart).format('LT');
 });
 
 eventSchema.virtual('end_time').get(function () {
-  return moment.utc(this.breakdownEnd).format('LT');
+  return moment(this.breakdownEnd).format('LT');
 });
 
 eventSchema.virtual('date_from_now').get(function () {
-  return moment.utc(this.date).endOf('day').fromNow();
+  return moment(this.date).endOf('day').fromNow();
 });
 
 eventSchema.virtual('timespan').get(function () {
