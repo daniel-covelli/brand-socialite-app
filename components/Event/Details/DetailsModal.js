@@ -4,7 +4,9 @@ import {
   Modal,
   Button,
   Header,
-  Divider
+  Divider,
+  Grid,
+  Icon
 } from 'semantic-ui-react';
 
 function DetailsModal({ receipt }) {
@@ -24,11 +26,31 @@ function DetailsModal({ receipt }) {
       trigger={
         <Label onClick={() => setModal(true)} as={'a'} size={'big'} basic image>
           Total Cost
-          <Label.Detail>${round(`${receipt.sum}`)}</Label.Detail>
+          <Label.Detail>
+            {receipt.sum ? `$${round(`${receipt.sum}`)}` : '$0.00'}
+          </Label.Detail>
         </Label>
       }>
-      <Modal.Header>Event Expenses</Modal.Header>
+      <Modal.Header>
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={8} textAlign='left'>
+              Event Expenses
+            </Grid.Column>
+            <Grid.Column width={8} textAlign='right'>
+              <Button
+                onClick={() => setModal(false)}
+                circular
+                icon='close'></Button>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Modal.Header>
       <Modal.Content>
+        <Modal.Description>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.{' '}
+        </Modal.Description>
         <Table definition>
           <Table.Header>
             <Table.Row>
@@ -43,31 +65,38 @@ function DetailsModal({ receipt }) {
             <Table.Row>
               <Table.Cell>Wages</Table.Cell>
               <Table.Cell textAlign='center' positive>
-                {' '}
-                ${round(`${receipt.wages}`)}
+                {receipt.wages ? `$${round(`${receipt.wages}`)}` : 'N/A'}
               </Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>Overtime</Table.Cell>
 
               <Table.Cell textAlign='center' positive>
-                {' '}
-                ${round(`${receipt.overtime}`)}
+                {receipt.overtime ? `$${round(`${receipt.overtime}`)}` : 'N/A'}
               </Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>Tips</Table.Cell>
 
               <Table.Cell textAlign='center' positive>
-                {' '}
-                ${round(`${receipt.tips}`)}
+                {receipt.tips ? `$${round(`${receipt.tips}`)}` : 'No Roles'}
               </Table.Cell>
             </Table.Row>
             <Table.Row active>
-              <Table.Cell>Talent Expenses</Table.Cell>
+              <Table.Cell>
+                <Header as='h5'>
+                  Talent Expenses
+                  <br />
+                  <Header.Subheader>Wages + Overtime + Tips</Header.Subheader>
+                </Header>
+              </Table.Cell>
 
               <Table.Cell textAlign='center'>
-                <Header as='h5'>${round(`${receipt.talentSum}`)}</Header>
+                <Header as='h5'>
+                  {receipt.talentSum
+                    ? `$${round(`${receipt.talentSum}`)}`
+                    : 'N/A'}
+                </Header>
               </Table.Cell>
             </Table.Row>
             <Table.Row verticalAlign='top'>
@@ -80,7 +109,9 @@ function DetailsModal({ receipt }) {
               </Table.Cell>
 
               <Table.Cell textAlign='center' positive>
-                ${round(`${receipt.incidentals}`)}
+                {receipt.incidentals
+                  ? `$${round(`${receipt.incidentals}`)}`
+                  : 'N/A'}
               </Table.Cell>
             </Table.Row>
             <Table.Row verticalAlign='top'>
@@ -92,14 +123,16 @@ function DetailsModal({ receipt }) {
                 </Header>
               </Table.Cell>
               <Table.Cell textAlign='center' positive>
-                ${round(`${receipt.fee}`)}
+                {receipt.fee ? `$${round(`${receipt.fee}`)}` : 'N/A'}
               </Table.Cell>
             </Table.Row>
             <Table.Row active>
               <Table.Cell>Total</Table.Cell>
 
               <Table.Cell textAlign='center'>
-                <Header as='h5'>${round(`${receipt.sum}`)}</Header>
+                <Header as='h5'>
+                  {receipt.sum ? `$${round(`${receipt.sum}`)}` : 'N/A'}
+                </Header>
               </Table.Cell>
             </Table.Row>
           </Table.Body>
@@ -115,9 +148,8 @@ function DetailsModal({ receipt }) {
           culpa qui officia deserunt mollit anim id est laborum.
         </Modal.Description>
       </Modal.Content>
-
       <Modal.Actions>
-        <Button onClick={() => setModal(false)}>Close</Button>
+        <Button onClick={() => setModal(false)}>Got it!</Button>
       </Modal.Actions>
     </Modal>
   );

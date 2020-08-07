@@ -6,9 +6,23 @@ import {
   Button,
   Divider,
   Responsive,
-  Icon,
   Grid
 } from 'semantic-ui-react';
+import AddRole from './AddRole';
+
+const options = [
+  { key: '0', text: 'Bartender', value: 'Bartender' },
+  { key: '1', text: 'Mixologist', value: 'Mixologist' },
+  { key: '2', text: 'Photographer', value: 'Photographer' },
+  { key: '3', text: 'Brand Ambassador', value: 'Brand Ambassador' },
+  { key: '4', text: 'Event Producer', value: 'Event Producer' },
+  { key: '5', text: 'Butler', value: 'Butler' },
+  { key: '6', text: 'Promotional Model', value: 'Promotional Model' },
+  { key: '7', text: 'Security Guard', value: 'Security Guard' },
+  { key: '8', text: 'Sommelier', value: 'Sommelier' },
+  { key: '9', text: 'Sushi Chef', value: 'Sushi Chef' },
+  { key: '10', text: 'Videographer', value: 'Videographer' }
+];
 
 function EventBody({ event, roles }) {
   function RoleInstructions(instructions) {
@@ -21,7 +35,7 @@ function EventBody({ event, roles }) {
 
   function mapRolesToItems(roles) {
     return roles.map((role) => (
-      <Table.Row verticalAlign='top'>
+      <Table.Row verticalAlign='top' key={role._id}>
         <Table.Cell>
           <Responsive minWidth={768}>status</Responsive>
           <Responsive maxWidth={768}>st</Responsive>
@@ -56,7 +70,7 @@ function EventBody({ event, roles }) {
         </Table.Cell>
 
         <Table.Cell textAlign='right'>
-          <RolesEdit event={event} role={role} />
+          <RolesEdit event={event} role={role} options={options} />
         </Table.Cell>
       </Table.Row>
     ));
@@ -72,10 +86,7 @@ function EventBody({ event, roles }) {
           </Header>
         </Grid.Column>
         <Grid.Column floated='right' width={6}>
-          <Button floated='right' size='tiny' primary>
-            <Icon name='plus' />
-            Add
-          </Button>
+          <AddRole props={{ event, roles, options }} />
         </Grid.Column>
       </Grid>
 

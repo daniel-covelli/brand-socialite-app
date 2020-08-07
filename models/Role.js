@@ -9,7 +9,19 @@ const roleSchema = new mongoose.Schema(
     roletype: {
       type: String,
       required: true,
-      enum: ['Bartender', 'Mixologist', 'Photographer']
+      enum: [
+        'Bartender',
+        'Mixologist',
+        'Photographer',
+        'Brand Ambassador',
+        'Event Producer',
+        'Butler',
+        'Promotional Model',
+        'Security Guard',
+        'Sommelier',
+        'Sushi Chef',
+        'Videographer'
+      ]
     },
     // talent_id: {ObjectId, ref: 'Talent'},
     shiftStart: { type: Date, required: true },
@@ -31,11 +43,11 @@ const roleSchema = new mongoose.Schema(
 );
 
 roleSchema.virtual('shift_start_time').get(function () {
-  return moment.utc(this.shiftStart).format('LT');
+  return;
 });
 
 roleSchema.virtual('shift_end_time').get(function () {
-  return moment.utc(this.shiftEnd).format('LT');
+  return moment(this.shiftEnd).format('LT');
 });
 
 roleSchema.virtual('shift_timespan').get(function () {
@@ -44,8 +56,8 @@ roleSchema.virtual('shift_timespan').get(function () {
 
 // returns the amount of hours and minutes a shift is
 roleSchema.virtual('hours').get(function () {
-  const start = moment.utc(this.shiftStart);
-  const end = moment.utc(this.shiftEnd);
+  const start = moment(this.shiftStart);
+  const end = moment(this.shiftEnd);
   const difference = end.diff(start);
   const durration = moment.duration(difference);
   if (durration.minutes() < 10) {
@@ -57,8 +69,8 @@ roleSchema.virtual('hours').get(function () {
 
 // returns the amount of hours and minutes
 roleSchema.virtual('hours_int').get(function () {
-  const start = moment.utc(this.shiftStart);
-  const end = moment.utc(this.shiftEnd);
+  const start = moment(this.shiftStart);
+  const end = moment(this.shiftEnd);
   const difference = end.diff(start);
   const durration = moment.duration(difference);
   return durration.hours() + durration.minutes() / 60;

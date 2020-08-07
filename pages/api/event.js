@@ -89,11 +89,11 @@ async function handlePostRequest(req, res) {
         .status(422)
         .send('Incorect value type for Zip or Estimated Attendance');
     }
-    zip = parseInt(zip);
-    estAttendance = parseInt(estAttendance);
-    if (parkingzip) {
-      parkingzip = parseInt(parkingzip);
-    }
+    // zip = parseInt(zip);
+    // estAttendance = parseInt(estAttendance);
+    // if (parkingzip) {
+    //   parkingzip = parseInt(parkingzip);
+    // }
 
     const event = await new Event({
       eventName,
@@ -130,7 +130,7 @@ async function handlePostRequest(req, res) {
     res.status(201).json(event);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error creating product');
+    res.status(500).send('Error creating event');
   }
 }
 

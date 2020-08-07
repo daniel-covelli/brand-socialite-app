@@ -1,9 +1,10 @@
 const moment = require('moment');
+import React from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
+
 import baseUrl from '../../utils/baseUrl';
 import catchErrors from '../../utils/catchErrors';
-
-import React from 'react';
 import { Form, Segment, Button, Grid, Message } from 'semantic-ui-react';
 import BannerForm from './BannerForm';
 import TimesForm from './TimesForm';
@@ -83,18 +84,20 @@ function CreateHeader() {
   const [loading, setLoading] = React.useState(false);
   const [disabled, setDisabled] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const router = useRouter();
 
+  // enables submit button if all required fields are filled
   React.useEffect(() => {
     const isEvent = Object.entries(event).every((el) =>
       REQUIRED.includes(el[0]) ? Boolean(el[1]) : true
     );
+
     isEvent ? setDisabled(false) : setDisabled(true);
   }, [event]);
 
   // general onChange handler used by all components
   function handleChange(change) {
     const { name, value, files } = change.target;
-    console.log('target', change.target);
     if (name === 'eventMediaUrl') {
       setEvent((prevState) => ({ ...prevState, eventMediaUrl: files[0] }));
       setMediaPreview(window.URL.createObjectURL(files[0]));
@@ -209,8 +212,7 @@ function CreateHeader() {
       const url = `${baseUrl}/api/event`;
       const payload = { ...event };
       const response = await axios.post(url, payload);
-      console.log('onsubmit', response);
-
+      router.push(`/event?_id=${response.data._id}`);
       // setEvent(INITIAL_EVENT);
     } catch (error) {
       catchErrors(error, setError);
@@ -219,7 +221,7 @@ function CreateHeader() {
       setLoading(false);
     }
   }
-  console.log(event);
+
   return (
     <Form loading={loading} onSubmit={handleSubmit} error={Boolean(error)}>
       <Message error content={error} />

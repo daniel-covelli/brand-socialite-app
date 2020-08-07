@@ -1,4 +1,4 @@
-import CreateHeader from '../components/CreateEvent/CreateHeader';
+import CreateRoot from '../components/CreateEvent/CreateRoot';
 import { Grid, Header } from 'semantic-ui-react';
 
 function CreateEvent() {
@@ -11,7 +11,7 @@ function CreateEvent() {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <CreateHeader />
+          <CreateRoot />
         </Grid.Column>
       </Grid.Row>
     </Grid>
