@@ -12,6 +12,7 @@ import {
   TextArea
 } from 'semantic-ui-react';
 import { set } from 'mongoose';
+import ParkingForm from '../../CreateEvent/ParkingForm';
 
 const INITIAL_ROLE = {
   event_id: '',
@@ -69,8 +70,13 @@ function RolesEdit({ event, role, options }) {
 
   function isDisabled(name, value) {
     console.log('name', name);
-    const isRole = role[name] === value;
-    isRole ? setDisabled(true) : setDisabled(false);
+    if (name === 'shiftStart' || name === 'shiftEnd') {
+      const isRole = moment(role[name]).format('H:mm') === value;
+      isRole ? setDisabled(true) : setDisabled(false);
+    } else {
+      const isRole = role[name] === value;
+      isRole ? setDisabled(true) : setDisabled(false);
+    }
   }
 
   // updates roleState and activates save button if change is made
@@ -87,24 +93,26 @@ function RolesEdit({ event, role, options }) {
     if (name === 'shift_start_time' || name === 'shift_end_time') {
       setRoleTimeView((prevState) => ({
         ...prevState,
-        [name]: moment(value, 'HH:mm').format('h:mm a')
+        [name]: moment(value, 'HH:mm').format('h:mm A')
       }));
       setRoleTimeValue((prevState) => ({
         ...prevState,
         [name]: value
       }));
       // sets roleState.shiftStart|shiftEnd to ISO_8601 version of result.value
-      const datetime = moment(value, 'HH:mm').toISOString();
+      const datetime = moment.utc(value, 'HH:mm').toISOString();
       if (name === 'shift_start_time') {
         setRoleState((prevState) => ({
           ...prevState,
           shiftStart: datetime
         }));
+        isDisabled('shiftStart', value);
       } else {
         setRoleState((prevState) => ({
           ...prevState,
           shiftEnd: datetime
         }));
+        isDisabled('shiftEnd', value);
       }
       // sets roletype field in roleState to new value
     } else {
@@ -112,8 +120,8 @@ function RolesEdit({ event, role, options }) {
         ...prevState,
         roletype: value
       }));
+      isDisabled(name, value);
     }
-    isDisabled(name, value);
   };
   // console.log('virtual view start', roleTimeView.shift_start_time);
   // console.log('virtual value start', roleTimeValue.shift_start_time);
@@ -139,10 +147,7 @@ function RolesEdit({ event, role, options }) {
               Edit Role
             </Grid.Column>
             <Grid.Column width={8} textAlign='right'>
-              <Button
-                onClick={() => setModal(false)}
-                circular
-                icon='close'></Button>
+              <Button onClick={() => setModal(false)} circular icon='close' />
             </Grid.Column>
           </Grid.Row>
         </Grid>

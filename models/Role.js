@@ -43,7 +43,7 @@ const roleSchema = new mongoose.Schema(
 );
 
 roleSchema.virtual('shift_start_time').get(function () {
-  return;
+  return moment(this.shiftStart).format('LT');
 });
 
 roleSchema.virtual('shift_end_time').get(function () {
