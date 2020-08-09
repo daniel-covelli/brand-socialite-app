@@ -10,6 +10,7 @@ import Link from 'next/Link';
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
 
+// nprogress set up
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();

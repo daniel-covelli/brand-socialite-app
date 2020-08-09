@@ -1,9 +1,9 @@
 import Head from 'next/head';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 
 import Header from './Header';
 import HeadContent from './HeadContent';
-//import SideBar from './SideBar';
+import SideBar from './SideBar';
 
 function Layout({ children }) {
   // TODO: Implement Sidebar
@@ -25,7 +25,16 @@ function Layout({ children }) {
       </Head>
       <Header />
       {/* <SideBar /> */}
-      <Container style={{ paddingTop: '1em' }}>{children}</Container>
+      <Grid divided fluid padded stretched>
+        <Grid.Row>
+          <Grid.Column width={3}>
+            <SideBar />
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <Container style={{ paddingTop: '1em' }}>{children}</Container>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </>
   );
 }
