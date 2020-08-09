@@ -130,7 +130,7 @@ async function handlePostRequest(req, res) {
     res.status(201).json(event);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error creating event');
+    res.status(500).send('Error Creating Event');
   }
 }
 

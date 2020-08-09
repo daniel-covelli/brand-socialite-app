@@ -1,10 +1,16 @@
 import Role from '../../models/Role';
+import connectDb from '../../utils/connectDb';
+
+connectDb();
 
 // route GET DELETE to proper handler
 export default async (req, res) => {
   switch (req.method) {
     case 'GET':
       await handleGetRequest(req, res);
+      break;
+    case 'PUT':
+      await handlePutRequest(req, res);
       break;
     case 'DELETE':
       await handleDeleteRequest(req, res);
@@ -14,6 +20,50 @@ export default async (req, res) => {
       break;
   }
 };
+
+async function handlePutRequest(req, res) {
+  var {
+    event_id,
+    roletype,
+    shiftStart,
+    shiftEnd,
+    instructions,
+    uniformInstructions,
+    wage,
+    overtime,
+    tip
+  } = req.body;
+  try {
+    if (
+      !event_id ||
+      !roletype ||
+      !shiftStart ||
+      !shiftEnd ||
+      !instructions ||
+      !uniformInstructions ||
+      !wage ||
+      !overtime ||
+      !tip
+    ) {
+      return res.status(422).send('Missing one or more friend');
+    }
+    const role = await Role({
+      event_id,
+      roletype,
+      shiftStart,
+      shiftEnd,
+      instructions,
+      uniformInstructions,
+      wage,
+      overtime,
+      tip
+    }).save();
+    return res.status(201).json(role);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send('Error Creating Event');
+  }
+}
 
 // find event by _id in database and return event to 'event.js' pag
 async function handleGetRequest(req, res) {

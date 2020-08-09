@@ -1,5 +1,8 @@
 import React from 'react';
 import ConfirmDeleteRole from './ConfirmDeleteRole';
+import axios from 'axios';
+import baseUrl from '../../../utils/baseUrl';
+import catchErrors from '../../../utils/catchErrors';
 const data = require('../../../utils/times');
 const moment = require('moment');
 import {
@@ -11,7 +14,7 @@ import {
   Grid,
   TextArea
 } from 'semantic-ui-react';
-import { set } from 'mongoose';
+
 import ParkingForm from '../../CreateEvent/ParkingForm';
 
 const INITIAL_ROLE = {
@@ -33,8 +36,10 @@ const INITIAL_VIRTUAL_ROLE = {
 
 function RolesEdit({ event, role, options }) {
   const [modal, setModal] = React.useState(false);
+  const [modalDiscard, setModalDiscard] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [roleState, setRoleState] = React.useState(INITIAL_ROLE);
-  const [disabled, setDisabled] = React.useState(false);
+  const [disabled, setDisabled] = React.useState(true);
   const [roleTimeValue, setRoleTimeValue] = React.useState(
     INITIAL_VIRTUAL_ROLE
   );
@@ -68,8 +73,8 @@ function RolesEdit({ event, role, options }) {
     }
   }
 
+  // sets button to disabled if no new information has been added
   function isDisabled(name, value) {
-    console.log('name', name);
     if (name === 'shiftStart' || name === 'shiftEnd') {
       const isRole = moment(role[name]).format('H:mm') === value;
       isRole ? setDisabled(true) : setDisabled(false);
@@ -123,12 +128,38 @@ function RolesEdit({ event, role, options }) {
       isDisabled(name, value);
     }
   };
+
+  // when edits are discarded
+  function onDiscard() {
+    setModal(false);
+    setModalDiscard(false);
+  }
+
+  async function handleSubmit(change) {
+    try {
+      change.preventDefault();
+      setLoading(true);
+      const url = `${baseUrl}/api/role`;
+      const payload = { ...roleState };
+      const response = await axios.put(url, payload);
+
+      setModal(false);
+
+      // setEvent(INITIAL_EVENT);
+    } catch (error) {
+      catchErrors(error, setError);
+      console.error('Submit event error', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   // console.log('virtual view start', roleTimeView.shift_start_time);
   // console.log('virtual value start', roleTimeValue.shift_start_time);
   // console.log('roleState', roleState);
   // console.log('roletype', roleState.roletype);
-  console.log('role start', roleState.shiftStart);
-  console.log('role ground start', role.shiftStart);
+  // console.log('role start', roleState.shiftStart);
+  // console.log('role ground start', role.shiftStart);
 
   return (
     <Modal
@@ -147,14 +178,42 @@ function RolesEdit({ event, role, options }) {
               Edit Role
             </Grid.Column>
             <Grid.Column width={8} textAlign='right'>
-              <Button onClick={() => setModal(false)} circular icon='close' />
+              <Modal
+                size='mini'
+                open={modalDiscard}
+                trigger={
+                  <Button
+                    circular
+                    icon='close'
+                    onClick={() =>
+                      disabled ? setModal(false) : setModalDiscard(true)
+                    }
+                  />
+                }>
+                <Modal.Header>Discard Changes</Modal.Header>
+                <Modal.Content>
+                  <Modal.Description>
+                    <p>
+                      Are you sure you want to discard the changes you have
+                      made?
+                    </p>
+                  </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                  <Button
+                    color='red'
+                    content='Discard'
+                    onClick={() => onDiscard()}></Button>
+                  <Button onClick={() => setModalDiscard(false)}>Back</Button>
+                </Modal.Actions>
+              </Modal>
             </Grid.Column>
           </Grid.Row>
         </Grid>
       </Modal.Header>
       <Modal.Content image>
         <Modal.Description>
-          <Form>
+          <Form onSubmit={handleSubmit} loading={loading}>
             <Form.Group widths='equal'>
               <Form.Select
                 name='roletype'
