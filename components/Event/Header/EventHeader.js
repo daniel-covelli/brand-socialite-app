@@ -1,6 +1,6 @@
-import ContentDetails from './Details/ContentDetails';
+import ContentDetails from './ContentDetails';
 import ContentExtra from './ContentExtra';
-import ContentDesc from './Description/ContentDesc';
+import ContentDesc from './ContentDesc';
 import ContentHeader from './ContentHeader';
 
 import { Segment, Item, Divider, Responsive, Image } from 'semantic-ui-react';

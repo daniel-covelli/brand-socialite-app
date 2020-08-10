@@ -1,4 +1,4 @@
-import DateTimeModal from './DateTimeModal';
+import DateTimeModal from './Description/DateTimeModal';
 import { Header, Grid, Container, Divider } from 'semantic-ui-react';
 
 const ContentDesc = ({ event }) => {

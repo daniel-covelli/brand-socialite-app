@@ -1,5 +1,5 @@
-import HeaderTab from './HeaderTab';
-import HeaderModals from './HeaderModals';
+import HeaderTab from './Details/HeaderTab';
+import HeaderModals from './Details/HeaderModals';
 import { Item, Responsive } from 'semantic-ui-react';
 
 const ContentDetails = ({ event }) => {

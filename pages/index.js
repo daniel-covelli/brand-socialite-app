@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import baseUrl from '../utils/baseUrl';
 import EventTileHeader from '../components/BrandDashboard/EventTileHeader';
-import AddEvent from '../components/_App/AddEvent';
+import AddEvent from '../components/_App/pieces/AddEvent';
 
 import EventsTile from '../components/BrandDashboard/EventsTile';
 import { Grid, Image, Divider, Segment, Header } from 'semantic-ui-react';
