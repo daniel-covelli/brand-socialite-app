@@ -74,7 +74,8 @@ const REQUIRED = [
   'breakdownEnd'
 ];
 
-function CreateHeader() {
+// child of pages/create-event
+function CreateRoot() {
   const [event, setEvent] = React.useState(INITIAL_EVENT);
   const [times, setTimes] = React.useState(INITIAL_EVENT);
   const [currentDate, setNewDate] = React.useState(null);
@@ -261,4 +262,4 @@ function CreateHeader() {
   );
 }
 
-export default CreateHeader;
+export default CreateRoot;

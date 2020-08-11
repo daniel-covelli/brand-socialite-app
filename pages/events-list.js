@@ -6,21 +6,15 @@ import axios from 'axios';
 
 import { Segment, Divider, Grid, Responsive } from 'semantic-ui-react';
 
+// displays list of all active events
 function Events({ events }) {
   return (
     <>
-      <Responsive minWidth={768}>
-        <Divider hidden style={{ padding: ' 1em 0 ' }} />
-      </Responsive>
       <Grid>
         <EventsPageHeader />
         <Grid.Row>
           <Grid.Column>
-            {/* Upcoming Group */}
             <EventsList events={events} />
-
-            {/* Other event tile */}
-            {/* Other event tile */}
           </Grid.Column>
         </Grid.Row>
       </Grid>

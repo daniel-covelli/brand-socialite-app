@@ -10,7 +10,6 @@ import { Divider } from 'semantic-ui-react';
 function Event({ event, roles }) {
   return (
     <>
-      <Divider hidden style={{ padding: ' 1em 0 ' }} />
       <EventDetails roles={roles} />
       <EventHeader event={event} />
       <Divider hidden style={{ padding: ' 1em 0 ' }} />

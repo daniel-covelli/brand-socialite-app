@@ -1,5 +1,6 @@
 import { Responsive, Form, Button, Icon, Image } from 'semantic-ui-react';
 
+// child of CreateRoot
 function BannerForm({ props }) {
   return (
     <Form.Field>

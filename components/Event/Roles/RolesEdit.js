@@ -12,12 +12,12 @@ import {
   Form,
   Divider,
   Grid,
-  TextArea
+  TextArea,
+  Message
 } from 'semantic-ui-react';
 
-import ParkingForm from '../../CreateEvent/ParkingForm';
-
 const INITIAL_ROLE = {
+  _id: '',
   event_id: '',
   roletype: '',
   shiftStart: '',
@@ -38,8 +38,9 @@ function RolesEdit({ event, role, options }) {
   const [modal, setModal] = React.useState(false);
   const [modalDiscard, setModalDiscard] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const [roleState, setRoleState] = React.useState(INITIAL_ROLE);
   const [disabled, setDisabled] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const [roleState, setRoleState] = React.useState(INITIAL_ROLE);
   const [roleTimeValue, setRoleTimeValue] = React.useState(
     INITIAL_VIRTUAL_ROLE
   );
@@ -53,12 +54,13 @@ function RolesEdit({ event, role, options }) {
   // if their is a role is present sets state to role state
   // else sets event_id
   function getRole() {
+    console.log('get role ran');
     if (role) {
-      for (const [key, value] of Object.entries(INITIAL_ROLE)) {
+      for (const [key, values] of Object.entries(INITIAL_ROLE)) {
         setRoleState((prevState) => ({ ...prevState, [key]: role[key] }));
       }
 
-      for (const [key, value] of Object.entries(INITIAL_VIRTUAL_ROLE)) {
+      for (const [key, values] of Object.entries(INITIAL_VIRTUAL_ROLE)) {
         // sets roleVirtualState to military equ. of shift_(start|end)_time in role
         setRoleTimeValue((prevState) => ({
           ...prevState,
@@ -70,6 +72,7 @@ function RolesEdit({ event, role, options }) {
           [key]: role[key]
         }));
       }
+      setDisabled(true);
     }
   }
 
@@ -94,7 +97,7 @@ function RolesEdit({ event, role, options }) {
   // handles option fields
   const handleOption = (event, result) => {
     const { name, value } = result;
-    // if option input is a time, updates time display and military value
+    // if option input is a time, updates time display and time value
     if (name === 'shift_start_time' || name === 'shift_end_time') {
       setRoleTimeView((prevState) => ({
         ...prevState,
@@ -104,8 +107,8 @@ function RolesEdit({ event, role, options }) {
         ...prevState,
         [name]: value
       }));
-      // sets roleState.shiftStart|shiftEnd to ISO_8601 version of result.value
-      const datetime = moment.utc(value, 'HH:mm').toISOString();
+      // sets shiftStart and shiftEnd to ISO_8601 standard
+      const datetime = moment(value, 'HH:mm').toISOString();
       if (name === 'shift_start_time') {
         setRoleState((prevState) => ({
           ...prevState,
@@ -133,18 +136,26 @@ function RolesEdit({ event, role, options }) {
   function onDiscard() {
     setModal(false);
     setModalDiscard(false);
+    getRole();
   }
 
+  //
   async function handleSubmit(change) {
     try {
+      console.log('start', moment(role.shiftStart).format('HH:mm'));
+      console.log('end', moment(role.shiftEnd).format('HH:mm'));
+      console.log(
+        'shiftstart < shiftend?',
+        moment(role.shiftEnd).isBefore(moment(role.shiftStart, 'HH:mm'))
+      );
       change.preventDefault();
       setLoading(true);
-      const url = `${baseUrl}/api/role`;
+      const url = `${baseUrl}/api/roles`;
       const payload = { ...roleState };
       const response = await axios.put(url, payload);
-
+      setError(null);
       setModal(false);
-
+      window.location.reload();
       // setEvent(INITIAL_EVENT);
     } catch (error) {
       catchErrors(error, setError);
@@ -168,9 +179,7 @@ function RolesEdit({ event, role, options }) {
         <Button onClick={() => setModal(true)} size='small' circular icon>
           <Icon name='pencil' />
         </Button>
-      }
-      header='Role Information'
-      actions={['Close', { key: 'done', content: 'Save', primary: true }]}>
+      }>
       <Modal.Header>
         <Grid>
           <Grid.Row>
@@ -213,7 +222,8 @@ function RolesEdit({ event, role, options }) {
       </Modal.Header>
       <Modal.Content image>
         <Modal.Description>
-          <Form onSubmit={handleSubmit} loading={loading}>
+          <Message error content={error} hidden={!Boolean(error)} />
+          <Form loading={loading}>
             <Form.Group widths='equal'>
               <Form.Select
                 name='roletype'
@@ -235,7 +245,7 @@ function RolesEdit({ event, role, options }) {
               <Form.Select
                 label='Shift Start'
                 name='shift_start_time'
-                placeholder='Ex. 12:00'
+                placeholder='12:00 PM'
                 options={data.times}
                 onChange={handleOption}
                 value={roleTimeValue.shift_start_time}
@@ -244,7 +254,7 @@ function RolesEdit({ event, role, options }) {
               <Form.Select
                 label='Shift End'
                 name='shift_end_time'
-                placeholder='Ex. 18:00'
+                placeholder='18:00 PM'
                 options={data.times}
                 onChange={handleOption}
                 value={roleTimeValue.shift_end_time}
@@ -273,7 +283,12 @@ function RolesEdit({ event, role, options }) {
             <Form.Group widths='equal'>
               <ConfirmDeleteRole props={{ event, role }} />
 
-              <Form.Button disabled={disabled} floated='right' fluid primary>
+              <Form.Button
+                disabled={disabled}
+                onClick={handleSubmit}
+                floated='right'
+                fluid
+                primary>
                 Save
               </Form.Button>
             </Form.Group>

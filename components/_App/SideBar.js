@@ -14,7 +14,7 @@ function SideBar() {
   }
 
   return (
-    <Menu vertical={true} secondary='true' fluid style={{ height: '100vh' }}>
+    <Menu vertical={true} secondary fluid style={{ height: '100vh' }}>
       <Divider hidden />
       <Link href='/'>
         <Menu.Item active={isActive('/')}>

@@ -9,9 +9,8 @@ import {
 } from 'semantic-ui-react';
 import Link from 'next/Link';
 
-function EventsTile({ events }) {
-  // TODO: Standardize card heights
-
+// child of pages/event-list
+function EventsList({ events }) {
   function EventName(name) {
     const length = name.length;
     if (length > 50) {
@@ -65,7 +64,7 @@ function EventsTile({ events }) {
   return <div>{mapEventsToItems(events)}</div>;
 }
 
-export default EventsTile;
+export default EventsList;
 
 // start: event.start,
 // end: event.end,

@@ -1,6 +1,7 @@
 import DateTimeModal from './Description/DateTimeModal';
 import { Header, Grid, Container, Divider } from 'semantic-ui-react';
 
+// child of EventHeader
 const ContentDesc = ({ event }) => {
   return (
     <Grid stackable columns={2}>

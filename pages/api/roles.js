@@ -1,9 +1,10 @@
 import Role from '../../models/Role';
 import connectDb from '../../utils/connectDb';
+var moment = require('moment');
 
 connectDb();
 
-// route GET DELETE to proper handler
+// route GET, PUT, and DELETE to proper handler
 export default async (req, res) => {
   switch (req.method) {
     case 'GET':
@@ -23,6 +24,7 @@ export default async (req, res) => {
 
 async function handlePutRequest(req, res) {
   var {
+    _id,
     event_id,
     roletype,
     shiftStart,
@@ -34,30 +36,40 @@ async function handlePutRequest(req, res) {
     tip
   } = req.body;
   try {
+    console.log(
+      'shiftend is before shift start',
+      moment(shiftEnd).isBefore(shiftStart, 'HH:mm')
+    );
     if (
+      !_id ||
       !event_id ||
       !roletype ||
       !shiftStart ||
       !shiftEnd ||
       !instructions ||
       !uniformInstructions ||
-      !wage ||
-      !overtime ||
-      !tip
+      !wage
     ) {
-      return res.status(422).send('Missing one or more friend');
+      return res.status(422).send('Missing one or more fields');
+    } else if (moment(shiftEnd).isBefore(shiftStart, 'HH:mm')) {
+      return res
+        .status(422)
+        .send(`Shift ending time can't come before shift start time.`);
     }
-    const role = await Role({
-      event_id,
-      roletype,
-      shiftStart,
-      shiftEnd,
-      instructions,
-      uniformInstructions,
-      wage,
-      overtime,
-      tip
-    }).save();
+    const role = await Role.findByIdAndUpdate(
+      { _id },
+      {
+        event_id,
+        roletype,
+        shiftStart,
+        shiftEnd,
+        instructions,
+        uniformInstructions,
+        wage,
+        overtime,
+        tip
+      }
+    );
     return res.status(201).json(role);
   } catch (error) {
     console.error(error);

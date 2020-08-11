@@ -91,7 +91,7 @@ function EventBody({ event, roles }) {
       </Grid>
 
       <Divider hidden />
-      <Table ingleLine>
+      <Table>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell textAlign='right'></Table.HeaderCell>

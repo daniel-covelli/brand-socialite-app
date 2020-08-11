@@ -8,9 +8,7 @@ function AddRole({ props }) {
           <Icon name='plus' />
           Add
         </Button>
-      }
-      header='Role Information'
-      actions={['Close', { key: 'done', content: 'Save', primary: true }]}>
+      }>
       <Modal.Header>Add Role</Modal.Header>
       <Modal.Content image>
         <Modal.Description>

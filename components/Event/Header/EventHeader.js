@@ -5,6 +5,7 @@ import ContentHeader from './ContentHeader';
 
 import { Segment, Item, Divider, Responsive, Image } from 'semantic-ui-react';
 
+// child of pages/event.js
 function EventHeader({ event }) {
   return (
     <Segment raised>

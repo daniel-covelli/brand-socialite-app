@@ -2,6 +2,7 @@ import HeaderTab from './Details/HeaderTab';
 import HeaderModals from './Details/HeaderModals';
 import { Item, Responsive } from 'semantic-ui-react';
 
+// called from EventHeader
 const ContentDetails = ({ event }) => {
   // Grab width manually using innerWidth
   const isBrowser = () => typeof window !== 'undefined';
