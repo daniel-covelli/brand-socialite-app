@@ -1,6 +1,6 @@
 import Role from '../../models/Role';
 import connectDb from '../../utils/connectDb';
-var moment = require('moment');
+import { rolesValidator } from '../apiUtils/rolesValidator';
 
 connectDb();
 
@@ -26,7 +26,44 @@ export default async (req, res) => {
 };
 
 async function handlePostRequest(req, res) {
-  console.log('in role post');
+  var {
+    event_id,
+    roletype,
+    shiftStart,
+    shiftEnd,
+    instructions,
+    uniformInstructions,
+    wage,
+    overtime,
+    tip
+  } = req.body;
+  try {
+    rolesValidator(
+      res,
+      event_id,
+      roletype,
+      shiftEnd,
+      shiftStart,
+      instructions,
+      uniformInstructions,
+      wage
+    );
+    const role = await new Role({
+      event_id,
+      roletype,
+      shiftStart,
+      shiftEnd,
+      instructions,
+      uniformInstructions,
+      wage,
+      overtime,
+      tip
+    }).save();
+    res.status(201).json(role);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error Creating Event');
+  }
 }
 
 async function handlePutRequest(req, res) {
@@ -43,26 +80,16 @@ async function handlePutRequest(req, res) {
     tip
   } = req.body;
   try {
-    if (
-      !_id ||
-      !event_id ||
-      !roletype ||
-      !shiftStart ||
-      !shiftEnd ||
-      !instructions ||
-      !uniformInstructions ||
-      !wage
-    ) {
-      return res.status(422).send('Missing one or more fields');
-    } else if (moment(shiftEnd).isBefore(shiftStart, 'HH:mm')) {
-      return res
-        .status(422)
-        .send(`Shift ending time can't come before shift start time.`);
-    } else if (wage < 15) {
-      return res
-        .status(422)
-        .send(`Make sure that Hourly Wage is above 15 an hour!`);
-    }
+    rolesValidator(
+      res,
+      event_id,
+      roletype,
+      shiftEnd,
+      shiftStart,
+      instructions,
+      uniformInstructions,
+      wage
+    );
     const role = await Role.findByIdAndUpdate(
       { _id },
       {

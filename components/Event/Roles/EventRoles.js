@@ -9,8 +9,6 @@ import {
   Grid
 } from 'semantic-ui-react';
 import AddRole from './AddRole';
-import axios from 'axios';
-import baseUrl from '../../../utils/baseUrl';
 
 function EventBody({ event, roles }) {
   // if role instructions are greater then 50, cut at 50 and add '...'
