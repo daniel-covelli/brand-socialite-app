@@ -5,7 +5,8 @@ import {
   Segment,
   Label,
   Grid,
-  Responsive
+  Responsive,
+  Header
 } from 'semantic-ui-react';
 import Link from 'next/Link';
 
@@ -26,12 +27,27 @@ function EventsList({ events }) {
           <Item>
             <Item.Image size='small' src={event.eventMediaUrl} />
             <Item.Content>
-              <Link href={`/event?_id=${event._id}`}>
-                <Item.Header as='a'>{EventName(event.eventName)}</Item.Header>
-              </Link>
-              <Item.Meta>
-                <Label>{event.date_formatted}</Label>
-              </Item.Meta>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={13}>
+                    <Link href={`/event?_id=${event._id}`}>
+                      <Header as='a'>{EventName(event.eventName)}</Header>
+                    </Link>
+                    <Item.Meta>
+                      <Label>{event.date_formatted}</Label>
+                    </Item.Meta>
+                  </Grid.Column>
+                  <Grid.Column width={3} textAlign='right'>
+                    <Responsive minWidth={1000}>
+                      <Label basic>
+                        <Icon name='calendar' />
+                        {event.date_from_now}
+                      </Label>
+                    </Responsive>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
               <Divider hidden />
               <Divider hidden />
               <Divider hidden />
