@@ -3,7 +3,8 @@ import ConfirmDeleteRole from './ConfirmDeleteRole';
 import axios from 'axios';
 import baseUrl from '../../../utils/baseUrl';
 import catchErrors from '../../../utils/catchErrors';
-const data = require('../../../utils/times');
+var _ = require('lodash');
+const options = require('../../../utils/options');
 const moment = require('moment');
 import {
   Button,
@@ -13,8 +14,11 @@ import {
   Divider,
   Grid,
   TextArea,
-  Message
+  Message,
+  Label,
+  Input
 } from 'semantic-ui-react';
+import Instructions from './pieces/Instructions';
 
 const INITIAL_ROLE = {
   _id: '',
@@ -34,7 +38,8 @@ const INITIAL_VIRTUAL_ROLE = {
   shift_end_time: ''
 };
 
-function RolesEdit({ event, role, options }) {
+// child of EventRoles
+function RolesEdit({ event, role }) {
   const [modal, setModal] = React.useState(false);
   const [modalDiscard, setModalDiscard] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -88,14 +93,15 @@ function RolesEdit({ event, role, options }) {
   }
 
   // updates roleState and activates save button if change is made
+
   function handleChange(change) {
     const { name, value } = change.target;
     setRoleState((prevState) => ({ ...prevState, [name]: value }));
-    isDisabled(name, value);
+    console.log('current state', roleState);
   }
 
   // handles option fields
-  const handleOption = (event, result) => {
+  const handleOption = (e, result) => {
     const { name, value } = result;
     // if option input is a time, updates time display and time value
     if (name === 'shift_start_time' || name === 'shift_end_time') {
@@ -134,6 +140,7 @@ function RolesEdit({ event, role, options }) {
 
   // when edits are discarded
   function onDiscard() {
+    console.log('onDiscard ran');
     setModal(false);
     setModalDiscard(false);
     getRole();
@@ -141,18 +148,14 @@ function RolesEdit({ event, role, options }) {
 
   //
   async function handleSubmit(change) {
+    console.log('handleSubmit ran');
     try {
-      console.log('start', moment(role.shiftStart).format('HH:mm'));
-      console.log('end', moment(role.shiftEnd).format('HH:mm'));
-      console.log(
-        'shiftstart < shiftend?',
-        moment(role.shiftEnd).isBefore(moment(role.shiftStart, 'HH:mm'))
-      );
       change.preventDefault();
       setLoading(true);
       const url = `${baseUrl}/api/roles`;
       const payload = { ...roleState };
       const response = await axios.put(url, payload);
+      console.log('response', response.data);
       setError(null);
       setModal(false);
       window.location.reload();
@@ -164,7 +167,7 @@ function RolesEdit({ event, role, options }) {
       setLoading(false);
     }
   }
-
+  // console.log('wage type', roleState.wage);
   // console.log('virtual view start', roleTimeView.shift_start_time);
   // console.log('virtual value start', roleTimeValue.shift_start_time);
   // console.log('roleState', roleState);
@@ -230,7 +233,7 @@ function RolesEdit({ event, role, options }) {
                 label='Role Type'
                 placeholder='Choose a Role'
                 value={roleState.roletype}
-                options={options}
+                options={options.roles}
                 onChange={handleOption}
               />
             </Form.Group>
@@ -246,7 +249,7 @@ function RolesEdit({ event, role, options }) {
                 label='Shift Start'
                 name='shift_start_time'
                 placeholder='12:00 PM'
-                options={data.times}
+                options={options.times}
                 onChange={handleOption}
                 value={roleTimeValue.shift_start_time}
                 text={roleTimeView.shift_start_time}
@@ -255,29 +258,52 @@ function RolesEdit({ event, role, options }) {
                 label='Shift End'
                 name='shift_end_time'
                 placeholder='18:00 PM'
-                options={data.times}
+                options={options.times}
                 onChange={handleOption}
                 value={roleTimeValue.shift_end_time}
                 text={roleTimeView.shift_end_time}
               />
             </Form.Group>
-            <Form.Input label='Instructions'>
-              <TextArea
-                name='instructions'
-                placeholder='List the oblications of this position...'
-                onChange={handleChange}
-                value={roleState.instructions}
-              />
-            </Form.Input>
-
+            <Instructions handleChange={handleChange} />
             <Form.Input label='Uniform Details'>
               <TextArea
                 name='uniformInstructions'
                 placeholder='Detail uniform specifications for this position...'
-                onChange={handleChange}
+                // onChange={waitToChange}
                 value={roleState.uniformInstructions}
               />
             </Form.Input>
+            <Form.Group widths='equal'>
+              <Form.Input label='Hourly Wage'>
+                <Input
+                  type='text'
+                  name='wage'
+                  labelPosition='right'
+                  placeholder='15'
+                  /// onChange={waitToChange}
+                  value={roleState.wage}>
+                  <Label basic>$</Label>
+                  <input />
+                  <Label>/hr</Label>
+                </Input>
+              </Form.Input>
+              <Form.Input
+                iconPosition='left'
+                icon='dollar sign'
+                label='Tip'
+                name='tip'
+                placeholder='50'
+                // onChange={waitToChange}
+                value={roleState.tip}
+              />
+              <Form.Input
+                icon='time'
+                label='Overtime'
+                name='overtime'
+                disabled={true}
+                value={roleState.overtime}
+              />
+            </Form.Group>
 
             <Divider hidden />
             <Form.Group widths='equal'>

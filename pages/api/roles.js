@@ -13,6 +13,9 @@ export default async (req, res) => {
     case 'PUT':
       await handlePutRequest(req, res);
       break;
+    case 'POST':
+      await handlePostRequest(req, res);
+      break;
     case 'DELETE':
       await handleDeleteRequest(req, res);
       break;
@@ -21,6 +24,10 @@ export default async (req, res) => {
       break;
   }
 };
+
+async function handlePostRequest(req, res) {
+  console.log('in role post');
+}
 
 async function handlePutRequest(req, res) {
   var {
@@ -36,10 +43,6 @@ async function handlePutRequest(req, res) {
     tip
   } = req.body;
   try {
-    console.log(
-      'shiftend is before shift start',
-      moment(shiftEnd).isBefore(shiftStart, 'HH:mm')
-    );
     if (
       !_id ||
       !event_id ||
@@ -55,6 +58,10 @@ async function handlePutRequest(req, res) {
       return res
         .status(422)
         .send(`Shift ending time can't come before shift start time.`);
+    } else if (wage < 15) {
+      return res
+        .status(422)
+        .send(`Make sure that Hourly Wage is above 15 an hour!`);
     }
     const role = await Role.findByIdAndUpdate(
       { _id },
