@@ -209,6 +209,7 @@ function CreateRoot() {
     try {
       change.preventDefault();
       setLoading(true);
+      setError('');
       await handleImageUpload();
       const url = `${baseUrl}/api/event`;
       const payload = { ...event };

@@ -112,3 +112,9 @@ exports.roles = [
   { key: '9', text: 'Sushi Chef', value: 'Sushi Chef' },
   { key: '10', text: 'Videographer', value: 'Videographer' }
 ];
+
+exports.regions = [
+  { key: '0', text: 'Southern California', value: 'Southern California' },
+  { key: '1', text: 'Miami', value: 'Miami' },
+  { key: '2', text: 'New York', value: 'New York' }
+];

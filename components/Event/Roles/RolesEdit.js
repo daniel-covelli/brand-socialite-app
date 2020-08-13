@@ -9,6 +9,7 @@ import WageTipOt from './pieces/WageTipOt';
 import axios from 'axios';
 import baseUrl from '../../../utils/baseUrl';
 import catchErrors from '../../../utils/catchErrors';
+
 import { Button, Icon, Modal, Form, Divider, Message } from 'semantic-ui-react';
 
 // child of EventRoles
