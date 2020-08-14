@@ -2,12 +2,30 @@ import connectDb from '../../utils/connectDb';
 import BrandLogin from '../../models/BrandLogin';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import isEmail from 'validator/lib/isEmail';
+import isLength from 'validator/lib/isLength';
 
 connectDb();
 
 export default async (req, res) => {
   const { region, companyName, email, password } = req.body;
   try {
+    // validate name, email, and password vals
+    if (!isLength(companyName, { max: 50 })) {
+      return res
+        .status(422)
+        .send(
+          'Company name must be less than 50 characters long, please try again.'
+        );
+    } else if (!isLength(password, { min: 5 })) {
+      return res
+        .status(422)
+        .send('Password must be at least 5 characters long, please try again.');
+    } else if (!isEmail(email)) {
+      return res
+        .status(422)
+        .send('Email supplied not valid, please try again.');
+    }
     // check if email already exists
     const brand = await BrandLogin.findOne({ email });
     if (brand) {
@@ -16,14 +34,17 @@ export default async (req, res) => {
         .send(`User already exists with email ${email}. Try logging in.`);
     }
     // hash pasword
+
     const hash = await bcrypt.hash(password, 10);
+
     // create new user
-    await new newBrandLogin({
+    const newBrandLogin = await new BrandLogin({
       region,
       companyName,
       email,
       password: hash
     }).save();
+
     // create token for the new user
     const token = jwt.sign(
       { userId: newBrandLogin._id },
@@ -34,5 +55,8 @@ export default async (req, res) => {
     );
     // send token to client
     res.status(201).json(token);
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('An error occured, please try again later.');
+  }
 };

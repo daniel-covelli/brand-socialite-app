@@ -36,7 +36,7 @@ function TalentSignup() {
       setLoading(true);
       setError('');
       const url = `${baseUrl}/api/talent-signup`;
-      const payload = { ...brand };
+      const payload = { ...talent };
       const response = await axios.post(url, payload);
       handleTalentLogin(response.data);
     } catch (error) {
