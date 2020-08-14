@@ -1,6 +1,5 @@
 import { Segment, Header, Divider, Form, Message } from 'semantic-ui-react';
 import Link from 'next/Link';
-const options = require('../../utils/options');
 
 function LoginForm({
   handleSubmit,
@@ -11,14 +10,14 @@ function LoginForm({
   password
 }) {
   return (
-    <Segment padded floated style={{ background: '#F5F6F6' }}>
-      <Header as={'h2'}>
-        Welcome back to <br />
-        Brand Socialite!
-      </Header>
-      <Divider hidden style={{ paddingBottom: '2em' }} />
-      <Form error={Boolean(error)} loading={loading} onSubmit={handleSubmit}>
-        <Message error content={error} />
+    <Form error={Boolean(error)} loading={loading} onSubmit={handleSubmit}>
+      <Message error content={error} />
+      <Segment padded style={{ background: '#F5F6F6' }}>
+        <Header as={'h2'}>
+          Welcome back to <br />
+          Brand Socialite!
+        </Header>
+        <Divider hidden style={{ paddingBottom: '1em' }} />
         <Form.Input
           fluid
           label='Email'
@@ -41,7 +40,7 @@ function LoginForm({
           Login
         </Form.Button>
         <Divider hidden />
-        Looking for work?{' '}
+        Need an account?{' '}
         <Link href='/talent-signup'>
           <a>Talent Signup</a>
         </Link>
@@ -51,8 +50,8 @@ function LoginForm({
           <a>Brand Signup</a>
         </Link>
         <Divider hidden style={{ paddingBottom: '1em' }} />
-      </Form>
-    </Segment>
+      </Segment>
+    </Form>
   );
 }
 

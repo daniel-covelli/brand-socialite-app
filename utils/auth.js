@@ -10,3 +10,11 @@ export function handleTalentLogin(token) {
   cookie.set('token', token);
   Router.push('/talent-dashboard');
 }
+
+export function handleLogin(data) {
+  if (data.role === 'brand') {
+    handleBrandLogin(data.token);
+  } else {
+    handleTalentLogin(data.token);
+  }
+}

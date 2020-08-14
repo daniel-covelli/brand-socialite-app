@@ -1,5 +1,6 @@
 import connectDb from '../../utils/connectDb';
 import BrandLogin from '../../models/BrandLogin';
+import TalentLogin from '../../models/TalentLogin';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import isEmail from 'validator/lib/isEmail';
@@ -28,7 +29,8 @@ export default async (req, res) => {
     }
     // check if email already exists
     const brand = await BrandLogin.findOne({ email });
-    if (brand) {
+    const talent = await TalentLogin.findOne({ email });
+    if (brand || talent) {
       return res
         .status(422)
         .send(`User already exists with email ${email}. Try logging in.`);

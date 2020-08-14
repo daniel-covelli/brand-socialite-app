@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
 import LoginForm from '../components/Login/LoginForm';
+import baseUrl from '../utils/baseUrl';
+import axios from 'axios';
+import catchErrors from '../utils/catchErrors';
+import { handleLogin } from '../utils/auth';
+
 function Login() {
   const INITIAL_USER = {
     email: '',
@@ -16,8 +21,20 @@ function Login() {
     setUser((prevState) => ({ ...prevState, [name]: value }));
   }
 
-  function handleSubmit() {
-    console.log('submit');
+  async function handleSubmit(change) {
+    event.preventDefault();
+    try {
+      setLoading(true);
+      setError('');
+      const url = `${baseUrl}/api/login`;
+      const payload = { ...user };
+      const response = await axios.post(url, payload);
+      handleLogin(response.data);
+    } catch (error) {
+      catchErrors(error, setError);
+    } finally {
+      setLoading(false);
+    }
   }
   return (
     <Grid columns={3} stackable>
