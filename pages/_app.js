@@ -1,10 +1,12 @@
 import App from 'next/app';
 import Layout from '../components/_App/Layout';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import { parseCookies } from 'nookies';
+import { parseCookies, destroyCookie } from 'nookies';
 import { redirectUser } from '../utils/auth';
 import baseUrl from '../utils/baseUrl';
 import axios from 'axios';
+
+//  TODO PROTECT ROUTES AS THEY ARE ADDED
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -17,6 +19,7 @@ class MyApp extends App {
     }
 
     // if not logged in following paths can't be displayed
+    // else, get user info
     if (!token) {
       const isProtectedRoute =
         ctx.pathname === '/brand-dashboard' ||
@@ -33,27 +36,44 @@ class MyApp extends App {
         const payload = { headers: { Authorization: token } };
         const url = `${baseUrl}/api/account`;
         const response = await axios.get(url, payload);
-        // user is either brand or talent
+
+        // user.role either brand or talent
         const user = response.data;
         pageProps.user = user;
 
-        // returns users to their respective dashboard when they are
-        // on an uprotected route
-        const isUnprotectedRoute =
-          ctx.pathname === '/login' ||
-          ctx.pathname === '/talent-signup' ||
-          ctx.pathname === '/brand-signup' ||
-          ctx.pathname === '/';
+        // redirect brand user to dashboard if on talent or userless route
+        // else, redirect talent to dashboard if on brand or userless route
+        if (user.role === 'brand') {
+          const isProtectedRoute =
+            ctx.pathname === '/login' ||
+            ctx.pathname === '/talent-signup' ||
+            ctx.pathname === '/brand-signup' ||
+            ctx.pathname === '/' ||
+            ctx.pathname === '/talent-dashboard';
 
-        if (isUnprotectedRoute) {
-          if (user.role === 'brand') {
+          if (isProtectedRoute) {
             redirectUser(ctx, '/brand-dashboard');
-          } else {
+          }
+        } else {
+          const isProtectedRoute =
+            ctx.pathname === '/login' ||
+            ctx.pathname === '/talent-signup' ||
+            ctx.pathname === '/brand-signup' ||
+            ctx.pathname === '/' ||
+            ctx.pathname === '/brand-dashboard' ||
+            ctx.pathname === '/event' ||
+            ctx.pathname === '/event-list';
+
+          if (isProtectedRoute) {
             redirectUser(ctx, '/talent-dashboard');
           }
         }
       } catch (error) {
         console.error('Error getting current user', error);
+
+        // Throw out invalid token and redirect to login
+        destroyCookie(ctx, 'token');
+        redirectUser(ctx, '/login');
       }
     }
     return { pageProps };

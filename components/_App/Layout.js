@@ -26,6 +26,7 @@ function Layout({ children, user }) {
         <title>Brand Socialite</title>
       </Head>
 
+      {/* Header renders on size and user status */}
       <Header user={user} />
 
       {/* shows sidebar if screen width > 1000 */}
@@ -36,6 +37,7 @@ function Layout({ children, user }) {
             {user ? (
               user.role === 'brand' ? (
                 <>
+                  {/* Brand Sidebar plus content */}
                   <Grid.Column width={2} style={{ background: '#F5F6F6' }}>
                     <BrandSideBar />
                   </Grid.Column>
@@ -45,6 +47,7 @@ function Layout({ children, user }) {
                 </>
               ) : (
                 <>
+                  {/* Talent Sidebar plus content */}
                   <Grid.Column width={2} style={{ background: '#F5F6F6' }}>
                     <TalentSidebar />
                   </Grid.Column>
@@ -54,15 +57,17 @@ function Layout({ children, user }) {
                 </>
               )
             ) : (
-              <Grid.Column width={16} style={{ paddingTop: 20 }}>
-                <Container>{children}</Container>
-              </Grid.Column>
+              <>
+                {/* No Sidebar just content */}
+                <Grid.Column width={16} style={{ paddingTop: 20 }}>
+                  <Container>{children}</Container>
+                </Grid.Column>
+              </>
             )}
           </Grid.Row>
         </Grid>
 
         {/* gets rid of sidebar if screen width < 1000 */}
-
         <Container as={Media} lessThan='computer'>
           <div style={{ paddingTop: 80 }}> {children}</div>
         </Container>

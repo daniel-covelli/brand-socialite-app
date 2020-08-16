@@ -14,9 +14,6 @@ Router.onRouteChangeError = () => NProgress.done();
 function Header({ user }) {
   const router = useRouter();
 
-  const isBrowser = () => typeof window !== 'undefined';
-  const getWidth = () => (isBrowser() ? window.innerWidth : 1000);
-
   function isActive(route) {
     return route === router.pathname;
   }
