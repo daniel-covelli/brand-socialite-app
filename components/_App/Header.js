@@ -1,25 +1,18 @@
-import {
-  Menu,
-  Image,
-  Button,
-  Dropdown,
-  Responsive,
-  MenuItem,
-  Icon
-} from 'semantic-ui-react';
-import Link from 'next/Link';
+import { Menu } from 'semantic-ui-react';
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress';
-import React, { useRef } from 'react';
+import Logo from './pieces/Logo';
+import BrandHeader from './pieces/BrandHeader';
+import TalentHeader from './pieces/TalentHeader';
+import PreLoginHeader from './pieces/PreLoginHeader';
 
 // nprogress set up
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
 Router.onRouteChangeError = () => NProgress.done();
 
-function Header({ props }) {
+function Header({ user }) {
   const router = useRouter();
-  const user = false;
 
   const isBrowser = () => typeof window !== 'undefined';
   const getWidth = () => (isBrowser() ? window.innerWidth : 1000);
@@ -36,125 +29,27 @@ function Header({ props }) {
       size='tiny'
       id='menu'
       style={{ marginBottom: '0' }}>
-      {/* Show brand logo when width > 1000 and brand text when width < 999 */}
-      <Responsive as={MenuItem} minWidth={1000}>
-        <Link href='/'>
-          <Menu.Item header>
-            <Image size='tiny' src='/static/logo-menu.png' />
-          </Menu.Item>
-        </Link>
-      </Responsive>
-      <Responsive as={MenuItem} maxWidth={999}>
-        <Link href='/'>
-          <Menu.Item color='brown' header>
-            Brand Socialite
-          </Menu.Item>
-        </Link>
-      </Responsive>
+      {/* If user is brand, talent or none */}
+      {user ? (
+        user.role === 'brand' ? (
+          <Logo home={'/brand-dashboard'} />
+        ) : (
+          <Logo home={'/talent-dashboard'} />
+        )
+      ) : (
+        <Logo home={'/'} />
+      )}
 
       {/* If user is logged in show logout and contact, else show login and sign up */}
       <Menu.Menu position='right'>
         {user ? (
-          <>
-            {/* Show contact and logout button if width > 1000*/}
-            <Responsive as={MenuItem} minWidth={1000}>
-              <Menu.Item>Contact</Menu.Item>
-              <Menu.Item>Logout</Menu.Item>
-            </Responsive>
-
-            {/* Show sidebar menu items along with contact and logout if width < 999 */}
-            <Responsive as={MenuItem} maxWidth={999}>
-              <Menu.Item>
-                <Dropdown icon='bars' className='icon' button>
-                  <Dropdown.Menu>
-                    <Link href='/'>
-                      <Menu.Item active={isActive('/')}>
-                        <Icon name='home' />
-                        Home
-                      </Menu.Item>
-                    </Link>
-                    <Link href='/events-list'>
-                      <Menu.Item active={isActive('/events-list')}>
-                        <Icon name='cocktail' />
-                        Events
-                      </Menu.Item>
-                    </Link>
-                    <Menu.Item active={false}>
-                      <Icon name='user circle' />
-                      Profile
-                    </Menu.Item>
-                    <Link href='/'>
-                      <Menu.Item active={false}>
-                        <Icon name='calendar' />
-                        History
-                      </Menu.Item>
-                    </Link>
-                    <Link href='/logout'>
-                      <Dropdown.Item active={isActive('/logout')}>
-                        Logout
-                      </Dropdown.Item>
-                    </Link>
-                    <Link href='/contact'>
-                      <Dropdown.Item active={isActive('/contact')}>
-                        Contact
-                      </Dropdown.Item>
-                    </Link>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Menu.Item>
-            </Responsive>
-          </>
+          user.role === 'brand' ? (
+            <BrandHeader isActive={isActive} />
+          ) : (
+            <TalentHeader isActive={isActive} />
+          )
         ) : (
-          <>
-            {/* Show buttons if screen width > 1000 */}
-            <Responsive
-              fireOnMount
-              getWidth={getWidth}
-              as={MenuItem}
-              minWidth={1000}>
-              <Link href='/login'>
-                <Menu.Item active={isActive('/login')}>Login</Menu.Item>
-              </Link>
-              <Menu.Item>
-                <Button.Group color='blue'>
-                  <Dropdown text='Sign Up' icon button>
-                    <Dropdown.Menu>
-                      <Link href='/brand-signup'>
-                        <Dropdown.Item>Sign Up to Hire</Dropdown.Item>
-                      </Link>
-                      <Link href='/talent-signup'>
-                        <Dropdown.Item>Apply to Work</Dropdown.Item>
-                      </Link>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Button.Group>
-              </Menu.Item>
-            </Responsive>
-            {/* Show hamburger if screen width < 999 */}
-            <Responsive as={MenuItem} maxWidth={999}>
-              <Menu.Item>
-                <Dropdown icon='bars' className='icon' button>
-                  <Dropdown.Menu>
-                    <Link href='/login'>
-                      <Dropdown.Item active={isActive('/login')}>
-                        Login
-                      </Dropdown.Item>
-                    </Link>
-                    <Link href='/signup'>
-                      <Dropdown.Item active={isActive('/signup')}>
-                        Sign Up to Hire
-                      </Dropdown.Item>
-                    </Link>
-                    <Link href='/signup'>
-                      <Dropdown.Item active={isActive('/signup')}>
-                        Apply to Work
-                      </Dropdown.Item>
-                    </Link>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Menu.Item>
-            </Responsive>
-          </>
+          <PreLoginHeader isActive={isActive} />
         )}
       </Menu.Menu>
     </Menu>

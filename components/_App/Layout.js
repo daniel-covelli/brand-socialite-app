@@ -2,12 +2,15 @@ import Head from 'next/head';
 import { Container, Grid, Responsive } from 'semantic-ui-react';
 import Header from './Header';
 import HeadContent from './HeadContent';
-import SideBar from './SideBar';
+import {
+  MediaContextProvider,
+  mediaStyles,
+  Media
+} from '../../utils/actions/responsive';
+import BrandSideBar from './pieces/BrandSidebar';
+import TalentSidebar from './pieces/TalentSidebar';
 
-// contains head, header and sidebar used accross all pages
-function Layout({ children }) {
-  const isBrowser = () => typeof window !== 'undefined';
-  const getWidth = () => (isBrowser() ? window.innerWidth : 1000);
+function Layout({ children, user }) {
   return (
     <>
       <Head>
@@ -22,28 +25,48 @@ function Layout({ children }) {
         />
         <title>Brand Socialite</title>
       </Head>
-      <Header />
+
+      <Header user={user} />
 
       {/* shows sidebar if screen width > 1000 */}
-      <Responsive fireOnMount getWidth={getWidth} minWidth={1000}>
-        <Grid divided padded style={{ paddingTop: 75 }}>
-          <Grid.Row>
-            <Grid.Column
-              width={2}
-              style={({ height: '100vh' }, { background: '#F5F6F6' })}>
-              <SideBar />
-            </Grid.Column>
-            <Grid.Column width={14} style={{ paddingTop: 20 }}>
-              <Container>{children}</Container>
-            </Grid.Column>
+      <style>{mediaStyles}</style>
+      <MediaContextProvider>
+        <Grid as={Media} greaterThanOrEqual='computer' divided padded>
+          <Grid.Row style={{ paddingTop: 90 }}>
+            {user ? (
+              user.role === 'brand' ? (
+                <>
+                  <Grid.Column width={2} style={{ background: '#F5F6F6' }}>
+                    <BrandSideBar />
+                  </Grid.Column>
+                  <Grid.Column width={14} style={{ paddingTop: 20 }}>
+                    <Container>{children}</Container>
+                  </Grid.Column>
+                </>
+              ) : (
+                <>
+                  <Grid.Column width={2} style={{ background: '#F5F6F6' }}>
+                    <TalentSidebar />
+                  </Grid.Column>
+                  <Grid.Column width={14} style={{ paddingTop: 20 }}>
+                    <Container>{children}</Container>
+                  </Grid.Column>
+                </>
+              )
+            ) : (
+              <Grid.Column width={16} style={{ paddingTop: 20 }}>
+                <Container>{children}</Container>
+              </Grid.Column>
+            )}
           </Grid.Row>
         </Grid>
-      </Responsive>
 
-      {/* gets rid of sidebar if screen width < 1000 */}
-      <Responsive maxWidth={999}>
-        <Container style={{ paddingTop: 100 }}>{children}</Container>
-      </Responsive>
+        {/* gets rid of sidebar if screen width < 1000 */}
+
+        <Container as={Media} lessThan='computer'>
+          <div style={{ paddingTop: 80 }}> {children}</div>
+        </Container>
+      </MediaContextProvider>
     </>
   );
 }

@@ -44,7 +44,6 @@ function BrandSignup() {
       setLoading(false);
     }
   }
-  console.log('current state', brand);
   return (
     <>
       <Grid stackable>

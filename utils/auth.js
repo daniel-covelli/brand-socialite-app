@@ -18,3 +18,12 @@ export function handleLogin(data) {
     handleTalentLogin(data.token);
   }
 }
+
+export function redirectUser(ctx, location) {
+  if (ctx.req) {
+    ctx.res.writeHead(302, { Location: location });
+    ctx.res.end();
+  } else {
+    Router.push(location);
+  }
+}

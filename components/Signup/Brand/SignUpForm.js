@@ -14,7 +14,7 @@ function SignUpForm({
   region
 }) {
   return (
-    <Segment padded floated style={{ background: '#F5F6F6' }}>
+    <Segment padded style={{ background: '#F5F6F6' }}>
       <Header as={'h2'}>
         Start Hiring with <br />
         Brand Socialite!

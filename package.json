@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@artsy/fresnel": "^1.2.0",
     "axios": "^0.19.2",
     "bcrypt": "^3.0.6",
     "jimp": "^0.14.0",
@@ -25,6 +26,7 @@
     "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-media": "^2.0.0-rc.1",
     "react-semantic-ui-datepickers": "^2.8.0",
     "react-stripe-checkout": "^2.6.3",
     "semantic-ui-css": "^2.4.1",

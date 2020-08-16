@@ -1,12 +1,12 @@
 import React from 'react';
 import Link from 'next/Link';
-import { Menu, Icon, Divider, Responsive } from 'semantic-ui-react';
+import { Menu, Icon, Divider } from 'semantic-ui-react';
 import Router, { useRouter } from 'next/router';
 
 // The menu sidebar for the brands
 // called from Layout
 
-function SideBar() {
+function BrandSideBar(user) {
   const router = useRouter();
 
   function isActive(route) {
@@ -16,8 +16,8 @@ function SideBar() {
   return (
     <Menu vertical={true} secondary fluid style={{ height: '100vh' }}>
       <Divider hidden />
-      <Link href='/'>
-        <Menu.Item active={isActive('/')}>
+      <Link href='/brand-dashboard'>
+        <Menu.Item active={isActive('/brand-dashboard')}>
           <Icon name='home' />
           Home
         </Menu.Item>
@@ -42,4 +42,4 @@ function SideBar() {
   );
 }
 
-export default SideBar;
+export default BrandSideBar;

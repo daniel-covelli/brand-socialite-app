@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const { String, Number } = mongoose.Schema.Types;
+const { String, ObjectId } = mongoose.Schema.Types;
 
 const BrandAdminSchema = new mongoose.Schema({
   brand_id: {
@@ -8,10 +8,10 @@ const BrandAdminSchema = new mongoose.Schema({
     ref: 'BrandLogin',
     required: true
   },
-  adminMediaUrl: { type: String, required: true },
-  adminTitle: { type: String, required: true },
-  adminNumber: { type: String, required: true },
-  adminEmail: { type: String, required: true }
+  adminMediaUrl: { type: String },
+  adminTitle: { type: String },
+  adminNumber: { type: String },
+  adminEmail: { type: String }
 });
 
 export default mongoose.models.BrandAdmin ||
