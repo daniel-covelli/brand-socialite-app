@@ -11,3 +11,11 @@ export function dateToTime(datetime) {
     return moment(datetime).format('LT');
   }
 }
+
+export function militaryToDateTime(time) {
+  if (time) {
+    const datetime = moment(time, 'HH:mm').toDate();
+    console.log('datetime', datetime);
+    return datetime;
+  }
+}

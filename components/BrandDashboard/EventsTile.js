@@ -31,18 +31,24 @@ function EventsTile({ events }) {
   }
 
   return (
-    <Grid.Column width={16}>
-      <Grid.Row>
-        <Card.Group
-          stackable
-          itemsPerRow='3'
-          fluid='true'
-          style={{ padding: ' 1em 1em' }}
-          centered>
-          {mapEventsToItems(events)}
-        </Card.Group>
-      </Grid.Row>
-    </Grid.Column>
+    <>
+      {events ? (
+        <Grid.Column width={16}>
+          <Grid.Row>
+            <Card.Group
+              stackable
+              itemsPerRow='3'
+              fluid='true'
+              style={{ padding: ' 1em 1em' }}
+              centered>
+              {mapEventsToItems(events)}
+            </Card.Group>
+          </Grid.Row>
+        </Grid.Column>
+      ) : (
+        'NO EVENTS'
+      )}
+    </>
   );
 }
 

@@ -3,51 +3,54 @@ var moment = require('moment');
 
 const { String, Number, ObjectId } = mongoose.Schema.Types;
 
-const eventSchema = new mongoose.Schema({
-  brand_id: { type: ObjectId, ref: 'BrandLogin', required: true },
-  events: [
-    {
-      eventName: { type: String },
-      hostName: { type: String },
-      eventType: { type: String },
-      estAttendance: { type: Number },
-      venue: { type: String },
-      address1: { type: String },
-      address2: { type: String, default: '' },
-      city: { type: String },
-      state: { type: String },
-      zip: { type: Number },
-      parking: { type: String },
-      parkingvenue: { type: String },
-      parkingaddress1: { type: String },
-      parkingaddress2: { type: String, default: '' },
-      parkingcity: { type: String },
-      parkingstate: { type: String },
-      parkingzip: { type: String },
-      parkingInstructions: { type: String },
-      uniforms: { type: String },
-      uniformsInstructions: { type: String },
-      eventDescription: { type: String },
-      eventMediaUrl: { type: String },
-      adminMediaUrl: { type: String },
-      date: { type: Date },
-      setupStart: { type: Date },
-      setupEnd: { type: Date },
-      eventStart: { type: Date },
-      eventEnd: { type: Date },
-      breakdownStart: { type: Date },
-      breakdownEnd: { type: Date }
+const eventSchema = new mongoose.Schema(
+  {
+    brand_id: {
+      type: ObjectId,
+      ref: 'BrandLogin',
+      type: String,
+      required: true
     },
-    {
-      toObject: {
-        virtuals: true
-      },
-      toJSON: {
-        virtuals: true
-      }
+    eventName: { type: String, required: true },
+    hostName: { type: String, required: true },
+    eventType: { type: String, required: true },
+    estAttendance: { type: Number, required: true },
+    venue: { type: String, required: true },
+    address1: { type: String, required: true },
+    address2: { type: String, default: '' },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zip: { type: Number, required: true },
+    parking: { type: String, required: true },
+    parkingvenue: { type: String },
+    parkingaddress1: { type: String },
+    parkingaddress2: { type: String, default: '' },
+    parkingcity: { type: String },
+    parkingstate: { type: String },
+    parkingzip: { type: String },
+    parkingInstructions: { type: String },
+    uniforms: { type: String, required: true },
+    uniformsInstructions: { type: String, required: true },
+    eventDescription: { type: String, required: true },
+    eventMediaUrl: { type: String },
+    adminMediaUrl: { type: String },
+    date: { type: Date, required: true },
+    setupStart: { type: Date, required: true },
+    setupEnd: { type: Date, required: true },
+    eventStart: { type: Date, required: true },
+    eventEnd: { type: Date, required: true },
+    breakdownStart: { type: Date, required: true },
+    breakdownEnd: { type: Date, required: true }
+  },
+  {
+    toObject: {
+      virtuals: true
+    },
+    toJSON: {
+      virtuals: true
     }
-  ]
-});
+  }
+);
 
 eventSchema.virtual('setup_timespan').get(function () {
   var setup_timespan_string =

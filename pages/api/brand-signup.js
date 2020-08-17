@@ -55,7 +55,6 @@ export default async (req, res) => {
     // create a profile and admin for each new brand
     await new BrandProfile({ brand_id: newBrandLogin._id }).save();
     await new BrandAdmin({ brand_id: newBrandLogin._id }).save();
-    await new Event({ brand_id: newBrandLogin._id }).save();
 
     // create token for the new user
     const token = jwt.sign(

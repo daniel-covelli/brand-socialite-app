@@ -5,7 +5,7 @@ var moment = require('moment');
 export const handleOption = (e, result, setRoleState, setDisabled, role) => {
   const { name, value } = result;
   if (name === 'shiftEnd' || name === 'shiftStart') {
-    const datetime = moment(value, 'HH:mm').toISOString();
+    const datetime = moment(value, 'HH:mm').toDate();
     setRoleState((prevState) => ({
       ...prevState,
       [name]: datetime

@@ -2,6 +2,7 @@ const options = require('../../../../utils/options');
 import { dateToMilitary, dateToTime } from '../../../../utils/timeUtils';
 import { Form } from 'semantic-ui-react';
 
+// child of components/Event/Roles/RolesEdit
 function DateStartEnd({ date, onChange, shiftStart, shiftEnd }) {
   return (
     <Form.Group widths='equal'>

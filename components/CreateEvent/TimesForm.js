@@ -1,7 +1,12 @@
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import { Segment, Form } from 'semantic-ui-react';
 
-function TimesForm({ props }) {
+// functions and objects
+import options from '../../utils/options';
+import { dateToMilitary, dateToTime } from '../../utils/timeUtils';
+
+// child of components/CreateEvent/CreateEventRoot
+function TimesForm({ props, handleTime, event }) {
   return (
     <Segment secondary>
       <Form.Group widths='equal'>
@@ -14,62 +19,68 @@ function TimesForm({ props }) {
         />
       </Form.Group>
       <Form.Group widths='equal'>
-        <Form.Input
+        <Form.Select
           name='setupStart'
-          type='time'
-          placeholder='12:00'
+          placeholder='12:00 PM'
           label='Setup Start'
-          value={props.times.setupStart}
-          onChange={props.handleTime}
+          options={options.times}
+          value={dateToMilitary(event.setupStart)}
+          text={dateToTime(event.setupStart)}
+          onChange={handleTime}
         />
-        <Form.Input
+        <Form.Select
           name='setupEnd'
           type='time'
-          placeholder='12:00'
+          placeholder='2:00 PM'
           label='Setup End'
-          min={props.times.setupStart}
-          value={props.times.setupEnd}
-          onChange={props.handleTime}
+          options={options.times}
+          value={dateToMilitary(event.setupEnd)}
+          text={dateToTime(event.setupEnd)}
+          onChange={handleTime}
         />
       </Form.Group>
       <Form.Group widths='equal'>
-        <Form.Input
+        <Form.Select
           name='eventStart'
           type='time'
-          placeholder='12:00'
+          placeholder='2:00 PM'
           label='Event Start'
-          min={props.times.setupEnd}
-          value={props.times.eventStart}
-          onChange={props.handleTime}
+          options={options.times}
+          value={dateToMilitary(event.eventStart)}
+          text={dateToTime(event.eventStart)}
+          onChange={handleTime}
         />
-        <Form.Input
+        <Form.Select
           name='eventEnd'
           type='time'
-          placeholder='12:00'
+          placeholder='8:00 PM'
           label='Event End'
-          min={props.times.eventStart}
-          value={props.times.eventEnd}
-          onChange={props.handleTime}
+          options={options.times}
+          value={dateToMilitary(event.eventEnd)}
+          text={dateToTime(event.eventEnd)}
+          onChange={handleTime}
         />
       </Form.Group>
       <Form.Group widths='equal'>
-        <Form.Input
+        <Form.Select
           name='breakdownStart'
           type='time'
-          placeholder='12:00'
+          placeholder='8:00 PM'
           label='Breakdown Start'
-          min={props.times.eventEnd}
-          value={props.times.breakdownStart}
-          onChange={props.handleTime}
+          options={options.times}
+          value={dateToMilitary(event.breakdownStart)}
+          text={dateToTime(event.breakdownStart)}
+          onChange={handleTime}
         />
-        <Form.Input
+        <Form.Select
           name='breakdownEnd'
           type='time'
-          placeholder='12:00'
+          placeholder='10:00 PM'
           label='Breakdown End'
-          min={props.times.breakdownStart}
-          value={props.times.breakdownEnd}
-          onChange={props.handleTime}
+          options={options.times}
+          value={dateToMilitary(event.breakdownEnd)}
+          text={dateToTime(event.breakdownEnd)}
+          onChange={handleTime}
         />
       </Form.Group>
     </Segment>

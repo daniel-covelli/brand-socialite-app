@@ -1,7 +1,9 @@
-import CreateRoot from '../components/CreateEvent/CreateRoot';
+import CreateEventRoot from '../components/CreateEvent/CreateEventRoot';
 import { Grid, Header } from 'semantic-ui-react';
+import { parseCookies } from 'nookies';
+import jwt from 'jsonwebtoken';
 
-function CreateEvent() {
+function CreateEvent({ brand_id }) {
   return (
     <Grid>
       <Grid.Row>
@@ -11,11 +13,17 @@ function CreateEvent() {
       </Grid.Row>
       <Grid.Row>
         <Grid.Column>
-          <CreateRoot />
+          <CreateEventRoot brand_id={brand_id} />
         </Grid.Column>
       </Grid.Row>
     </Grid>
   );
 }
+
+CreateEvent.getInitialProps = async (ctx) => {
+  const { token } = parseCookies(ctx);
+  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+  return { brand_id: userId };
+};
 
 export default CreateEvent;

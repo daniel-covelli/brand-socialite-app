@@ -1,6 +1,6 @@
 import Role from '../../models/Role';
 import connectDb from '../../utils/connectDb';
-import { rolesValidator } from '../apiUtils/rolesValidator';
+import { rolesValidator } from '../../utils/apiUtils/rolesValidator';
 
 connectDb();
 

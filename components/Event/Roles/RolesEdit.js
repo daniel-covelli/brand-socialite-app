@@ -1,4 +1,12 @@
+import axios from 'axios';
+import baseUrl from '../../../utils/baseUrl';
+import catchErrors from '../../../utils/catchErrors';
+import { Button, Icon, Modal, Form, Divider, Message } from 'semantic-ui-react';
+
+// functions and objects
 import { handleOption } from '../../../utils/actions/roles/editroles/handleOption';
+
+// child components
 import ConfirmDeleteRole from './ConfirmDeleteRole';
 import RoleHeader from './pieces/RoleHeader';
 import RoleType from './pieces/RoleType';
@@ -6,13 +14,8 @@ import DateStartEnd from './pieces/DateStartEnd';
 import Instructions from './pieces/Instructions';
 import UniformInstructions from './pieces/UniformInstructions';
 import WageTipOt from './pieces/WageTipOt';
-import axios from 'axios';
-import baseUrl from '../../../utils/baseUrl';
-import catchErrors from '../../../utils/catchErrors';
 
-import { Button, Icon, Modal, Form, Divider, Message } from 'semantic-ui-react';
-
-// child of EventRoles
+// child of components/Event/Roles/EventRoles
 function RolesEdit({ event, role }) {
   const INITIAL_ROLE = {
     _id: role._id,

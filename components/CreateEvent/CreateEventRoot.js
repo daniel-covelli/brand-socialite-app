@@ -1,11 +1,16 @@
-const moment = require('moment');
 import React from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-
 import baseUrl from '../../utils/baseUrl';
 import catchErrors from '../../utils/catchErrors';
 import { Form, Segment, Button, Grid, Message } from 'semantic-ui-react';
+
+// funtions and objects
+import required from '../../utils/actions/create-event/required';
+import state from '../../utils/actions/create-event/state';
+import handleTime from '../../utils/actions/create-event/handleTime';
+
+// react components
 import BannerForm from './BannerForm';
 import TimesForm from './TimesForm';
 import NamesForm from './NamesForm';
@@ -14,70 +19,12 @@ import AddressForm from './AddressForm';
 import ParkingForm from './ParkingForm';
 import UniformForm from './UniformForm';
 
-const INITIAL_EVENT = {
-  eventMediaUrl: 'placeholder',
-  adminMediaUrl:
-    'https://res.cloudinary.com/brand-socialite/image/upload/v1596733183/michel-stockman-yh5hjDZW_no-unsplash_s7g1fo.jpg',
-  eventName: '',
-  hostName: '',
-  eventType: '',
-  estAttendance: '',
-  date: '',
-  setupStart: '',
-  setupEnd: '',
-  eventStart: '',
-  eventEnd: '',
-  breakdownStart: '',
-  breakdownEnd: '',
-  venue: '',
-  address1: '',
-  address2: '',
-  city: '',
-  state: '',
-  zip: '',
-  parking: '',
-  parkingvenue: '',
-  parkingvenue: '',
-  parkingaddress1: '',
-  parkingaddress2: '',
-  parkingcity: '',
-  parkingstate: '',
-  parkingzip: '',
-  parkingInstructions: '',
-  uniforms: '',
-  uniformsInstructions: ''
-};
-
-const REQUIRED = [
-  'eventName',
-  'hostName',
-  'eventType',
-  'estAttendance',
-  'address1',
-  'address2',
-  'city',
-  'state',
-  'zip',
-  'parking',
-  'parkingInstructions',
-  'uniforms',
-  'uniformsInstructions',
-  'eventDescription',
-  'eventMediaUrl',
-  'adminMediaUrl',
-  'date',
-  'setupStart',
-  'setupEnd',
-  'eventStart',
-  'eventEnd',
-  'breakdownStart',
-  'breakdownEnd'
-];
-
 // child of pages/create-event
-function CreateRoot() {
+function CreateRoot({ brand_id }) {
+  // get imported initial event stat and required fields state
+  const INITIAL_EVENT = state.INITIAL_EVENT;
+  const REQUIRED = required.REQUIRED;
   const [event, setEvent] = React.useState(INITIAL_EVENT);
-  const [times, setTimes] = React.useState(INITIAL_EVENT);
   const [currentDate, setNewDate] = React.useState(null);
   const [mediaPreview, setMediaPreview] = React.useState(
     '/static/no-image-1.jpg'
@@ -105,14 +52,6 @@ function CreateRoot() {
     } else {
       setEvent((prevState) => ({ ...prevState, [name]: value }));
     }
-  }
-
-  // called by TimesForm
-  function handleTime(change) {
-    const { name, value } = change.target;
-    setTimes((prevState) => ({ ...prevState, [name]: value }));
-    var ISOtime = moment(value, 'HH:mm').toDate();
-    setEvent((prevState) => ({ ...prevState, [name]: ISOtime }));
   }
 
   // called by TimesForm
@@ -186,7 +125,7 @@ function CreateRoot() {
 
   // API call to Cloudinary if image is added
   async function handleImageUpload() {
-    if (event.eventMediaUrl != 'placeholder') {
+    if (event.eventMediaUrl !== 'placeholder') {
       const data = new FormData();
       data.append('file', event.eventMediaUrl);
       data.append('upload_preset', 'imagefilter');
@@ -210,8 +149,10 @@ function CreateRoot() {
       change.preventDefault();
       setLoading(true);
       setError('');
+      setEvent((prevState) => ({ ...prevState, brand_id }));
       await handleImageUpload();
       const url = `${baseUrl}/api/event`;
+      console.log('handleSubmitEvent', event.eventMediaUrl);
       const payload = { ...event };
       const response = await axios.post(url, payload);
       router.push(`/event?_id=${response.data._id}`);
@@ -223,6 +164,8 @@ function CreateRoot() {
       setLoading(false);
     }
   }
+  // console.log(event);
+  // console.log('brand', brand_id);
 
   return (
     <Form loading={loading} onSubmit={handleSubmit} error={Boolean(error)}>
@@ -234,7 +177,11 @@ function CreateRoot() {
           </Grid.Column>
           <Grid.Column width={12}>
             <NamesForm props={{ handleChange, event }} />
-            <TimesForm props={{ dateChange, handleTime, event, times }} />
+            <TimesForm
+              props={{ dateChange }}
+              event={event}
+              handleTime={(e, result) => handleTime(e, result, setEvent)}
+            />
             <TypeDetailsForm props={{ handleChange, event }} />
             <AddressForm props={{ handleChange, event }} />
             <ParkingForm
@@ -245,7 +192,7 @@ function CreateRoot() {
         </Grid>
       </Segment>
       <Message error content={error} />
-      <Form.Field type='submit'>
+      <Form.Field type='control'>
         <Grid>
           <Grid.Row>
             <Grid.Column textAlign='right' width={8}>

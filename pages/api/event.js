@@ -22,6 +22,7 @@ export default async (req, res) => {
 
 async function handlePostRequest(req, res) {
   var {
+    brand_id,
     eventName,
     hostName,
     eventType,
@@ -55,6 +56,7 @@ async function handlePostRequest(req, res) {
   } = req.body;
   try {
     if (
+      !brand_id ||
       !eventName ||
       !hostName ||
       !eventType ||
@@ -94,8 +96,9 @@ async function handlePostRequest(req, res) {
     // if (parkingzip) {
     //   parkingzip = parseInt(parkingzip);
     // }
-
+    console.log('in Handle post request', setupStart);
     const event = await new Event({
+      brand_id,
       eventName,
       hostName,
       eventType,
@@ -137,8 +140,13 @@ async function handlePostRequest(req, res) {
 // find event by _id in database and return event to 'event.js' page
 async function handleGetRequest(req, res) {
   const { _id } = req.query;
-  const event = await Event.findOne({ _id });
-  res.status(200).json(event);
+  try {
+    const event = await Event.findOne({ _id });
+    res.status(200).json(event);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error Getting Event');
+  }
 }
 
 async function handleDeleteRequest(req, res) {

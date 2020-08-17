@@ -6,8 +6,8 @@ function Logo({ home }) {
     <>
       <Responsive as={Menu.Item} minWidth={1000}>
         <Link href={home}>
-          <Menu.Item>
-            <img src='/static/logo-menu.png' />
+          <Menu.Item header>
+            <Image size='tiny' src='/static/logo-menu.png' />
           </Menu.Item>
         </Link>
       </Responsive>
