@@ -1,5 +1,7 @@
 import { Responsive, Menu, Dropdown, Icon } from 'semantic-ui-react';
 import Link from 'next/Link';
+import ContactLogout from './ContactLogout';
+import LogoutDropdown from './LogoutDropdown';
 
 function TalentHeader({ isActive }) {
   //   const isBrowser = () => typeof window !== 'undefined';
@@ -8,10 +10,7 @@ function TalentHeader({ isActive }) {
   return (
     <>
       {/* Show contact and logout button if width > 1000*/}
-      <Responsive as={Menu.Item} minWidth={1000}>
-        <Menu.Item>Contact</Menu.Item>
-        <Menu.Item>Logout</Menu.Item>
-      </Responsive>
+      <ContactLogout />
 
       {/* Show sidebar menu items along with contact and logout if width < 999 */}
       <Responsive as={Menu.Item} maxWidth={999}>
@@ -48,11 +47,8 @@ function TalentHeader({ isActive }) {
                   My Earnings
                 </Menu.Item>
               </Link>
-              <Link href='/logout'>
-                <Dropdown.Item active={isActive('/logout')}>
-                  Logout
-                </Dropdown.Item>
-              </Link>
+              {/* Logout button */}
+              <LogoutDropdown />
               <Link href='/contact'>
                 <Dropdown.Item active={isActive('/contact')}>
                   Contact

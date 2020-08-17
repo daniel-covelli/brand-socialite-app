@@ -1,17 +1,13 @@
 import { Responsive, Menu, Dropdown, Icon } from 'semantic-ui-react';
 import Link from 'next/Link';
+import ContactLogout from './ContactLogout';
+import LogoutDropdown from './LogoutDropdown';
 
 function BrandHeader({ isActive }) {
-  //   const isBrowser = () => typeof window !== 'undefined';
-  //   const getWidth = () => (isBrowser() ? window.innerWidth : 1000);
-
   return (
     <>
       {/* Show contact and logout button if width > 1000*/}
-      <Responsive as={Menu.Item} minWidth={1000}>
-        <Menu.Item>Contact</Menu.Item>
-        <Menu.Item>Logout</Menu.Item>
-      </Responsive>
+      <ContactLogout />
 
       {/* Show sidebar menu items along with contact and logout if width < 999 */}
       <Responsive as={Menu.Item} maxWidth={999}>
@@ -19,32 +15,29 @@ function BrandHeader({ isActive }) {
           <Dropdown icon='bars' className='icon' button>
             <Dropdown.Menu>
               <Link href='/brand-dashboard'>
-                <Menu.Item active={isActive('/brand-dashboard')}>
+                <Dropdown.Item active={isActive('/brand-dashboard')}>
                   <Icon name='home' />
                   Home
-                </Menu.Item>
-              </Link>
-              <Link href='/events-list'>
-                <Menu.Item active={isActive('/events-list')}>
-                  <Icon name='cocktail' />
-                  Events
-                </Menu.Item>
-              </Link>
-              <Menu.Item active={false}>
-                <Icon name='user circle' />
-                Profile
-              </Menu.Item>
-              <Link href='/'>
-                <Menu.Item active={false}>
-                  <Icon name='calendar' />
-                  History
-                </Menu.Item>
-              </Link>
-              <Link href='/logout'>
-                <Dropdown.Item active={isActive('/logout')}>
-                  Logout
                 </Dropdown.Item>
               </Link>
+              <Link href='/events-list'>
+                <Dropdown.Item active={isActive('/events-list')}>
+                  <Icon name='cocktail' />
+                  Events
+                </Dropdown.Item>
+              </Link>
+              <Dropdown.Item active={false}>
+                <Icon name='user circle' />
+                Profile
+              </Dropdown.Item>
+              <Link href='/'>
+                <Dropdown.Item active={false}>
+                  <Icon name='calendar' />
+                  History
+                </Dropdown.Item>
+              </Link>
+              {/* Logout button */}
+              <LogoutDropdown />
               <Link href='/contact'>
                 <Dropdown.Item active={isActive('/contact')}>
                   Contact

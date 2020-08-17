@@ -5,6 +5,7 @@ import { parseCookies, destroyCookie } from 'nookies';
 import { redirectUser } from '../utils/auth';
 import baseUrl from '../utils/baseUrl';
 import axios from 'axios';
+import Router from 'next/router';
 
 //  TODO PROTECT ROUTES AS THEY ARE ADDED
 
@@ -78,6 +79,19 @@ class MyApp extends App {
     }
     return { pageProps };
   }
+
+  // listens for storage update
+  componentDidMount() {
+    window.addEventListener('storage', this.syncLogout);
+  }
+
+  // if update is logout route user to login
+  syncLogout = (event) => {
+    if (event.key === 'logout') {
+      console.log('logged out from storage');
+      Router.push('/login');
+    }
+  };
 
   render() {
     const { Component, pageProps } = this.props;

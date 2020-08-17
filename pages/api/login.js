@@ -11,9 +11,7 @@ export default async (req, res) => {
   try {
     // check if email already exists
     const brand = await BrandLogin.findOne({ email }).select('+password');
-    console.log('brand', brand);
     const talent = await TalentLogin.findOne({ email }).select('+password');
-    console.log('talent', talent);
     if (!brand && !talent) {
       return res
         .status(404)
@@ -31,7 +29,7 @@ export default async (req, res) => {
       } else {
         res.status(401).send('Passwords do not match. Please try again.');
       }
-    } else if (talent) {
+    } else {
       const passwordsMatch = await bcrypt.compare(password, talent.password);
       if (passwordsMatch) {
         const token = jwt.sign({ userId: talent._id }, process.env.JWT_SECRET, {
