@@ -7,7 +7,7 @@ async function connectDb() {
     console.log('Using existing connection');
     return;
   }
-  // use new database connectio
+  // use new database connection
   const db = await mongoose.connect(process.env.MONGO_SRV, {
     useCreateIndex: true,
     useFindAndModify: false,
