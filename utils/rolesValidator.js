@@ -2,6 +2,7 @@ var moment = require('moment');
 
 export function rolesValidator(
   res,
+  brand_id,
   event_id,
   roletype,
   shiftEnd,
@@ -11,6 +12,7 @@ export function rolesValidator(
   wage
 ) {
   if (
+    !brand_id ||
     !event_id ||
     !roletype ||
     !shiftStart ||

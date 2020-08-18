@@ -19,6 +19,7 @@ import WageTipOt from './pieces/WageTipOt';
 function RolesEdit({ event, role }) {
   const INITIAL_ROLE = {
     _id: role._id,
+    brand_id: role.brand_id,
     event_id: event._id,
     roletype: role.roletype,
     shiftStart: role.shiftStart,

@@ -1,6 +1,6 @@
 import Role from '../../models/Role';
 import connectDb from '../../utils/connectDb';
-import { rolesValidator } from '../../utils/apiUtils/rolesValidator';
+import { rolesValidator } from '../../utils/rolesValidator';
 
 connectDb();
 
@@ -27,6 +27,7 @@ export default async (req, res) => {
 
 async function handlePostRequest(req, res) {
   var {
+    brand_id,
     event_id,
     roletype,
     shiftStart,
@@ -40,6 +41,7 @@ async function handlePostRequest(req, res) {
   try {
     rolesValidator(
       res,
+      brand_id,
       event_id,
       roletype,
       shiftEnd,
@@ -49,6 +51,7 @@ async function handlePostRequest(req, res) {
       wage
     );
     const role = await new Role({
+      brand_id,
       event_id,
       roletype,
       shiftStart,
@@ -69,6 +72,7 @@ async function handlePostRequest(req, res) {
 async function handlePutRequest(req, res) {
   var {
     _id,
+    brand_id,
     event_id,
     roletype,
     shiftStart,
@@ -82,6 +86,7 @@ async function handlePutRequest(req, res) {
   try {
     rolesValidator(
       res,
+      brand_id,
       event_id,
       roletype,
       shiftEnd,

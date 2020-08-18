@@ -1,4 +1,3 @@
-import RolesEdit from './RolesEdit';
 import {
   Segment,
   Header,
@@ -8,10 +7,15 @@ import {
   Responsive,
   Grid
 } from 'semantic-ui-react';
-import AddRole from './AddRole';
 
-function EventBody({ event, roles }) {
-  // if role instructions are greater then 50, cut at 50 and add '...'
+// functions and objects
+import getStatus from '../../../utils/getStatus';
+
+// child components
+import AddRole from './AddRole';
+import RolesEdit from './RolesEdit';
+
+function EventRoles({ event, roles, brand_id }) {
   function RoleInstructions(instructions) {
     const length = instructions.length;
     if (length > 50) {
@@ -23,11 +27,7 @@ function EventBody({ event, roles }) {
   function mapRolesToItems(roles) {
     return roles.map((role) => (
       <Table.Row verticalAlign='top' key={role._id}>
-        <Table.Cell>
-          <Responsive minWidth={768}>status</Responsive>
-          <Responsive maxWidth={768}>st</Responsive>
-        </Table.Cell>
-
+        <Table.Cell>{getStatus(role)}</Table.Cell>
         <Table.Cell>{role.roletype}</Table.Cell>
 
         <Table.Cell>
@@ -62,8 +62,7 @@ function EventBody({ event, roles }) {
       </Table.Row>
     ));
   }
-  // console.log('roles', roles);
-  // console.log('event', event);
+
   return (
     <Segment raised clearing>
       <Grid columns={2}>
@@ -73,7 +72,7 @@ function EventBody({ event, roles }) {
           </Header>
         </Grid.Column>
         <Grid.Column floated='right' width={6}>
-          <AddRole event={event} roles={roles} />
+          <AddRole event={event} brand_id={brand_id} />
         </Grid.Column>
       </Grid>
 
@@ -112,4 +111,4 @@ function EventBody({ event, roles }) {
   );
 }
 
-export default EventBody;
+export default EventRoles;

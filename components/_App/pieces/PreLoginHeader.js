@@ -4,7 +4,7 @@ import {
   MediaContextProvider,
   mediaStyles,
   Media
-} from '../../../utils/actions/responsive';
+} from '../../../utils/responsive';
 
 function PreLoginHeader({ isActive }) {
   return (

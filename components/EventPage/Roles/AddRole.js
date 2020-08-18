@@ -14,6 +14,7 @@ import { Modal, Form, Button, Icon, Divider, Message } from 'semantic-ui-react';
 
 const REQUIRED = [
   'event_id',
+  'brand_id',
   'roletype',
   'eventType',
   'shiftStart',
@@ -26,9 +27,10 @@ const REQUIRED = [
 ];
 
 // child of EventRoles
-function AddRole({ event }) {
+function AddRole({ event, brand_id }) {
   const INITIAL_ROLE = {
     event_id: event._id,
+    brand_id,
     roletype: '',
     shiftStart: null,
     shiftEnd: null,
@@ -70,7 +72,7 @@ function AddRole({ event }) {
     setDisabled(true);
     setError(null);
   }
-
+  console.log('brand_id', roleState.brand_id);
   //
   async function handleSubmit(change) {
     try {

@@ -6,6 +6,7 @@ const { String, Number, ObjectId, Date } = mongoose.Schema.Types;
 const roleSchema = new mongoose.Schema(
   {
     event_id: { type: ObjectId, ref: 'Event', required: true },
+    brand_id: { type: ObjectId, ref: 'BrandLogin', required: true },
     roletype: {
       type: String,
       required: true,
@@ -30,7 +31,8 @@ const roleSchema = new mongoose.Schema(
     uniformInstructions: { type: String, required: true },
     wage: { type: Number, required: true, min: 15, default: 15 },
     overtime: { type: Number, default: 0 },
-    tip: { type: Number, default: 0 }
+    tip: { type: Number, default: 0 },
+    status: { type: ObjectId, ref: 'TalentLogin', default: null }
   },
   {
     toObject: {
@@ -75,11 +77,5 @@ roleSchema.virtual('hours_int').get(function () {
   const durration = moment.duration(difference);
   return durration.hours() + durration.minutes() / 60;
 });
-
-// this field is called 'hours' and contains the
-// amount of hours the role is scheduled to work
-// roleSchema.virtual('hours').get(function () {
-//   return this.shift_start_time.diff(this.shift_end_time);
-// });
 
 export default mongoose.models.Role || mongoose.model('Role', roleSchema);

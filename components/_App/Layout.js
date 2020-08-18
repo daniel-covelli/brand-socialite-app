@@ -6,7 +6,7 @@ import {
   MediaContextProvider,
   mediaStyles,
   Media
-} from '../../utils/actions/responsive';
+} from '../../utils/responsive';
 import BrandSideBar from './pieces/BrandSidebar';
 import TalentSidebar from './pieces/TalentSidebar';
 

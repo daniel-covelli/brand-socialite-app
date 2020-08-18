@@ -21,6 +21,7 @@ function CreateEvent({ brand_id }) {
 }
 
 CreateEvent.getInitialProps = async (ctx) => {
+  console.log('ctx', ctx);
   const { token } = parseCookies(ctx);
   const { userId } = jwt.verify(token, process.env.JWT_SECRET);
   return { brand_id: userId };

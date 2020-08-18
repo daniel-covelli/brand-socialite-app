@@ -4,7 +4,6 @@ exports.REQUIRED = [
   'eventType',
   'estAttendance',
   'address1',
-  'address2',
   'city',
   'state',
   'zip',

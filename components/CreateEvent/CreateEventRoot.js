@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import baseUrl from '../../utils/baseUrl';
@@ -6,9 +6,10 @@ import catchErrors from '../../utils/catchErrors';
 import { Form, Segment, Button, Grid, Message } from 'semantic-ui-react';
 
 // funtions and objects
-import required from '../../utils/actions/create-event/required';
-import state from '../../utils/actions/create-event/state';
-import handleTime from '../../utils/actions/create-event/handleTime';
+import required from '../../utils/actions/CreateEventRoot/required';
+import state from '../../utils/actions/CreateEventRoot/state';
+import handleTime from '../../utils/actions/CreateEventRoot/handleTime';
+import handleRadio from '../../utils/actions/CreateEventRoot/handleRadio';
 
 // react components
 import BannerForm from './BannerForm';
@@ -25,7 +26,8 @@ function CreateRoot({ brand_id }) {
   const INITIAL_EVENT = state.INITIAL_EVENT;
   const REQUIRED = required.REQUIRED;
   const [event, setEvent] = React.useState(INITIAL_EVENT);
-  const [currentDate, setNewDate] = React.useState(null);
+  const [imageSudo, setImageSudo] = useState(false);
+  // const [currentDate, setNewDate] = React.useState(null);
   const [mediaPreview, setMediaPreview] = React.useState(
     '/static/no-image-1.jpg'
   );
@@ -35,13 +37,20 @@ function CreateRoot({ brand_id }) {
   const router = useRouter();
 
   // enables submit button if all required fields are filled
-  React.useEffect(() => {
+  useEffect(() => {
     const isEvent = Object.entries(event).every((el) =>
       REQUIRED.includes(el[0]) ? Boolean(el[1]) : true
     );
-
     isEvent ? setDisabled(false) : setDisabled(true);
   }, [event]);
+
+  // sets brand_id to pasted in brand_id if not set
+  useEffect(() => {
+    setEvent((prevState) => ({
+      ...prevState,
+      brand_id
+    }));
+  }, []);
 
   // general onChange handler used by all components
   function handleChange(change) {
@@ -56,7 +65,7 @@ function CreateRoot({ brand_id }) {
 
   // called by TimesForm
   const dateChange = (change, data) => {
-    setNewDate(data.value);
+    // setNewDate(data.value);
     setEvent((prevState) => ({
       ...prevState,
       date: data.value
@@ -68,104 +77,74 @@ function CreateRoot({ brand_id }) {
     setEvent((prevState) => ({ ...prevState, parking: value }));
   }
 
-  // called by ParkingForm when radio state is changed
-  const handleRadio = (checked) => {
-    if (checked.bool) {
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingvenue: event.venue
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingaddress1: event.address1
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingaddress2: event.address2
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingcity: event.city
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingstate: event.state
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingzip: event.zip
-      }));
-    } else {
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingvenue: ''
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingaddress1: ''
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingaddress2: ''
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingcity: ''
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingstate: ''
-      }));
-      setEvent((prevState) => ({
-        ...prevState,
-        parkingzip: ''
-      }));
-    }
-  };
+  //  ----------------------------- handleSubmit Logic ----------------------------- //
 
-  // API call to Cloudinary if image is added
-  async function handleImageUpload() {
-    if (event.eventMediaUrl !== 'placeholder') {
-      const data = new FormData();
-      data.append('file', event.eventMediaUrl);
-      data.append('upload_preset', 'imagefilter');
-      data.append('cloud_name', 'brand-socialite');
-      const response = await axios.post(process.env.CLOUDINARY_URL, data);
-      setEvent((prevState) => ({
-        ...prevState,
-        eventMediaUrl: response.data.url
-      }));
-    } else {
-      setEvent((prevState) => ({
-        ...prevState,
-        eventMediaUrl:
-          'https://res.cloudinary.com/brand-socialite/image/upload/v1596734136/LVMH-logo_iuaqj5.jpg'
-      }));
-    }
-  }
-
+  // called by form
   async function handleSubmit(change) {
     try {
       change.preventDefault();
       setLoading(true);
       setError('');
-      setEvent((prevState) => ({ ...prevState, brand_id }));
       await handleImageUpload();
-      const url = `${baseUrl}/api/event`;
-      console.log('handleSubmitEvent', event.eventMediaUrl);
-      const payload = { ...event };
-      const response = await axios.post(url, payload);
-      router.push(`/event?_id=${response.data._id}`);
-      // setEvent(INITIAL_EVENT);
+      // changes state of imageSudo to true
+      setImageSudo(true);
     } catch (error) {
       catchErrors(error, setError);
-      console.error('Submit event error', error);
+      console.error('Handle Image Error', error);
     } finally {
       setLoading(false);
     }
   }
-  // console.log(event);
-  // console.log('brand', brand_id);
+
+  // API call to Cloudinary if image is added
+
+  // if image has not been changed sets to stock image
+  // else, uploads image to Cloudinary and gets response
+  async function handleImageUpload() {
+    if (event.eventMediaUrl === 'placeholder') {
+      setEvent((prevState) => ({
+        ...prevState,
+        eventMediaUrl:
+          'https://res.cloudinary.com/brand-socialite/image/upload/v1596734136/LVMH-logo_iuaqj5.jpg'
+      }));
+    } else {
+      const data = new FormData();
+      data.append('file', event.eventMediaUrl);
+      data.append('upload_preset', 'imagefilter');
+      data.append('cloud_name', 'brand-socialite');
+      const response = await axios.post(process.env.CLOUDINARY_URL, data);
+      // cloudinary response and eventMediaUrl state change
+      setEvent((prevState) => ({
+        ...prevState,
+        eventMediaUrl: response.data.url
+      }));
+    }
+  }
+
+  // catches state change of imageSudo
+  // useEffect hook necessary here rerender delay
+  useEffect(() => {
+    async function waitForImage() {
+      // if imageSudo is being changed to true
+      if (imageSudo) {
+        try {
+          const url = `${baseUrl}/api/event`;
+          const payload = { ...event };
+          const response = await axios.post(url, payload);
+          router.push(`/event?_id=${response.data._id}`);
+        } catch (error) {
+          catchErrors(error, setError);
+          console.error('Post request to events error', error);
+        } finally {
+          setLoading(false);
+        }
+        // else, no behavior
+      } else {
+        return;
+      }
+    }
+    waitForImage();
+  }, [imageSudo]);
 
   return (
     <Form loading={loading} onSubmit={handleSubmit} error={Boolean(error)}>
@@ -185,27 +164,33 @@ function CreateRoot({ brand_id }) {
             <TypeDetailsForm props={{ handleChange, event }} />
             <AddressForm props={{ handleChange, event }} />
             <ParkingForm
-              props={{ handleOption, handleChange, handleRadio, event }}
+              props={{
+                handleOption,
+                handleChange,
+                handleRadio,
+                event,
+                setEvent
+              }}
             />
             <UniformForm props={{ handleChange, event }} />
           </Grid.Column>
         </Grid>
       </Segment>
       <Message error content={error} />
-      <Form.Field type='control'>
-        <Grid>
-          <Grid.Row>
-            <Grid.Column textAlign='right' width={8}>
-              <Button fluid>Cancel</Button>
-            </Grid.Column>
-            <Grid.Column textAlign='right' width={8}>
-              <Button fluid primary disabled={disabled}>
-                Submit
-              </Button>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Form.Field>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column textAlign='right' width={8}>
+            <Button fluid onClick={() => router.push('/events-list')}>
+              Cancel
+            </Button>
+          </Grid.Column>
+          <Grid.Column textAlign='right' width={8}>
+            <Button fluid primary disabled={disabled} type='submit'>
+              Submit
+            </Button>
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Form>
   );
 }

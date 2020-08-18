@@ -1,28 +1,27 @@
 import {
   Icon,
   Item,
-  Divider,
   Segment,
   Label,
   Grid,
   Responsive,
-  Header
+  Header,
+  List
 } from 'semantic-ui-react';
 import Link from 'next/Link';
 
-// child of pages/event-list
-function EventsList({ events }) {
-  function EventName(name) {
-    const length = name.length;
-    if (length > 50) {
-      return <>{`${name.substring(0, 50)}...`}</>;
-    }
-    return <>{name}</>;
-  }
+// functions and objects
+import filledCount from '../../utils/actions/EventList/filledCount';
+import roleCount from '../../utils/actions/EventList/roleCount';
+import eventName from '../../utils/actions/EventList/eventName';
 
-  function mapEventsToItems(events) {
+// child of pages/event-list
+function EventsList({ events, roles }) {
+  console.log('EVENTSLIST roles', roles);
+
+  function mapEventsToItems(events, roles) {
     return events.map((event) => (
-      <Segment key={event._id} raised>
+      <Segment key={event._id} raised style={{ marginBottom: '2em' }}>
         <Item.Group unstackable>
           <Item>
             <Item.Image size='small' src={event.eventMediaUrl} />
@@ -31,7 +30,7 @@ function EventsList({ events }) {
                 <Grid.Row>
                   <Grid.Column width={13}>
                     <Link href={`/event?_id=${event._id}`}>
-                      <Header as='a'>{EventName(event.eventName)}</Header>
+                      <Header as='a'>{eventName(event.eventName)}</Header>
                     </Link>
                     <Item.Meta>
                       <Label>{event.date_formatted}</Label>
@@ -39,25 +38,23 @@ function EventsList({ events }) {
                   </Grid.Column>
                   <Grid.Column width={3} textAlign='right'>
                     <Responsive minWidth={1000}>
-                      <Label basic>
-                        <Icon name='calendar' />
-                        {event.date_from_now}
-                      </Label>
+                      {event.date_from_now}
                     </Responsive>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
 
-              <Divider hidden />
-              <Divider hidden />
-              <Divider hidden />
-              <Divider hidden />
-              <Grid>
+              <Grid style={{ paddingTop: '3em' }}>
                 <Grid.Row>
                   <Grid.Column textAlign='left' width={6}>
                     <Responsive minWidth={768}>
-                      <Icon name='user' />
-                      Limited
+                      <List bulleted horizontal>
+                        <List.Item>
+                          <Icon name='user' style={{ paddingRight: '1em' }} />{' '}
+                          {roleCount(event, roles)} roles
+                        </List.Item>
+                        <List.Item>{filledCount(event, roles)}</List.Item>
+                      </List>
                     </Responsive>
                   </Grid.Column>
                   <Grid.Column textAlign='right' width={10}>
@@ -77,7 +74,7 @@ function EventsList({ events }) {
     ));
   }
 
-  return <div>{mapEventsToItems(events)}</div>;
+  return <div>{mapEventsToItems(events, roles)}</div>;
 }
 
 export default EventsList;

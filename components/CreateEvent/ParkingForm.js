@@ -17,13 +17,13 @@ const options = [
 function ParkingForm({ props }) {
   // changes radio state then passes change & checked to handleRadio
   const [checked, setChecked] = React.useState({ bool: true });
-  function handleRadio(change) {
+  function handleRadio() {
     setChecked((prevState) => ({
       ...prevState,
       bool: !checked.bool
     }));
 
-    props.handleRadio(checked);
+    props.handleRadio(checked, props.event, props.setEvent);
   }
 
   // disables parking address form if Street Parking

@@ -96,7 +96,6 @@ async function handlePostRequest(req, res) {
     // if (parkingzip) {
     //   parkingzip = parseInt(parkingzip);
     // }
-    console.log('in Handle post request', setupStart);
     const event = await new Event({
       brand_id,
       eventName,

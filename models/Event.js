@@ -54,54 +54,52 @@ const eventSchema = new mongoose.Schema(
 
 eventSchema.virtual('setup_timespan').get(function () {
   var setup_timespan_string =
-    moment(this.events.setupStart).format('LT') +
+    moment(this.setupStart).format('LT') +
     ' - ' +
-    moment(this.events.setupEd).format('LT');
+    moment(this.setupEd).format('LT');
   return setup_timespan_string;
 });
 
 eventSchema.virtual('event_timespan').get(function () {
   var event_timespan_string =
-    moment(this.events.eventStart).format('LT') +
+    moment(this.eventStart).format('LT') +
     ' - ' +
-    moment(this.events.eventEnd).format('LT');
+    moment(this.eventEnd).format('LT');
   return event_timespan_string;
 });
 
 eventSchema.virtual('breakdown_timespan').get(function () {
   var event_timespan_string =
-    moment(this.events.breakdownStart).format('LT') +
+    moment(this.breakdownStart).format('LT') +
     ' - ' +
-    moment(this.events.breakdownEnd).format('LT');
+    moment(this.breakdownEnd).format('LT');
   return event_timespan_string;
 });
 
 eventSchema.virtual('date_formatted').get(function () {
-  return moment(this.events.date).format('ll');
+  return moment(this.date).format('ll');
 });
 
 eventSchema.virtual('date_formatted_long').get(function () {
   return (
-    moment(this.events.date).format('dddd') +
-    ', ' +
-    moment(this.events.date).format('LL')
+    moment(this.date).format('dddd') + ', ' + moment(this.date).format('LL')
   );
 });
 
 eventSchema.virtual('start_time').get(function () {
-  return moment(this.events.setupStart).format('LT');
+  return moment(this.setupStart).format('LT');
 });
 
 eventSchema.virtual('end_time').get(function () {
-  return moment(this.events.breakdownEnd).format('LT');
+  return moment(this.breakdownEnd).format('LT');
 });
 
 eventSchema.virtual('date_from_now').get(function () {
-  return moment(this.events.date).endOf('day').fromNow();
+  return moment(this.date).endOf('day').fromNow();
 });
 
 eventSchema.virtual('timespan').get(function () {
-  var timespan_string = this.events.start_time + ' - ' + this.events.end_time;
+  var timespan_string = this.start_time + ' - ' + this.end_time;
   return timespan_string;
 });
 
