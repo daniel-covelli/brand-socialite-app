@@ -23,11 +23,12 @@ class MyApp extends App {
     // else, get user info
     if (!token) {
       const isProtectedRoute =
-        ctx.pathname === '/brand-dashboard' ||
-        ctx.pathname === '/create-event' ||
+        ctx.pathname === '/brand/dashboard' ||
+        ctx.pathname === '/brand/createevent' ||
         ctx.pathname === '/talent-dashboard' ||
-        ctx.pathname === '/event' ||
-        ctx.pathname === '/events-list';
+        ctx.pathname === '/brand/event' ||
+        ctx.pathname === '/brand/eventslist' ||
+        ctx.pathname === '/brand/profile';
 
       if (isProtectedRoute) {
         redirectUser(ctx, '/login');
@@ -48,23 +49,23 @@ class MyApp extends App {
           const isProtectedRoute =
             ctx.pathname === '/login' ||
             ctx.pathname === '/talent-signup' ||
-            ctx.pathname === '/brand-signup' ||
+            ctx.pathname === '/brand/signup' ||
             ctx.pathname === '/' ||
             ctx.pathname === '/talent-dashboard';
 
           if (isProtectedRoute) {
-            redirectUser(ctx, '/brand-dashboard');
+            redirectUser(ctx, '/brand/dashboard');
           }
         } else {
           const isProtectedRoute =
             ctx.pathname === '/login' ||
             ctx.pathname === '/talent-signup' ||
-            ctx.pathname === '/brand-signup' ||
+            ctx.pathname === '/brand/signup' ||
             ctx.pathname === '/' ||
-            ctx.pathname === '/brand-dashboard' ||
-            ctx.pathname === '/event' ||
-            ctx.pathname === '/event-list';
-
+            ctx.pathname === '/brand/dashboard' ||
+            ctx.pathname === '/brand/event' ||
+            ctx.pathname === '/brand/eventlist' ||
+            ctx.pathname === '/brand/profile';
           if (isProtectedRoute) {
             redirectUser(ctx, '/talent-dashboard');
           }

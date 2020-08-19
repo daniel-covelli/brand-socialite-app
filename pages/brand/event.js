@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { Divider } from 'semantic-ui-react';
 
 // child components
-import EventHeader from '../../components/BrandEventPage/Header/EventHeader';
+import EventHeader from '../../components/BrandEventPage/Header/HeaderRoot';
 import EventDetails from '../../components/BrandEventPage/Details/EventDetails';
 import EventRoles from '../../components/BrandEventPage/Roles/EventRoles';
 import EventActions from '../../components/BrandEventPage/Actions/EventActions';

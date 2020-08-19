@@ -1,5 +1,6 @@
 import { Item, Header, Grid, Container, Icon, Button } from 'semantic-ui-react';
 
+// child of HeaderRoot
 function ContentHeader({ event }) {
   return (
     <>

@@ -20,16 +20,16 @@ function BrandHeader({ isActive }) {
                   Home
                 </Dropdown.Item>
               </Link>
-              <Link href='/brand/eventslist'>
-                <Dropdown.Item active={isActive('/brand/eventslist')}>
-                  <Icon name='cocktail' />
-                  Events
-                </Dropdown.Item>
-              </Link>
               <Link href='/brand/profile'>
                 <Dropdown.Item active={isActive('/brand/profile')}>
                   <Icon name='user circle' />
                   Profile
+                </Dropdown.Item>
+              </Link>
+              <Link href='/brand/eventslist'>
+                <Dropdown.Item active={isActive('/brand/eventslist')}>
+                  <Icon name='cocktail' />
+                  Events
                 </Dropdown.Item>
               </Link>
               <Link href='/'>

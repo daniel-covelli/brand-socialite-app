@@ -22,16 +22,16 @@ function BrandSideBar(user) {
           Home
         </Menu.Item>
       </Link>
-      <Link href='/brand/eventslist'>
-        <Menu.Item active={isActive('/brand/eventslist')}>
-          <Icon name='cocktail' />
-          Events
-        </Menu.Item>
-      </Link>
       <Link href='/brand/profile'>
         <Menu.Item active={isActive('/brand/profile')}>
           <Icon name='user circle' />
           Profile
+        </Menu.Item>
+      </Link>
+      <Link href='/brand/eventslist'>
+        <Menu.Item active={isActive('/brand/eventslist')}>
+          <Icon name='cocktail' />
+          Events
         </Menu.Item>
       </Link>
       <Link href='#'>

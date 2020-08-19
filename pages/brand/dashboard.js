@@ -14,12 +14,12 @@ import {
 } from 'semantic-ui-react';
 
 // functions and objects
+import baseUrl from '../../utils/baseUrl';
 import {
   mediaStyles,
   Media,
   MediaContextProvider
 } from '../../utils/responsive';
-import baseUrl from '../../utils/baseUrl';
 
 // children components
 import EventsTile from '../../components/BrandDashboard/DashboardEventsTile';
