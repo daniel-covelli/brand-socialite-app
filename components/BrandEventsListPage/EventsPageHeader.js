@@ -1,4 +1,4 @@
-import AddEvent from '../_App/pieces/AddEvent';
+import AddEvent from '../BrandPieces/AddEventButton';
 
 import { Header, Grid, Responsive } from 'semantic-ui-react';
 

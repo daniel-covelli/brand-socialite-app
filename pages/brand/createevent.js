@@ -1,4 +1,4 @@
-import CreateEventRoot from '../components/CreateEvent/CreateEventRoot';
+import CreateEventRoot from '../../components/BrandCreateEvent/CreateEventRoot';
 import { Grid, Header } from 'semantic-ui-react';
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';

@@ -3,7 +3,6 @@ import BrandLogin from '../../models/BrandLogin';
 import TalentLogin from '../../models/TalentLogin';
 import BrandProfile from '../../models/BrandProfile';
 import BrandAdmin from '../../models/BrandAdmin';
-import Event from '../../models/Event';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import isEmail from 'validator/lib/isEmail';

@@ -23,7 +23,7 @@ function EventsTile({ events }) {
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
-          <Link href={`/event?_id=${event._id}`}>
+          <Link href={`/brand/event?_id=${event._id}`}>
             <a>
               Show Event <Icon name='angle right' />
             </a>

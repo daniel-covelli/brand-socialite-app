@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import catchErrors from '../utils/catchErrors';
 import { Grid } from 'semantic-ui-react';
-import BrandContent from '../components/Signup/Brand/BrandContent';
-import SignUpForm from '../components/Signup/Brand/SignUpForm';
 import axios from 'axios';
-import baseUrl from '../utils/baseUrl';
-import { handleBrandLogin } from '../utils/auth';
+
+// objects and functions
+import { handleBrandLogin } from '../../utils/auth';
+import baseUrl from '../../utils/baseUrl';
+import catchErrors from '../../utils/catchErrors';
+
+// child components
+import BrandContent from '../../components/Signup/Brand/BrandContent';
+import SignUpForm from '../../components/Signup/Brand/SignUpForm';
 
 function BrandSignup() {
   const INITIAL_BRAND = {

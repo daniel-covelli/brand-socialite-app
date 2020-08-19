@@ -1,6 +1,6 @@
-import EventsList from '../components/EventsListPage/EventsList';
-import EventsPageHeader from '../components/EventsListPage/EventsPageHeader';
-import baseUrl from '../utils/baseUrl';
+import EventsList from '../../components/BrandEventsListPage/EventsList';
+import EventsPageHeader from '../../components/BrandEventsListPage/EventsPageHeader';
+import baseUrl from '../../utils/baseUrl';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
 

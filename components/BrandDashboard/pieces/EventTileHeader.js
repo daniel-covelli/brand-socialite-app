@@ -10,7 +10,7 @@ function EventTileHeader({ events }) {
         <Header as='h2'>Upcoming Events</Header>
       </Grid.Column>
       <Grid.Column width={8} textAlign='right'>
-        <Link href='/events-list'>
+        <Link href='/brand/eventslist'>
           <a>
             Show More <Icon name='angle right' />
           </a>

@@ -1,14 +1,14 @@
 import axios from 'axios';
-import baseUrl from '../utils/baseUrl';
+import baseUrl from '../../utils/baseUrl';
 import { parseCookies } from 'nookies';
 import jwt from 'jsonwebtoken';
 import { Divider } from 'semantic-ui-react';
 
 // child components
-import EventHeader from '../components/EventPage/Header/EventHeader';
-import EventDetails from '../components/EventPage/Details/EventDetails';
-import EventRoles from '../components/EventPage/Roles/EventRoles';
-import EventActions from '../components/EventPage/Actions/EventActions';
+import EventHeader from '../../components/BrandEventPage/Header/EventHeader';
+import EventDetails from '../../components/BrandEventPage/Details/EventDetails';
+import EventRoles from '../../components/BrandEventPage/Roles/EventRoles';
+import EventActions from '../../components/BrandEventPage/Actions/EventActions';
 
 function Event({ event, roles, brand_id }) {
   return (

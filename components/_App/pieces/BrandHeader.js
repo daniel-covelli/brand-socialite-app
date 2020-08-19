@@ -14,22 +14,24 @@ function BrandHeader({ isActive }) {
         <Menu.Item>
           <Dropdown icon='bars' className='icon' button>
             <Dropdown.Menu>
-              <Link href='/brand-dashboard'>
-                <Dropdown.Item active={isActive('/brand-dashboard')}>
+              <Link href='/brand/dashboard'>
+                <Dropdown.Item active={isActive('/brand/dashboard')}>
                   <Icon name='home' />
                   Home
                 </Dropdown.Item>
               </Link>
-              <Link href='/events-list'>
-                <Dropdown.Item active={isActive('/events-list')}>
+              <Link href='/brand/eventslist'>
+                <Dropdown.Item active={isActive('/brand/eventslist')}>
                   <Icon name='cocktail' />
                   Events
                 </Dropdown.Item>
               </Link>
-              <Dropdown.Item active={false}>
-                <Icon name='user circle' />
-                Profile
-              </Dropdown.Item>
+              <Link href='/brand/profile'>
+                <Dropdown.Item active={isActive('/brand/profile')}>
+                  <Icon name='user circle' />
+                  Profile
+                </Dropdown.Item>
+              </Link>
               <Link href='/'>
                 <Dropdown.Item active={false}>
                   <Icon name='calendar' />

@@ -16,23 +16,25 @@ function BrandSideBar(user) {
   return (
     <Menu vertical={true} secondary fluid style={{ height: '100vh' }}>
       <Divider hidden />
-      <Link href='/brand-dashboard'>
-        <Menu.Item active={isActive('/brand-dashboard')}>
+      <Link href='/brand/dashboard'>
+        <Menu.Item active={isActive('/brand/dashboard')}>
           <Icon name='home' />
           Home
         </Menu.Item>
       </Link>
-      <Link href='/events-list'>
-        <Menu.Item active={isActive('/events-list')}>
+      <Link href='/brand/eventslist'>
+        <Menu.Item active={isActive('/brand/eventslist')}>
           <Icon name='cocktail' />
           Events
         </Menu.Item>
       </Link>
-      <Menu.Item active={false}>
-        <Icon name='user circle' />
-        Profile
-      </Menu.Item>
-      <Link href='/'>
+      <Link href='/brand/profile'>
+        <Menu.Item active={isActive('/brand/profile')}>
+          <Icon name='user circle' />
+          Profile
+        </Menu.Item>
+      </Link>
+      <Link href='#'>
         <Menu.Item active={false}>
           <Icon name='calendar' />
           History
