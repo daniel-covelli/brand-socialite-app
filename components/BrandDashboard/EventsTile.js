@@ -1,6 +1,9 @@
 import { Card, Icon, Divider, Grid } from 'semantic-ui-react';
 import Link from 'next/Link';
 
+// child componenets
+import EventTileHeader from './pieces/EventTileHeader';
+
 function EventsTile({ events }) {
   // TODO: Standardize card heights
 
@@ -32,6 +35,7 @@ function EventsTile({ events }) {
 
   return (
     <>
+      <EventTileHeader />
       {events ? (
         <Grid.Column width={16}>
           <Grid.Row>
