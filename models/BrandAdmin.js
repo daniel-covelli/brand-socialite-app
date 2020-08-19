@@ -9,6 +9,7 @@ const BrandAdminSchema = new mongoose.Schema({
     required: true
   },
   adminMediaUrl: { type: String },
+  adminName: { type: String },
   adminTitle: { type: String },
   adminNumber: { type: String },
   adminEmail: { type: String }

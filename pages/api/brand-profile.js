@@ -1,5 +1,4 @@
-// import events from '../../static/events.json';
-import Event from '../../models/Event';
+import BrandProfile from '../../models/BrandProfile';
 import jwt from 'jsonwebtoken';
 import connectDb from '../../utils/connectDb';
 
@@ -14,10 +13,10 @@ export default async (req, res) => {
       req.headers.authorization,
       process.env.JWT_SECRET
     );
-    const events = await Event.find({ brand_id: userId })
-      .sort([['date', 1]])
-      .limit(3);
-    res.status(200).json(events);
+
+    const brand = await BrandProfile.find({ brand_id: userId });
+
+    res.status(200).json(brand);
   } catch (error) {
     console.error('this is error', error);
     res.status(403).send('Please login again.');

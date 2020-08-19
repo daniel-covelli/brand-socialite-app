@@ -41,8 +41,8 @@ function Layout({ children, user }) {
                   <Grid.Column width={2} style={{ background: '#F5F6F6' }}>
                     <BrandSideBar />
                   </Grid.Column>
-                  <Grid.Column width={14} style={{ paddingTop: 20 }}>
-                    <Container>{children}</Container>
+                  <Grid.Column width={14} style={{ padding: '3em' }}>
+                    {children}
                   </Grid.Column>
                 </>
               ) : (
@@ -51,16 +51,16 @@ function Layout({ children, user }) {
                   <Grid.Column width={2} style={{ background: '#F5F6F6' }}>
                     <TalentSidebar />
                   </Grid.Column>
-                  <Grid.Column width={14} style={{ paddingTop: 20 }}>
-                    <Container>{children}</Container>
+                  <Grid.Column width={14} style={{ padding: '3em' }}>
+                    {children}
                   </Grid.Column>
                 </>
               )
             ) : (
               <>
                 {/* No Sidebar just content */}
-                <Grid.Column width={16} style={{ paddingTop: 20 }}>
-                  <Container>{children}</Container>
+                <Grid.Column width={16} style={{ padding: '3em' }}>
+                  {children}
                 </Grid.Column>
               </>
             )}
