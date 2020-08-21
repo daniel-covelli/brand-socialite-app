@@ -8,16 +8,16 @@ const BrandProfileSchema = new mongoose.Schema({
     ref: 'BrandLogin',
     required: true
   },
-  brandMediaUrl: { type: String },
-  brandAddress1: { type: String },
-  brandAddress2: { type: String },
-  brandCity: { type: String },
-  brandState: { type: String },
-  brandZip: { type: String },
-  brandPhoneNumber: { type: String },
-  brandWebsite: { type: String },
-  brandLinkedIn: { type: String },
-  brandDesription: { type: String }
+  brandMediaUrl: { type: String, default: '' },
+  brandAddress1: { type: String, default: '' },
+  brandAddress2: { type: String, default: '' },
+  brandCity: { type: String, default: '' },
+  brandState: { type: String, default: '' },
+  brandZip: { type: String, default: '' },
+  brandPhoneNumber: { type: String, default: '' },
+  brandWebsite: { type: String, default: '' },
+  brandLinkedIn: { type: String, default: '' },
+  brandDesription: { type: String, default: '' }
 });
 
 export default mongoose.models.BrandProfile ||

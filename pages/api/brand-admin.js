@@ -14,7 +14,7 @@ export default async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    const brand = await BrandAdmin.find({ brand_id: userId });
+    const brand = await BrandAdmin.findOne({ brand_id: userId });
 
     res.status(200).json(brand);
   } catch (error) {

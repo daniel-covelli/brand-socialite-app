@@ -1,4 +1,4 @@
-import { Grid, Segment, Header } from 'semantic-ui-react';
+import { Grid, Segment, Header, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
 
@@ -11,21 +11,23 @@ import BrandProfileHeader from '../../components/BrandProfile/BrandProfileHeader
 function BrandProfile({ login, profile, admin }) {
   return (
     <>
-      <Grid>
-        <Grid.Column>
-          <Header as='h1'>Profile</Header>
-          <BrandProfileHeader profile={profile} login={login} />
-          <Segment>
-            <Grid.Row>This is a Row</Grid.Row>
-          </Segment>
-          <Segment>
-            <Grid.Row>This is a Row</Grid.Row>
-          </Segment>
-          <Segment>
-            <Grid.Row>This is a Row</Grid.Row>
-          </Segment>
-        </Grid.Column>
-      </Grid>
+      <Container>
+        <Grid>
+          <Grid.Column>
+            <Header as=''>Profile</Header>
+            <BrandProfileHeader profile={profile} login={login} />
+            <Segment>
+              <Grid.Row>This is a Row</Grid.Row>
+            </Segment>
+            <Segment>
+              <Grid.Row>This is a Row</Grid.Row>
+            </Segment>
+            <Segment>
+              <Grid.Row>This is a Row</Grid.Row>
+            </Segment>
+          </Grid.Column>
+        </Grid>
+      </Container>
     </>
   );
 }
@@ -49,7 +51,7 @@ BrandProfile.getInitialProps = async (ctx) => {
   const login = response[0].data;
   const profile = response[1].data;
   const admin = response[2].data;
-
+  console.log('ADMIN', admin);
   console.log('PROFILE', profile);
   return { login, profile, admin };
   // return response data as an object

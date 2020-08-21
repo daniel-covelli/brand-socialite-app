@@ -9,43 +9,57 @@ import {
   Button
 } from 'semantic-ui-react';
 
+// funtions and objects
+import {
+  mediaStyles,
+  Media,
+  MediaContextProvider
+} from '../../utils/responsive';
+
 // Child Components
 import HeaderModal from './modals/HeaderModal';
 
 function BrandProfileHeader({ profile, login }) {
   return (
-    <Segment>
-      <Grid.Row>
-        <Item.Group unstackable>
-          <Item>
-            <Item.Image size='small'>
+    <>
+      <style>{mediaStyles}</style>
+      <MediaContextProvider>
+        <Segment raised>
+          <Grid>
+            <Grid.Column width={4}>
               <Image
+                fluid
                 src={
                   profile.brandMediaUrl
                     ? profile.brandMediaUrl
                     : '../static/no-image-1.jpg'
                 }
               />
-            </Item.Image>
-            <Item.Content>
-              <Grid columns={2}>
-                <Grid.Column width={12}>
-                  <Header as='h2'>{login.companyName}</Header>
-                </Grid.Column>
-                <Grid.Column width={4}>
-                  <Container textAlign='right'>
+            </Grid.Column>
+            <Grid.Column width={12}>
+              <Grid>
+                <Grid.Row>
+                  <Grid.Column width={8}>
+                    <Header as='h2'>{login.companyName}</Header>
+                  </Grid.Column>
+                  <Grid.Column width={8} textAlign='right'>
                     <HeaderModal profile={profile} login={login} />
-                  </Container>
-                </Grid.Column>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column width={8}>
+                    <Header as='h2'>{login.companyName}</Header>
+                  </Grid.Column>
+                  <Grid.Column width={8} textAlign='right'>
+                    <HeaderModal profile={profile} login={login} />
+                  </Grid.Column>
+                </Grid.Row>
               </Grid>
-
-              <Item.Description></Item.Description>
-              <Item.Extra></Item.Extra>
-            </Item.Content>
-          </Item>
-        </Item.Group>
-      </Grid.Row>
-    </Segment>
+            </Grid.Column>
+          </Grid>
+        </Segment>
+      </MediaContextProvider>
+    </>
   );
 }
 
