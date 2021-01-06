@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@artsy/fresnel": "^1.2.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "jimp": "^0.14.0",
     "js-cookie": "^2.2.0",
