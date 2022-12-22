@@ -17,7 +17,7 @@
     "bcrypt": "^3.0.6",
     "jimp": "^0.14.0",
     "js-cookie": "^2.2.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.19",
     "moment": "^2.27.0",
     "mongodb": "^3.6.0",
